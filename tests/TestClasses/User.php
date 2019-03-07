@@ -9,6 +9,8 @@ class User extends BaseUser
 {
     public function selectPersonalData(PersonalData $personalData)
     {
-        $personalData->addContent('attributes.json', $this->attributesToArray());
+        $personalData
+            ->addFile(__DIR__ . '/../stubs/avatar.png')
+            ->addContent('attributes.json', $this->attributesToArray());
     }
 }

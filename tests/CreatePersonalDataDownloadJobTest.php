@@ -34,6 +34,7 @@ class CreatePersonalDataDownloadJobTest extends TestCase
 
         $zipPath = $this->getFullPath($this->diskName, $allFiles[0]);
         $this->assertZipContains($zipPath, 'attributes.json', json_encode($user->attributesToArray()));
+        $this->assertZipContains($zipPath, 'avatar.png');
 
         Mail::assertSent(PersonalDataDownloadCreatedMail::class, function (PersonalDataDownloadCreatedMail $mail) use ($allFiles, $user) {
             if (!$mail->hasTo($user->email)) {

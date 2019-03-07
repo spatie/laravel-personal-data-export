@@ -3,6 +3,7 @@
 namespace Spatie\PersonalDataDownload;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Filesystem\Filesystem;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class PersonalData
@@ -49,9 +50,9 @@ class PersonalData
     {
         $fileName = pathinfo($pathToFile, PATHINFO_BASENAME);
 
-        $destination = $this->temporaryDirectory->name($fileName);
+        $destination = $this->temporaryDirectory->path($fileName);
 
-        copy($pathToFile, $destination);
+        (new Filesystem())->copy($pathToFile, $destination);
 
         $this->files[] = $destination;
 
