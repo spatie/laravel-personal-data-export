@@ -2,12 +2,10 @@
 
 namespace Spatie\PersonalDataDownload;
 
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-use Spatie\PersonalDataDownload\Commands\CleanOldPersonalDataDownloadsCommand;
 use Spatie\PersonalDataDownload\Http\PersonalDataDownloadController;
+use Spatie\PersonalDataDownload\Commands\CleanOldPersonalDataDownloadsCommand;
 
 class PersonalDataDownloadServiceProvider extends ServiceProvider
 {
