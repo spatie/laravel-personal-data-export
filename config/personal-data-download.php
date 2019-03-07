@@ -15,7 +15,7 @@ return [
     /*
      * The amount of days the gdpr downloads will be available.
      */
-    'delete_after_days' => 30,
+    'delete_after_days' => 5,
 
     /*
      * Determines wheter the user should be logged in to be able

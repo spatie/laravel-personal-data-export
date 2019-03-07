@@ -84,4 +84,11 @@ class TestCase extends Orchestra
 
         Assert::assertEquals($expectedContents, $actualContents);
     }
+
+    protected function progressDays(int $amountOfDays)
+    {
+        $newNow = now()->addDays($amountOfDays);
+
+        Carbon::setTestNow($newNow);
+    }
 }

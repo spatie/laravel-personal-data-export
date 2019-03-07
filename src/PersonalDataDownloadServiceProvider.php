@@ -2,8 +2,11 @@
 
 namespace Spatie\PersonalDataDownload;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
+use Spatie\PersonalDataDownload\Commands\CleanOldPersonalDataDownloadsCommand;
 use Spatie\PersonalDataDownload\Http\PersonalDataDownloadController;
 
 class PersonalDataDownloadServiceProvider extends ServiceProvider
@@ -25,6 +28,10 @@ class PersonalDataDownloadServiceProvider extends ServiceProvider
         Route::macro('personalDataDownloads', function (string $url) {
             Route::get("$url/{zipFilename}", PersonalDataDownloadController::class)->name('personal-data-downloads');
         });
+
+        $this->commands([
+           CleanOldPersonalDataDownloadsCommand::class,
+        ]);
     }
 
     public function register()

@@ -21,9 +21,15 @@ class Zip
         PersonalData $personalData,
         TemporaryDirectory $temporaryDirectory): self
     {
-        $zipFileName = $personalData->user->id.'-'.Str::random(64).'.zip';
+        $zipFilenameParts = [
+            $personalData->user->id,
+            now()->timestamp,
+            Str::random(64),
+        ];
 
-        $pathToZip = $temporaryDirectory->path($zipFileName);
+        $zipFilename = implode('-', $zipFilenameParts).'.zip';
+
+        $pathToZip = $temporaryDirectory->path($zipFilename);
 
         return (new static($pathToZip))
             ->add($personalData->files(), $temporaryDirectory->path())
