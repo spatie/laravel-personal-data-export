@@ -4,9 +4,9 @@ namespace Spatie\PersonalDataDownload\Tests;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
-use Spatie\PersonalDataDownload\Tests\TestClasses\User;
 use Symfony\Component\HttpFoundation\Response;
+use Spatie\PersonalDataDownload\Tests\TestClasses\User;
+use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 
 class PersonalDataDownloadControllerTest extends TestCase
 {
@@ -62,7 +62,7 @@ class PersonalDataDownloadControllerTest extends TestCase
     {
         $this
             ->actingAs($this->user)
-            ->get($this->downloadUrl . 'invalid')
+            ->get($this->downloadUrl.'invalid')
             ->assertStatus(Response::HTTP_NOT_FOUND);
     }
 

@@ -21,7 +21,7 @@ class PersonalDataDownloadController
             return;
         }
 
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
@@ -36,7 +36,7 @@ class PersonalDataDownloadController
     {
         $disk = Storage::disk(config('personal-data-download.disk'));
 
-        if (!$disk->exists($filename)) {
+        if (! $disk->exists($filename)) {
             abort(404);
         }
 
@@ -44,7 +44,7 @@ class PersonalDataDownloadController
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Content-Type' => 'application/zip',
             'Content-Length' => $disk->size($filename),
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
             'Pragma' => 'public',
         ];
 
