@@ -30,11 +30,11 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
 
         $this->user->selectPersonalData($personalData);
 
-        $zipFilename = $this->zipAndUploadPersonalData($personalData, $this->getDisk(), $temporaryDirectory);
+        $zipFilename = $this->zipPersonalData($personalData, $this->getDisk(), $temporaryDirectory);
 
         $temporaryDirectory->delete();
 
-        Mail::to($this->user)->send(new PersonalDataDownloadCreatedMail($zipFilename));
+        $this->mailZip($zipFilename);
     }
 
     protected function selectPersonalData(TemporaryDirectory $temporaryDirectory): PersonalData
@@ -46,7 +46,7 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
         return $personalData;
     }
 
-    protected function zipAndUploadPersonalData(
+    protected function zipPersonalData(
         PersonalData $personalData,
         Filesystem $filesystem,
         TemporaryDirectory $temporaryDirectory
@@ -63,5 +63,12 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
     public function getDisk(): Filesystem
     {
         return Storage::disk(config('personal-data-download.disk'));
+    }
+
+    protected function mailZip(string $zipFilename)
+    {
+        $mailableClass = config('personal-data-download.mailable');
+
+        Mail::to($this->user)->send(new $mailableClass($zipFilename));
     }
 }

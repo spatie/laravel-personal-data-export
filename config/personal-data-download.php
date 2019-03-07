@@ -27,5 +27,5 @@ return [
      * The mailable which will be sent to the user when the gdpr download
      * has been created.
      */
-    'mailable' => \Spatie\PersonalDataDownload\PersonalDataDownloadCreatedMail::class,
+    'mailable' => \Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail::class,
 ];
