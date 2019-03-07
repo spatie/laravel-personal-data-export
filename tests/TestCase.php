@@ -2,17 +2,16 @@
 
 namespace Spatie\PersonalDataDownload\Tests;
 
-use Carbon\Carbon;
-use Illuminate\Foundation\Application;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Schema;
-use Orchestra\Testbench\TestCase as Orchestra;
-use PHPUnit\Framework\Assert;
-use Spatie\QueryBuilder\QueryBuilderServiceProvider;
-use Spatie\PersonalDataDownload\PersonalDataDownloadServiceProvider;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 use ZipArchive;
+use Carbon\Carbon;
+use PHPUnit\Framework\Assert;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Orchestra\Testbench\TestCase as Orchestra;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Spatie\PersonalDataDownload\PersonalDataDownloadServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -36,7 +35,7 @@ class TestCase extends Orchestra
 
     protected function setUpDatabase(Application $app)
     {
-        Schema::create('users', function(Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
             $table->timestamps();
@@ -73,7 +72,7 @@ class TestCase extends Orchestra
 
         $zip->extractTo($temporaryDirectory->path($zipDirectoryName));
 
-        $expectedZipFilePath = $temporaryDirectory->path($zipDirectoryName . '/' . $expectedFileName);
+        $expectedZipFilePath = $temporaryDirectory->path($zipDirectoryName.'/'.$expectedFileName);
 
         Assert::assertFileExists($expectedZipFilePath);
 
@@ -83,6 +82,6 @@ class TestCase extends Orchestra
 
         $actualContents = file_get_contents($expectedZipFilePath);
 
-        Assert::assertEquals($expectedContents, $actualContents );
+        Assert::assertEquals($expectedContents, $actualContents);
     }
 }

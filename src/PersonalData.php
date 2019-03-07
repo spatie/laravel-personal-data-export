@@ -2,8 +2,8 @@
 
 namespace Spatie\PersonalDataDownload;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class PersonalData

@@ -2,15 +2,15 @@
 
 namespace Spatie\PersonalDataDownload\Jobs;
 
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail;
-use Spatie\PersonalDataDownload\PersonalData;
 use Spatie\PersonalDataDownload\Zip;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Spatie\PersonalDataDownload\PersonalData;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail;
 
 class CreatePersonalDataDownloadJob implements ShouldQueue
 {
@@ -51,7 +51,6 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
         Filesystem $filesystem,
         TemporaryDirectory $temporaryDirectory
     ): string {
-
         $zip = Zip::createForPersonalData($personalData, $temporaryDirectory);
 
         $zipFilename = pathinfo($zip->path(), PATHINFO_BASENAME);

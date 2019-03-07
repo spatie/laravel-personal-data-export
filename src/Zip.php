@@ -2,10 +2,9 @@
 
 namespace Spatie\PersonalDataDownload;
 
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 use ZipArchive;
 use Illuminate\Support\Str;
-use Spatie\Backup\Helpers\Format;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class Zip
 {
@@ -22,7 +21,7 @@ class Zip
         PersonalData $personalData,
         TemporaryDirectory $temporaryDirectory): self
     {
-        $zipFileName = $personalData->user->id . '-' . Str::random(64) . '.zip';
+        $zipFileName = $personalData->user->id.'-'.Str::random(64).'.zip';
 
         $pathToZip = $temporaryDirectory->path($zipFileName);
 
@@ -30,8 +29,6 @@ class Zip
             ->add($personalData->files(), $temporaryDirectory->path())
             ->close();
     }
-
-
 
     public function __construct(string $pathToZip)
     {
@@ -73,7 +70,7 @@ class Zip
     {
         foreach ($files as $file) {
             if (file_exists($file)) {
-                $nameInZip = Str::after($file, $rootPath . '/');
+                $nameInZip = Str::after($file, $rootPath.'/');
 
                 $this->zipFile->addFile($file, ltrim($nameInZip, DIRECTORY_SEPARATOR));
             }
@@ -89,6 +86,4 @@ class Zip
 
         return $this;
     }
-
-
 }
