@@ -27,22 +27,11 @@ class Zip
         $pathToZip = $temporaryDirectory->path($zipFileName);
 
         return (new static($pathToZip))
-            ->add($personalData->files())
+            ->add($personalData->files(), $temporaryDirectory->path())
             ->close();
     }
 
-    protected static function determineNameOfFileInZip(string $pathToFile, string $pathToZip)
-    {
-        $zipDirectory = pathinfo($pathToZip, PATHINFO_DIRNAME);
 
-        $fileDirectory = pathinfo($pathToFile, PATHINFO_DIRNAME);
-
-        if (Str::startsWith($fileDirectory, $zipDirectory)) {
-            return str_replace($zipDirectory, '', $pathToFile);
-        }
-
-        return $pathToFile;
-    }
 
     public function __construct(string $pathToZip)
     {
@@ -67,14 +56,29 @@ class Zip
         return filesize($this->pathToZip);
     }
 
-    public function humanReadableSize(): string
-    {
-        return Format::humanReadableSize($this->size());
-    }
-
     public function open(): self
     {
         $this->zipFile->open($this->pathToZip, ZipArchive::CREATE);
+
+        return $this;
+    }
+
+    /**
+     * @param string|array $files
+     * @param string $rootPath
+     *
+     * @return \Spatie\PersonalDataDownload\Zip
+     */
+    public function add($files, $rootPath): self
+    {
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                $nameInZip = Str::after($file, $rootPath . '/');
+
+                $this->zipFile->addFile($file, ltrim($nameInZip, DIRECTORY_SEPARATOR));
+            }
+            $this->fileCount++;
+        }
 
         return $this;
     }
@@ -86,29 +90,5 @@ class Zip
         return $this;
     }
 
-    /**
-     * @param string|array $files
-     * @param string $nameInZip
-     *
-     * @return \Spatie\PersonalDataDownload\Zip
-     */
-    public function add($files, string $nameInZip = null): self
-    {
-        if (is_array($files)) {
-            $nameInZip = null;
-        }
 
-        if (is_string($files)) {
-            $files = [$files];
-        }
-
-        foreach ($files as $file) {
-            if (file_exists($file)) {
-                $this->zipFile->addFile($file, ltrim($nameInZip, DIRECTORY_SEPARATOR));
-            }
-            $this->fileCount++;
-        }
-
-        return $this;
-    }
 }

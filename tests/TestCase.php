@@ -2,13 +2,18 @@
 
 namespace Spatie\PersonalDataDownload\Tests;
 
+use Carbon\Carbon;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as Orchestra;
+use PHPUnit\Framework\Assert;
 use Spatie\QueryBuilder\QueryBuilderServiceProvider;
 use Spatie\PersonalDataDownload\PersonalDataDownloadServiceProvider;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
+use ZipArchive;
 
 class TestCase extends Orchestra
 {
@@ -21,6 +26,8 @@ class TestCase extends Orchestra
         $this->withFactories(__DIR__.'/factories');
 
         Route::personalDataDownloads('personal-data-downloads');
+
+        Carbon::setTestNow(Carbon::createFromFormat('Y-m-d H:i:s', '2019-01-01 00:00:00'));
     }
 
     protected function setUpDatabase(Application $app)
@@ -47,5 +54,32 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [PersonalDataDownloadServiceProvider::class];
+    }
+
+    public function assertZipContains($zipFile, $expectedFileName, $expectedContents = null)
+    {
+        Assert::assertFileExists($zipFile);
+
+        $zip = new ZipArchive();
+
+        $zip->open($zipFile);
+
+        $temporaryDirectory = (new TemporaryDirectory())->create();
+
+        $zipDirectoryName = 'extracted-files';
+
+        $zip->extractTo($temporaryDirectory->path($zipDirectoryName));
+
+        $expectedZipFilePath = $temporaryDirectory->path($zipDirectoryName . '/' . $expectedFileName);
+
+        Assert::assertFileExists($expectedZipFilePath);
+
+        if (is_null($expectedContents)) {
+            return;
+        }
+
+        $actualContents = file_get_contents($expectedZipFilePath);
+
+        Assert::assertEquals($expectedContents, $actualContents );
     }
 }

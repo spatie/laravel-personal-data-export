@@ -6,6 +6,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail;
 use Spatie\PersonalDataDownload\PersonalData;
 use Spatie\PersonalDataDownload\Zip;
@@ -21,7 +22,7 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
         $this->user = $user;
     }
 
-    public function handle(Filesystem $filesystem)
+    public function handle()
     {
         $temporaryDirectory = (new TemporaryDirectory())->create();
 
@@ -29,7 +30,7 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
 
         $this->user->selectPersonalData($personalData);
 
-        $zipFilename = $this->zipAndUploadPersonalData($personalData, $filesystem, $temporaryDirectory);
+        $zipFilename = $this->zipAndUploadPersonalData($personalData, $this->getDisk(), $temporaryDirectory);
 
         $temporaryDirectory->delete();
 
@@ -58,5 +59,10 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
         $filesystem->writeStream($zipFilename, fopen($zip->path(), 'r'));
 
         return $zipFilename;
+    }
+
+    public function getDisk(): Filesystem
+    {
+        return Storage::disk(config('personal-data-download.disk'));
     }
 }

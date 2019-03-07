@@ -12,23 +12,23 @@ class PersonalDataDownloadServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/personal-data-download.php' => config_path('personal-data-download.php'),
+                __DIR__ . '/../config/personal-data-download.php' => config_path('personal-data-download.php'),
             ], 'config');
 
-            $this->loadViewsFrom(__DIR__.'/../resources/views', 'personal-data-download');
+            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'personal-data-download');
 
             $this->publishes([
-                __DIR__.'/../resources/views' => base_path('resources/views/vendor/personal-data-download'),
+                __DIR__ . '/../resources/views' => base_path('resources/views/vendor/personal-data-download'),
             ], 'views');
         }
 
-        Route::macro('personalDataDownloads', function(string $url) {
+        Route::macro('personalDataDownloads', function (string $url) {
             Route::get("$url/{zipFilename}", PersonalDataDownloadController::class)->name('personal-data-downloads');
         });
     }
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/personal-data-download.php', 'personal-data-download');
+        $this->mergeConfigFrom(__DIR__ . '/../config/personal-data-download.php', 'personal-data-download');
     }
 }
