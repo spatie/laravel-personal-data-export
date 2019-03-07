@@ -39,7 +39,7 @@ class PersonalDataDownloadControllerTest extends TestCase
     }
 
     /** @test */
-    public function it_can_not_download_personal_data_from_other_users()
+    public function it_cannot_download_personal_data_from_other_users()
     {
         $anotherUser = factory(User::class)->create();
 
@@ -50,11 +50,21 @@ class PersonalDataDownloadControllerTest extends TestCase
     }
 
     /** @test */
-    public function guests_cannot_download_personal_data()
+    public function guests_cannot_download_personal_data_by_default()
     {
         $this
             ->get($this->downloadUrl)
             ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    public function guests_can_download_personal_data_if_the_authentication_is_turned_off()
+    {
+        config()->set('personal-data-download.authentication_required', false);
+
+        $this
+            ->get($this->downloadUrl)
+            ->assertSuccessful();
     }
 
     /** @test */
