@@ -2,10 +2,10 @@
 
 namespace Spatie\PersonalDataDownload\Tests\TestClasses;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as BaseUser;
 use Spatie\PersonalDataDownload\PersonalData;
 
-class User extends Model
+class User extends BaseUser
 {
     public function selectPersonalData(PersonalData $personalData)
     {

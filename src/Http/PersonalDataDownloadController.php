@@ -3,6 +3,7 @@
 namespace Spatie\PersonalDataDownload\Http;
 
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PersonalDataDownloadController
@@ -16,17 +17,19 @@ class PersonalDataDownloadController
 
     protected function ensureAuthorizedToDownload(string $zipFilename)
     {
-        if (!config('personal-data-download.authenticated_required')) {
+        if (! config('personal-data-download.authentication_required')) {
             return;
         }
 
-        if (!auth()->user) {
-            return false;
+        if (!auth()->check()) {
+            abort(Response::HTTP_FORBIDDEN);
         }
 
         [$owningUserId] = explode('-', $zipFilename);
 
-        return $owningUserId == auth()->user()->id;
+        if ($owningUserId != auth()->user()->id) {
+            abort(Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     protected function responseStream(string $filename): StreamedResponse
@@ -41,7 +44,7 @@ class PersonalDataDownloadController
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Content-Type' => 'application/zip',
             'Content-Length' => $disk->size($filename),
-            'Content-Disposition' => 'attachment; filename="' . $this->file_name . '"',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
             'Pragma' => 'public',
         ];
 

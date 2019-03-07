@@ -17,8 +17,6 @@ class CreatePersonalDataDownloadJobTest extends TestCase
     {
         parent::setUp();
 
-        $this->diskName = config('personal-data-download.disk');
-
         Storage::fake($this->diskName);
 
         Mail::fake();

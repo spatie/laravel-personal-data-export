@@ -3,7 +3,6 @@
 namespace Spatie\PersonalDataDownload\Tests;
 
 use Carbon\Carbon;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +16,9 @@ use ZipArchive;
 
 class TestCase extends Orchestra
 {
+    /** @var string */
+    protected $diskName;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -28,6 +30,8 @@ class TestCase extends Orchestra
         Route::personalDataDownloads('personal-data-downloads');
 
         Carbon::setTestNow(Carbon::createFromFormat('Y-m-d H:i:s', '2019-01-01 00:00:00'));
+
+        $this->diskName = config('personal-data-download.disk');
     }
 
     protected function setUpDatabase(Application $app)
@@ -42,13 +46,12 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'sqlite');
+
         config()->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => '',
         ]);
-        config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
-
     }
 
     protected function getPackageProviders($app)
