@@ -2,11 +2,10 @@
 
 namespace Spatie\PersonalDataDownload\Tests;
 
-use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 use Spatie\PersonalDataDownload\Tests\TestClasses\User;
+use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 
 class DeleteOldPersonalDataDownloadsCommandTest extends TestCase
 {
@@ -50,7 +49,6 @@ class DeleteOldPersonalDataDownloadsCommandTest extends TestCase
         $this->progressDays(100);
         $this->artisan('personal-data-download:clean')->assertExitCode(0);
         $this->assertTrue($this->disk->exists('my-file'));
-
     }
 
     protected function createPersonalDataDownload(): string
@@ -63,6 +61,4 @@ class DeleteOldPersonalDataDownloadsCommandTest extends TestCase
 
         return Arr::last($allFiles);
     }
-
-
 }

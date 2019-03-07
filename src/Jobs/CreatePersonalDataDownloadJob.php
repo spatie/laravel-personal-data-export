@@ -10,7 +10,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\PersonalDataDownload\PersonalData;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
-use Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail;
 
 class CreatePersonalDataDownloadJob implements ShouldQueue
 {
