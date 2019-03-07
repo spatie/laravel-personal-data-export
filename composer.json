@@ -1,0 +1,57 @@
+{
+    "name": "spatie/personal-data-download",
+    "description": "Create personal data downloads in a Laravel app",
+    "keywords": [
+        "spatie",
+        "personal-data-download"
+    ],
+    "homepage": "https://github.com/spatie/personal-data-download",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Freek Van der Herten",
+            "email": "freek@spatie.be",
+            "homepage": "https://spatie.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "illuminate/filesystem": "^5.8",
+        "illuminate/queue": "^5.8",
+        "illuminate/support": "^5.8",
+        "spatie/temporary-directory": "^1.1"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.8",
+        "scrutinizer/ocular": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spatie\\PersonalDataDownload\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spatie\\PersonalDataDownload\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spatie\\Skeleton\\SkeletonServiceProvider"
+            ],
+            "aliases": {
+                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
+            }
+        }
+    }
+}
