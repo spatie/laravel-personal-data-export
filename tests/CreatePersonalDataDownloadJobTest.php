@@ -4,9 +4,9 @@ namespace Spatie\PersonalDataDownload\Tests;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Spatie\PersonalDataDownload\Tests\TestClasses\User;
 use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 use Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail;
-use Spatie\PersonalDataDownload\Tests\TestClasses\User;
 
 class CreatePersonalDataDownloadJobTest extends TestCase
 {
@@ -37,7 +37,7 @@ class CreatePersonalDataDownloadJobTest extends TestCase
         $this->assertZipContains($zipPath, 'avatar.png');
 
         Mail::assertSent(PersonalDataDownloadCreatedMail::class, function (PersonalDataDownloadCreatedMail $mail) use ($allFiles, $user) {
-            if (!$mail->hasTo($user->email)) {
+            if (! $mail->hasTo($user->email)) {
                 return false;
             }
 
@@ -51,6 +51,6 @@ class CreatePersonalDataDownloadJobTest extends TestCase
 
     public function getFullPath(string $diskName, string $filename): string
     {
-        return Storage::disk($diskName)->getDriver()->getAdapter()->getPathPrefix() . '/' . $filename;
+        return Storage::disk($diskName)->getDriver()->getAdapter()->getPathPrefix().'/'.$filename;
     }
 }

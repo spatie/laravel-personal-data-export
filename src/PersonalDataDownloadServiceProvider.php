@@ -12,13 +12,13 @@ class PersonalDataDownloadServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/personal-data-download.php' => config_path('personal-data-download.php'),
+                __DIR__.'/../config/personal-data-download.php' => config_path('personal-data-download.php'),
             ], 'config');
 
-            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'personal-data-download');
+            $this->loadViewsFrom(__DIR__.'/../resources/views', 'personal-data-download');
 
             $this->publishes([
-                __DIR__ . '/../resources/views' => base_path('resources/views/vendor/personal-data-download'),
+                __DIR__.'/../resources/views' => base_path('resources/views/vendor/personal-data-download'),
             ], 'views');
         }
 
@@ -29,6 +29,6 @@ class PersonalDataDownloadServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/personal-data-download.php', 'personal-data-download');
+        $this->mergeConfigFrom(__DIR__.'/../config/personal-data-download.php', 'personal-data-download');
     }
 }
