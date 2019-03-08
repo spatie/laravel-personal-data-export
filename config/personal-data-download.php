@@ -2,12 +2,6 @@
 
 return [
     /*
-     * The class that holds personal data. In a vanilla Laravel app
-     * a valid value would be `App\User::class`.
-     */
-    'personal_data_source' => '',
-
-    /*
      * The disk where the downloads will be stored by default.
      */
     'disk' => 'personal-data-downloads',
