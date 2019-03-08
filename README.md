@@ -23,7 +23,7 @@ use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 dispatch(new CreatePersonalDataDownloadJob(auth()->user());
 ```
 
-The package will create a zip, by default this will be done on a queue. When the zip has been created a link to it will be mailed to the user.
+The package will create a zip containing all personal data. When the zip has been created a link to it will be mailed to the user. By default the zips are saved in a non public location and the user should be logged in to be able to download the zip.
 
 You can configure which data will be put in the download in the `selectPersonalData` method on the `user`.
 
