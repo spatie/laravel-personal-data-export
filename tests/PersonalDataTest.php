@@ -39,7 +39,7 @@ class PersonalDataTest extends TestCase
     }
 
     /** @test */
-    public function it_can_copy_a_file_as_content()
+    public function it_can_copy_a_file_to_the_personal_data()
     {
         $avatarPath = $this->getStubPath('avatar.png');
 
@@ -47,6 +47,7 @@ class PersonalDataTest extends TestCase
 
         $this->assertFileExists($this->temporaryDirectory->path('avatar.png'));
         $this->assertFileExists($avatarPath);
-
     }
+
+
 }

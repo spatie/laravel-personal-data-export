@@ -28,12 +28,13 @@ The package will create a zip, by default this will be done on a queue. When the
 You can configure which data will be put in the download in the `selectPersonalData` method on the `user`.
 
 ```php
-// in your user model
+// in your User model
 
 public function selectPersonalData(PersonalData $personalData) {
     $personalData
         ->add('user.json', ['name' => $this->name, 'email' => $this->email])
         ->addFile(storage_path("avatars/{$this->id}.jpg");
+        ->addFile('other-user-data.xml', 's3');
 }
 ```
 
