@@ -23,10 +23,30 @@ class PersonalDataTest extends TestCase
     }
 
     /** @test */
-    public function it_can_add_content()
+    public function it_can_add_a_string_as_content()
     {
         $this->personalData->addContent('my-content.txt', 'this is my content');
 
         $this->assertFileContents($this->temporaryDirectory->path('my-content.txt'), 'this is my content');
+    }
+
+    /** @test */
+    public function it_can_add_an_array_as_content()
+    {
+        $this->personalData->addContent('my-content.txt', ['key' => 'value']);
+
+        $this->assertFileContents($this->temporaryDirectory->path('my-content.txt'), json_encode(['key' => 'value']));
+    }
+
+    /** @test */
+    public function it_can_copy_a_file_as_content()
+    {
+        $avatarPath = $this->getStubPath('avatar.png');
+
+        $this->personalData->addFile($avatarPath);
+
+        $this->assertFileExists($this->temporaryDirectory->path('avatar.png'));
+        $this->assertFileExists($avatarPath);
+
     }
 }

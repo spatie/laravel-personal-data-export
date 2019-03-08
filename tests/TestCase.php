@@ -100,4 +100,9 @@ class TestCase extends Orchestra
 
         Assert::assertEquals($expectedContents, $actualContents);
     }
+
+    public function getStubPath(string $file): string
+    {
+        return __DIR__ . "/stubs/{$file}";
+    }
 }
