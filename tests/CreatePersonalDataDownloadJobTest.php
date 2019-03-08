@@ -4,6 +4,8 @@ namespace Spatie\PersonalDataDownload\Tests;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Spatie\PersonalDataDownload\Exceptions\InvalidUser;
+use Spatie\PersonalDataDownload\Tests\TestClasses\InvalidUser as InvalidUserModel;
 use Spatie\PersonalDataDownload\Tests\TestClasses\User;
 use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 use Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail;
@@ -47,6 +49,16 @@ class CreatePersonalDataDownloadJobTest extends TestCase
 
             return true;
         });
+    }
+
+    /** @test */
+    public function it_will_fail_if_the_model_does_not_have_a_selectsPersonalData_method()
+    {
+        $invalidUser = InvalidUserModel::create(['email' => 'john@example.com']);
+
+        $this->expectException(InvalidUser::class);
+
+        dispatch(new CreatePersonalDataDownloadJob($invalidUser));
     }
 
     public function getFullPath(string $diskName, string $filename): string

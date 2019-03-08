@@ -3,6 +3,7 @@
 namespace Spatie\PersonalDataDownload\Jobs;
 
 use Illuminate\Support\Facades\Mail;
+use Spatie\PersonalDataDownload\Exceptions\InvalidUser;
 use Spatie\PersonalDataDownload\Zip;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -18,6 +19,8 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
 
     public function __construct(Model $user)
     {
+        $this->ensureValidUser($user);
+
         $this->user = $user;
     }
 
@@ -69,5 +72,12 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
         $mailableClass = config('personal-data-download.mailable');
 
         Mail::to($this->user)->send(new $mailableClass($zipFilename));
+    }
+
+    protected function ensureValidUser(Model $user)
+    {
+        if (! method_exists($user, 'selectPersonalData')) {
+            throw InvalidUser::doesNotHaveSelectPersonalDataMethod($user);
+        }
     }
 }

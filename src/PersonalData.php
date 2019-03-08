@@ -62,8 +62,6 @@ class PersonalData
             : $this->copyFileFromDisk($pathToFile, $diskName);
     }
 
-
-
     protected function copyLocalFile(string $pathToFile)
     {
         $fileName = pathinfo($pathToFile, PATHINFO_BASENAME);
