@@ -2,7 +2,6 @@
 
 namespace Spatie\PersonalDataDownload\Tests;
 
-use Illuminate\Support\Facades\Mail;
 use ZipArchive;
 use Carbon\Carbon;
 use PHPUnit\Framework\Assert;
