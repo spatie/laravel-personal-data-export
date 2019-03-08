@@ -20,6 +20,7 @@
         "illuminate/filesystem": "^5.8",
         "illuminate/queue": "^5.8",
         "illuminate/support": "^5.8",
+        "nesbot/carbon": "^1.24|^2.14",
         "spatie/temporary-directory": "^1.1"
     },
     "require-dev": {
