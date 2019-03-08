@@ -32,8 +32,6 @@ class TestCase extends Orchestra
         Carbon::setTestNow(Carbon::createFromFormat('Y-m-d H:i:s', '2019-01-01 00:00:00'));
 
         $this->diskName = config('personal-data-download.disk');
-
-        Mail::fake();
     }
 
     protected function setUpDatabase(Application $app)

@@ -3,6 +3,7 @@
 namespace Spatie\PersonalDataDownload\Tests;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Spatie\PersonalDataDownload\Tests\TestClasses\User;
 use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
@@ -19,6 +20,8 @@ class DeleteOldPersonalDataDownloadsCommandTest extends TestCase
         Storage::fake($this->diskName);
 
         $this->disk = Storage::disk($this->diskName);
+
+        Mail::fake();
     }
 
     /** @test */

@@ -3,6 +3,7 @@
 namespace Spatie\PersonalDataDownload\Tests;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use Spatie\PersonalDataDownload\Tests\TestClasses\User;
@@ -27,6 +28,8 @@ class PersonalDataDownloadControllerTest extends TestCase
         $zipFilename = $this->createPersonalDataDownload($this->user);
 
         $this->downloadUrl = route('personal-data-downloads', $zipFilename);
+
+        Mail::fake();
     }
 
     /** @test */

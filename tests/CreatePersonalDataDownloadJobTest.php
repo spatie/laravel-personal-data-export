@@ -18,6 +18,8 @@ class CreatePersonalDataDownloadJobTest extends TestCase
         parent::setUp();
 
         Storage::fake($this->diskName);
+
+        Mail::fake();
     }
 
     /** @test */
