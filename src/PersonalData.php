@@ -24,6 +24,11 @@ class PersonalData
         $this->temporaryDirectory = $temporaryDirectory;
     }
 
+    public function files(): array
+    {
+        return $this->files;
+    }
+
     public function forUser(Model $user)
     {
         $this->user = $user;
@@ -57,10 +62,7 @@ class PersonalData
             : $this->copyFileFromDisk($pathToFile, $diskName);
     }
 
-    public function files(): array
-    {
-        return $this->files;
-    }
+
 
     protected function copyLocalFile(string $pathToFile)
     {

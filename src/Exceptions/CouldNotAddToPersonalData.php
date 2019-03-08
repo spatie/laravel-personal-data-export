@@ -10,6 +10,4 @@ class CouldNotAddToPersonalData extends Exception
     {
         return new static("Could not add `{$path}` because it already exists.");
     }
-
-
 }
