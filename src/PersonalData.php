@@ -4,6 +4,7 @@ namespace Spatie\PersonalDataDownload;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class PersonalData
@@ -46,7 +47,19 @@ class PersonalData
         file_put_contents($path, $content);
     }
 
-    public function addFile(string $pathToFile)
+    public function addFile(string $pathToFile, string $diskName = null)
+    {
+        return is_null($diskName)
+            ? $this->copyLocalFile($pathToFile)
+            : $this->copyFileFromDisk($pathToFile, $diskName);
+    }
+
+    public function files(): array
+    {
+        return $this->files;
+    }
+
+    protected function copyLocalFile(string $pathToFile)
     {
         $fileName = pathinfo($pathToFile, PATHINFO_BASENAME);
 
@@ -59,8 +72,14 @@ class PersonalData
         return $this;
     }
 
-    public function files(): array
+    protected function copyFileFromDisk(string $pathOnDisk, string $diskName)
     {
-        return $this->files;
+        $stream = Storage::disk($diskName)->readStream($pathOnDisk);
+
+        $pathInTemporaryDirectory = $this->temporaryDirectory->path($pathOnDisk);
+
+        file_put_contents($pathInTemporaryDirectory, stream_get_contents($stream), FILE_APPEND);
+
+        return $this;
     }
 }

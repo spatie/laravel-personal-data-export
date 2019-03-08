@@ -2,6 +2,7 @@
 
 namespace Spatie\PersonalDataDownload\Tests;
 
+use Illuminate\Support\Facades\Storage;
 use Spatie\PersonalDataDownload\PersonalData;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
@@ -39,7 +40,7 @@ class PersonalDataTest extends TestCase
     }
 
     /** @test */
-    public function it_can_copy_a_file_to_the_personal_data()
+    public function it_can_copy_a_local_file_to_the_personal_data()
     {
         $avatarPath = $this->getStubPath('avatar.png');
 
@@ -49,5 +50,15 @@ class PersonalDataTest extends TestCase
         $this->assertFileExists($avatarPath);
     }
 
+    /** @test */
+    public function it_can_copy_a_file_from_a_disk_to_the_personal_data_temporary_directory()
+    {
+        $disk = Storage::fake('test-disk');
 
+        $disk->put('my-file.txt', 'my content');
+
+        $this->personalData->addFile('my-file.txt', 'test-disk');
+
+        $this->assertFileContents($this->temporaryDirectory->path('my-file.txt'), 'my content');
+    }
 }
