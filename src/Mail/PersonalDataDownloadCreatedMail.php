@@ -16,6 +16,6 @@ class PersonalDataDownloadCreatedMail extends Mailable
 
     public function build()
     {
-        return $this->view('personal-data-download::mail');
+        return $this->markdown('personal-data-download::mail');
     }
 }

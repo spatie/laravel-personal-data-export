@@ -1,3 +1,12 @@
-Your download is ready.
+@component('mail::message')
+    # Personal data download
 
-<a href="{{ route('personal-data-downloads', $zipFilename) }}">Click here</a>
+    Your can now download a zip file containing all data we got for your account!
+
+    @component('mail::button', ['url' => route('personal-data-downloads', $zipFilename)])
+        Download zip file
+    @endcomponent
+
+    Thanks,<br>
+    {{ config('app.name') }}
+@endcomponent
