@@ -5,6 +5,7 @@ namespace Spatie\PersonalDataDownload;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Spatie\PersonalDataDownload\Exceptions\CouldNotAddToPersonalData;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class PersonalData
@@ -42,6 +43,8 @@ class PersonalData
 
         $path = $this->temporaryDirectory->path($nameInDownload);
 
+        $this->ensureDoesNotOverwriteExistingFile($path);
+
         $this->files[] = $path;
 
         file_put_contents($path, $content);
@@ -65,6 +68,8 @@ class PersonalData
 
         $destination = $this->temporaryDirectory->path($fileName);
 
+        $this->ensureDoesNotOverwriteExistingFile($destination);
+
         (new Filesystem())->copy($pathToFile, $destination);
 
         $this->files[] = $destination;
@@ -78,8 +83,17 @@ class PersonalData
 
         $pathInTemporaryDirectory = $this->temporaryDirectory->path($pathOnDisk);
 
+        $this->ensureDoesNotOverwriteExistingFile($pathInTemporaryDirectory);
+
         file_put_contents($pathInTemporaryDirectory, stream_get_contents($stream), FILE_APPEND);
 
         return $this;
+    }
+
+    protected function ensureDoesNotOverwriteExistingFile(string $path)
+    {
+        if (file_exists($path)) {
+            throw CouldNotAddToPersonalData::fileAlreadyAddedToPersonalData($path);
+        }
     }
 }

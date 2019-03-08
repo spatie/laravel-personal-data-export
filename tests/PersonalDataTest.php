@@ -3,6 +3,7 @@
 namespace Spatie\PersonalDataDownload\Tests;
 
 use Illuminate\Support\Facades\Storage;
+use Spatie\PersonalDataDownload\Exceptions\CouldNotAddToPersonalData;
 use Spatie\PersonalDataDownload\PersonalData;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
@@ -60,5 +61,15 @@ class PersonalDataTest extends TestCase
         $this->personalData->addFile('my-file.txt', 'test-disk');
 
         $this->assertFileContents($this->temporaryDirectory->path('my-file.txt'), 'my content');
+    }
+
+    /** @test */
+    public function it_will_not_allow_an_entry_in_the_personal_data_to_be_overwritten()
+    {
+        $this->personalData->addContent('test.txt', 'test content');
+
+        $this->expectException(CouldNotAddToPersonalData::class);
+
+        $this->personalData->addContent('test.txt', 'test content');
     }
 }
