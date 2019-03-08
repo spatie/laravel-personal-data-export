@@ -91,4 +91,13 @@ class TestCase extends Orchestra
 
         Carbon::setTestNow($newNow);
     }
+
+    public function assertFileContents(string $path, string $expectedContents)
+    {
+        Assert::fileExists($path);
+
+        $actualContents = file_get_contents($path);
+
+        Assert::assertEquals($expectedContents, $actualContents);
+    }
 }
