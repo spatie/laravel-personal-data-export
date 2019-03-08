@@ -38,6 +38,8 @@ public function selectPersonalData(PersonalData $personalData) {
 }
 ```
 
+This package also offers an artisan command to remove old zip files.
+
 ## Installation
 
 You can install the package via composer:
