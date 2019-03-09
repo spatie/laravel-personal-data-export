@@ -3,11 +3,10 @@
 namespace Spatie\PersonalDataDownload\Tests\Tests;
 
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataDownload\Exceptions\CouldNotAddToPersonalData;
 use Spatie\PersonalDataDownload\PersonalData;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Spatie\PersonalDataDownload\Tests\TestCase;
-
+use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Spatie\PersonalDataDownload\Exceptions\CouldNotAddToPersonalData;
 
 class PersonalDataTest extends TestCase
 {

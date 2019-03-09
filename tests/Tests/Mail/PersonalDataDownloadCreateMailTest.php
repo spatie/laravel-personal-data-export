@@ -2,9 +2,8 @@
 
 namespace Spatie\PersonalDataDownload\Tests\Tests\Mail;
 
-use Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail;
 use Spatie\PersonalDataDownload\Tests\TestCase;
-
+use Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail;
 
 class PersonalDataDownloadCreateMailTest extends TestCase
 {
