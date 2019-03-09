@@ -103,6 +103,6 @@ class TestCase extends Orchestra
 
     public function getStubPath(string $file): string
     {
-        return __DIR__ . "/stubs/{$file}";
+        return __DIR__."/stubs/{$file}";
     }
 }

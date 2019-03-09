@@ -3,9 +3,6 @@
 namespace Spatie\PersonalDataDownload\Jobs;
 
 use Illuminate\Support\Facades\Mail;
-use Spatie\PersonalDataDownload\Events\PersonalDataDownloadCreated;
-use Spatie\PersonalDataDownload\Events\PersonalDataSelected;
-use Spatie\PersonalDataDownload\Exceptions\InvalidUser;
 use Spatie\PersonalDataDownload\Zip;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -13,6 +10,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Spatie\PersonalDataDownload\PersonalData;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Spatie\PersonalDataDownload\Exceptions\InvalidUser;
+use Spatie\PersonalDataDownload\Events\PersonalDataSelected;
+use Spatie\PersonalDataDownload\Events\PersonalDataDownloadCreated;
 
 class CreatePersonalDataDownloadJob implements ShouldQueue
 {
@@ -64,8 +64,6 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
         $zipFilename = pathinfo($zip->path(), PATHINFO_BASENAME);
 
         $filesystem->writeStream($zipFilename, fopen($zip->path(), 'r'));
-
-
 
         return $zipFilename;
     }

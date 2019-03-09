@@ -5,8 +5,8 @@ namespace Spatie\PersonalDataDownload;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataDownload\Exceptions\CouldNotAddToPersonalData;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Spatie\PersonalDataDownload\Exceptions\CouldNotAddToPersonalData;
 
 class PersonalData
 {

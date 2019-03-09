@@ -5,11 +5,10 @@ namespace Spatie\PersonalDataDownload\Tests\Tests\Http\Controllers;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataDownload\Tests\TestClasses\User;
 use Symfony\Component\HttpFoundation\Response;
-use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 use Spatie\PersonalDataDownload\Tests\TestCase;
-
+use Spatie\PersonalDataDownload\Tests\TestClasses\User;
+use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 
 class PersonalDataDownloadControllerTest extends TestCase
 {
