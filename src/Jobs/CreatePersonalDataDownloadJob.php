@@ -3,6 +3,8 @@
 namespace Spatie\PersonalDataDownload\Jobs;
 
 use Illuminate\Support\Facades\Mail;
+use Spatie\PersonalDataDownload\Events\PersonalDataDownloadCreated;
+use Spatie\PersonalDataDownload\Events\PersonalDataSelected;
 use Spatie\PersonalDataDownload\Exceptions\InvalidUser;
 use Spatie\PersonalDataDownload\Zip;
 use Illuminate\Database\Eloquent\Model;
@@ -32,9 +34,13 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
 
         $this->user->selectPersonalData($personalData);
 
+        event(new PersonalDataSelected($personalData, $this->user));
+
         $zipFilename = $this->zipPersonalData($personalData, $this->getDisk(), $temporaryDirectory);
 
         $temporaryDirectory->delete();
+
+        event(new PersonalDataDownloadCreated($zipFilename, $this->user));
 
         $this->mailZip($zipFilename);
     }
@@ -58,6 +64,8 @@ class CreatePersonalDataDownloadJob implements ShouldQueue
         $zipFilename = pathinfo($zip->path(), PATHINFO_BASENAME);
 
         $filesystem->writeStream($zipFilename, fopen($zip->path(), 'r'));
+
+
 
         return $zipFilename;
     }
