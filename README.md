@@ -5,7 +5,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/personal-data-download.svg?style=flat-square)](https://packagist.org/packages/spatie/personal-data-download)
 [![Build Status](https://img.shields.io/travis/spatie/personal-data-download/master.svg?style=flat-square)](https://travis-ci.org/spatie/personal-data-download)
 [![StyleCI](https://github.styleci.io/repos/174338628/shield?branch=master)](https://github.styleci.io/repos/174338628)
-[![Code coverage](https://scrutinizer-ci.com/g/spatie/personal-data-download/badges/coverage.png)](https://scrutinizer-ci.com/g/spatie/personal-data-download)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/personal-data-download.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/personal-data-download)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/personal-data-download.svg?style=flat-square)](https://packagist.org/packages/spatie/personal-data-download)
 
@@ -87,7 +86,7 @@ protected function schedule(Schedule $schedule)
 Optionally you can publish the config file with:
 
 ```php
-php artisan vendor:publish --provider="EventSauce\LaravelEventSauce\EventSauceServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\PersonalDataDownload\PersonalDataDownloadServiceProvider" --tag="config"
 ```
 
 This is the content of the config file, which will be published at `config/personal-data-download.php`:
