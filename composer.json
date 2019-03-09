@@ -1,9 +1,12 @@
 {
-    "name": "spatie/personal-data-download",
+    "name": "spatie/laravel-personal-data-download",
     "description": "Create personal data downloads in a Laravel app",
     "keywords": [
         "spatie",
-        "personal-data-download"
+        "personal-data-download",
+        "zip",
+        "gdpr",
+        "personal"
     ],
     "homepage": "https://github.com/spatie/personal-data-download",
     "license": "MIT",
