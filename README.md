@@ -213,7 +213,7 @@ dispatch(new MyCustomJobClass(auth()->user());
 #### PersonalDataSelected
 
 This event will be fired after the personal data has been selected. It has two public properties:
-- `$personalData`: an instance of `PersonalData`. In your listeners you can call the `addContent`, `addFile` methods on this object to add extra content to the zip.
+- `$personalData`: an instance of `PersonalData`. In your listeners you can call the `add`, `addFile` methods on this object to add extra content to the zip.
 - `$user`: the user for which this personal data has been selected.
 
 #### PersonalDataDownloadCreated
