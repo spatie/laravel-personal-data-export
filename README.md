@@ -179,7 +179,7 @@ You can customize the name of the zip that will be downloaded by adding a method
 // on your user
 
 public function getPersonalDataDownloadName(string $realFilename): string {
-    $userName = Str::slug($user->name);
+    $userName = Str::slug($this->name);
 
     return "personal-data-{$userName}.zip";
 }
