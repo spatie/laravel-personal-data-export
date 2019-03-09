@@ -8,10 +8,10 @@ use Spatie\PersonalDataDownload\PersonalData;
 class PersonalDataSelected
 {
     /** @var \Spatie\PersonalDataDownload\PersonalData */
-    protected $personalData;
+    public $personalData;
 
     /** @var \Illuminate\Database\Eloquent\Model */
-    protected $user;
+    public $user;
 
     public function __construct(PersonalData $personalData, Model $user)
     {

@@ -209,6 +209,20 @@ class MyCustomJobClass extends CreatePersonalDataDownloadJob
 dispatch(new MyCustomJobClass(auth()->user());
 ```
 
+### Events
+
+#### PersonalDataSelected
+
+This event will be fired after the personal data has been selected. It has two public properties:
+- `$personalData`: an instance of `PersonalData`. In listeners you can call the `addContent`, `addFile` methods on this object to add extra content to the zip.
+- `$user`: the user for which this personal data has been selected.
+
+#### PersonalDataDownloadCreated
+
+This event will be fired after the personal data zip has been created. It has two public properties:
+- `$zipFilename`: the name of the zip filename.
+- `$user`: the user for which this zip has been created.
+
 ### Testing
 
 You can run all tests by issueing this command:

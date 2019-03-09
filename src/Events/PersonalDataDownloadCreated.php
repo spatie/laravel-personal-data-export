@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class PersonalDataDownloadCreated
 {
     /** @var string */
-    protected $zipFilename;
+    public $zipFilename;
 
     /** @var \Illuminate\Database\Eloquent\Model */
-    protected $user;
+    public $user;
 
     public function __construct(string $zipFilename, Model $user)
     {
