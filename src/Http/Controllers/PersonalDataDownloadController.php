@@ -40,17 +40,13 @@ class PersonalDataDownloadController
             abort(404);
         }
 
-        if ($user = auth()->user()) {
-            if (method_exists($user, 'getPersonalDataDownloadName')) {
-                $filename = $user->getPersonalDataDownloadName($filename);
-            }
-        }
+        $downloadFilename = $this->getDownloadFilename($filename);
 
         $downloadHeaders = [
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Content-Type' => 'application/zip',
             'Content-Length' => $disk->size($filename),
-            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+            'Content-Disposition' => 'attachment; filename="'.$downloadFilename.'"',
             'Pragma' => 'public',
         ];
 
@@ -63,5 +59,19 @@ class PersonalDataDownloadController
                 fclose($stream);
             }
         }, 200, $downloadHeaders);
+    }
+
+
+    protected function getDownloadFilename(string $filename): string
+    {
+        if (!$user = auth()->user()) {
+            return $filename;
+        }
+
+        if (!method_exists($user, 'getPersonalDataDownloadName')) {
+            return $filename;
+        }
+
+        return $user->getPersonalDataDownloadName($filename);
     }
 }
