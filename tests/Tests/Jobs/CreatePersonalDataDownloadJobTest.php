@@ -2,8 +2,11 @@
 
 namespace Spatie\PersonalDataDownload\Tests\Tests\Jobs;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Spatie\PersonalDataDownload\Events\PersonalDataDownloadCreated;
+use Spatie\PersonalDataDownload\Events\PersonalDataSelected;
 use Spatie\PersonalDataDownload\Exceptions\InvalidUser;
 use Spatie\PersonalDataDownload\Tests\TestCase;
 use Spatie\PersonalDataDownload\Tests\TestClasses\InvalidUser as InvalidUserModel;
@@ -23,6 +26,8 @@ class CreatePersonalDataDownloadJobTest extends TestCase
         Storage::fake($this->diskName);
 
         Mail::fake();
+
+        Event::fake();
     }
 
     /** @test */
@@ -50,6 +55,9 @@ class CreatePersonalDataDownloadJobTest extends TestCase
 
             return true;
         });
+
+        Event::assertDispatched(PersonalDataSelected::class);
+        Event::assertDispatched(PersonalDataDownloadCreated::class);
     }
 
     /** @test */
