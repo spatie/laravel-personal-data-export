@@ -20,6 +20,7 @@
         "illuminate/filesystem": "^5.8",
         "illuminate/queue": "^5.8",
         "illuminate/support": "^5.8",
+        "league/flysystem": "^1.0.50",
         "nesbot/carbon": "^2.14",
         "spatie/temporary-directory": "^1.1"
     },
