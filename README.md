@@ -222,6 +222,14 @@ This event will be fired after the personal data zip has been created. It has tw
 - `$zipFilename`: the name of the zip filename.
 - `$user`: the user for which this zip has been created.
 
+### PersonalDataHasBeenDownloaded
+
+This event will be fired after the personal data zip has been download. It has two public properties:
+- `$zipFilename`: the name of the zip filename.
+- `$user`: the user for which this zip has been created.
+
+You could use this event to immediately clean up the downloaded zip.
+
 ### Testing
 
 You can run all tests by issueing this command:
