@@ -40,6 +40,12 @@ class PersonalDataDownloadController
             abort(404);
         }
 
+        if ($user = auth()->user()) {
+            if (method_exists($user, 'getPersonalDataDownloadName')) {
+                $filename = $user->getPersonalDataDownloadName($filename);
+            }
+        }
+
         $downloadHeaders = [
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Content-Type' => 'application/zip',

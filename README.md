@@ -172,6 +172,20 @@ When the user click the downoad link in the mail that gets send after creating t
 
 If you don't want to enforce that a user should be logged in to able to download a personal data zip, you can set the `authentication_required` config value to `false`. Setting the value to `false` is less secure because anybody with a link to a zip file will be able to download it, but because the name of the zip file contains many random characters, it will be hard to just guess it.
 
+### Customizing the name of the download
+
+You can customize the name of the zip that will be downloaded by adding a method called `getPersonalDataDownloadName` on the user. This will only affect the name of the download that will be sent as a response to the user, not the name of the zip stored on disk.
+
+```php
+// on your user
+
+public function getPersonalDataDownloadName(string $realFilename): string {
+    $userName = Str::slug($user->name);
+
+    return "personal-data-{$userName}.zip";
+}
+```
+
 ### Customizing the mail
 
 You can customize mail by [publishing the views](TODO: addl link) and editing `views/vendor/laravel-personal-data-download/mail.blade.php`
