@@ -1,12 +1,14 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Tests;
+namespace Spatie\PersonalDataDownload\Tests\Tests\Commands;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Spatie\PersonalDataDownload\Tests\TestClasses\User;
 use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
+use Spatie\PersonalDataDownload\Tests\TestCase;
+
 
 class DeleteOldPersonalDataDownloadsCommandTest extends TestCase
 {

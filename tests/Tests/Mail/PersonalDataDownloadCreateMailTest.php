@@ -1,8 +1,10 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Tests;
+namespace Spatie\PersonalDataDownload\Tests\Tests\Mail;
 
 use Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail;
+use Spatie\PersonalDataDownload\Tests\TestCase;
+
 
 class PersonalDataDownloadCreateMailTest extends TestCase
 {

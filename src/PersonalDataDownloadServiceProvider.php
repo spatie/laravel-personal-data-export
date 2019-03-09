@@ -4,7 +4,7 @@ namespace Spatie\PersonalDataDownload;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Spatie\PersonalDataDownload\Http\PersonalDataDownloadController;
+use Spatie\PersonalDataDownload\Http\Controllers\PersonalDataDownloadController;
 use Spatie\PersonalDataDownload\Commands\CleanOldPersonalDataDownloadsCommand;
 
 class PersonalDataDownloadServiceProvider extends ServiceProvider

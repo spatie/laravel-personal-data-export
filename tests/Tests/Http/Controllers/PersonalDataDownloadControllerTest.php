@@ -1,13 +1,15 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Tests;
+namespace Spatie\PersonalDataDownload\Tests\Tests\Http\Controllers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\Response;
 use Spatie\PersonalDataDownload\Tests\TestClasses\User;
+use Symfony\Component\HttpFoundation\Response;
 use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
+use Spatie\PersonalDataDownload\Tests\TestCase;
+
 
 class PersonalDataDownloadControllerTest extends TestCase
 {

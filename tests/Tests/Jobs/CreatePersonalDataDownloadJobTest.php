@@ -1,10 +1,11 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Tests;
+namespace Spatie\PersonalDataDownload\Tests\Tests\Jobs;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Spatie\PersonalDataDownload\Exceptions\InvalidUser;
+use Spatie\PersonalDataDownload\Tests\TestCase;
 use Spatie\PersonalDataDownload\Tests\TestClasses\InvalidUser as InvalidUserModel;
 use Spatie\PersonalDataDownload\Tests\TestClasses\User;
 use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
