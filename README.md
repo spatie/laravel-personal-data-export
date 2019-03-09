@@ -22,7 +22,7 @@ use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 dispatch(new CreatePersonalDataDownloadJob(auth()->user());
 ```
 
-The package will create a zip containing all personal data. When the zip has been created a link to it will be mailed to the user. By default the zips are saved in a non public location and the user should be logged in to be able to download the zip.
+The package will create a zip containing all personal data. When the zip has been created a link to it will be mailed to the user. By default, the zips are saved in a non-public location, and the user should be logged in to be able to download the zip.
 
 You can configure which data will be put in the download in the `selectPersonalData` method on the `user`.
 
@@ -55,7 +55,7 @@ You need to use this macro in your routes file. It 'll register a route where us
 Route::personalDataDownloads('personal-data-downloads');
 ```
 
-You must add a disk named `personal-data-downloads` to `config/filesystems` (the name of the disk can be configured in `config/personal-data-download`. You can use any driver that you want. We recommend that your disk is not publicly accessible. If you're use the `local` driver, make sure you use a but that is not inside the public path of your app.
+You must add a disk named `personal-data-downloads` to `config/filesystems` (the name of the disk can be configured in `config/personal-data-download`. You can use any driver that you want. We recommend that your disk is not publicly accessible. If you're using the `local` driver, make sure you use a path that is not inside the public path of your app.
 
 ```php
 // in config/filesystems.php
@@ -129,7 +129,7 @@ This will create a file under `views/vendor/laravel-personal-data-download/mail.
 
 ### Selecting personal data
 
-First you'll have to preperate your user model. You should add a `selectPersonalData` function which accepts an instance of `Spatie\PersonalDataDownload\PersonalData`.
+First, you'll have to prepare your user model. You should add a `selectPersonalData` function which accepts an instance of `Spatie\PersonalDataDownload\PersonalData`.
 
 ```php
 // in your user model
@@ -144,7 +144,7 @@ public function selectPersonalData(PersonalData $personalData) {
 
 `$personalData` is used to determine the content of the zip file that the user will be able to download. You can call these methods on it:
 
-- `add`: the first parameter is the name of the file in the inside te zipfile. The second parameter is the content that should go in that file. If you pass an array here, we will encode it to json.
+- `add`: the first parameter is the name of the file in the inside the zip file. The second parameter is the content that should go in that file. If you pass an array here, we will encode it to JSON.
 - `addFile`: the first parameter is a path to a file which will be copied to the zip. You can also add a disk name as the second parameter.
 
 ### Creating a download
@@ -161,15 +161,15 @@ use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
 dispatch(new CreatePersonalDataDownloadJob(auth()->user());
 ```
 
-By default this job is queued. It will copy all files and content you selected in the `selectPersonalData` on your user to a temporary directory. Next that temporary directory will be zipped and copied over to the `personal-data-downloads` disk. A link to this zip will be mailed to the user. 
+By default, this job is queued. It will copy all files and content you selected in the `selectPersonalData` on your user to a temporary directory. Next, that temporary directory will be zipped and copied over to the `personal-data-downloads` disk. A link to this zip will be mailed to the user. 
 
 ### Securing the download
 
-We recommend that the `personal-data-downloads` is not publicly accessible. If you're use the `local` driver for this disk, make sure you use a but that is not inside the public path of your app.
+We recommend that the `personal-data-downloads` disk is not publicly accessible. If you're using the `local` driver for this disk, make sure you use a path that is not inside the public path of your app.
 
-When the user click the downoad link in the mail that gets send after creating the personal download, a request will be sent to underlying `PersonalDataDownloadController`. This controller will check if there is a user logged in and if the request personal data zip belongs to the user. If this is the case, that controller will stream the zip to the user.
+When the user clicks the download link in the mail that gets sent after creating the personal download, a request will be sent to underlying `PersonalDataDownloadController`. This controller will check if there is a user logged in and if the request personal data zip belongs to the user. If this is the case, that controller will stream the zip to the user.
 
-If you don't want to enforce that a user should be logged in to able to download a personal data zip, you can set the `authentication_required` config value to `false`. Setting the value to `false` is less secure because anybody with a link to a zip file will be able to download it, but because the name of the zip file contains many random characters, it will be hard to just guess it.
+If you don't want to enforce that a user should be logged in to able to download a personal data zip, you can set the `authentication_required` config value to `false`. Setting the value to `false` is less secure because anybody with a link to a zip file will be able to download it, but because the name of the zip file contains many random characters, it will be hard to guess it.
 
 ### Customizing the name of the download
 
@@ -187,9 +187,9 @@ public function getPersonalDataDownloadName(string $realFilename): string {
 
 ### Customizing the mail
 
-You can customize mail by [publishing the views](TODO: addl link) and editing `views/vendor/laravel-personal-data-download/mail.blade.php`
+You can customize mail by [publishing the views](https://github.com/spatie/laravel-personal-data-download#installation) and editing `views/vendor/laravel-personal-data-download/mail.blade.php`
 
-You can also customize the mailable it self by creating your own mailable that extends `\Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail` and register the class name of your mailable in the `mailable` config key of `config/personal-data-download.php`.
+You can also customize the mailable itself by creating your own mailable that extends `\Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail` and register the class name of your mailable in the `mailable` config key of `config/personal-data-download.php`.
 
 ### Customizing the queue
 
@@ -213,7 +213,7 @@ dispatch(new MyCustomJobClass(auth()->user());
 #### PersonalDataSelected
 
 This event will be fired after the personal data has been selected. It has two public properties:
-- `$personalData`: an instance of `PersonalData`. In listeners you can call the `addContent`, `addFile` methods on this object to add extra content to the zip.
+- `$personalData`: an instance of `PersonalData`. In your listeners you can call the `addContent`, `addFile` methods on this object to add extra content to the zip.
 - `$user`: the user for which this personal data has been selected.
 
 #### PersonalDataDownloadCreated
@@ -232,7 +232,7 @@ You could use this event to immediately clean up the downloaded zip.
 
 ### Testing
 
-You can run all tests by issueing this command:
+You can run all tests by issuing this command:
 
 ``` bash
 composer test
@@ -252,7 +252,7 @@ If you discover any security related issues, please email freek@spatie.be instea
 
 ## Postcardware
 
-You're free to use this package, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
+You're free to use this package, but if it makes it to your production environment, we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
 
 Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
 
