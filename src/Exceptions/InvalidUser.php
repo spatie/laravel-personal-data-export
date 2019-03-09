@@ -13,6 +13,4 @@ class InvalidUser extends Exception
 
         return new static("Could not create a personal data download for `$class` because it does not have a `selectsPersonalData` method on it");
     }
-
-
 }
