@@ -27,8 +27,7 @@ class PersonalDataDownloadServiceProvider extends ServiceProvider
         Route::macro('personalDataDownloads', function (string $url) {
             Route::get("$url/{zipFilename}", PersonalDataDownloadController::class)
                 ->name('personal-data-downloads')
-                ->middleware(FiresPersonalDataHasBeenDownloadEvent::class)
-            ;
+                ->middleware(FiresPersonalDataHasBeenDownloadEvent::class);
         });
 
         $this->commands([

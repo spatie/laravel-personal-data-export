@@ -3,14 +3,14 @@
 namespace Spatie\PersonalDataDownload\Tests\Tests\Http\Controllers;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataDownload\Events\PersonalDataHasBeenDownloaded;
 use Symfony\Component\HttpFoundation\Response;
 use Spatie\PersonalDataDownload\Tests\TestCase;
 use Spatie\PersonalDataDownload\Tests\TestClasses\User;
 use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
+use Spatie\PersonalDataDownload\Events\PersonalDataHasBeenDownloaded;
 
 class PersonalDataDownloadControllerTest extends TestCase
 {
@@ -61,7 +61,6 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
 
         Event::assertNotDispatched(PersonalDataHasBeenDownloaded::class);
-
     }
 
     /** @test */
@@ -72,7 +71,6 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->assertStatus(Response::HTTP_FORBIDDEN);
 
         Event::assertNotDispatched(PersonalDataHasBeenDownloaded::class);
-
     }
 
     /** @test */
@@ -85,7 +83,6 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->assertSuccessful();
 
         Event::assertDispatched(PersonalDataHasBeenDownloaded::class);
-
     }
 
     /** @test */
@@ -97,7 +94,6 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->assertStatus(Response::HTTP_NOT_FOUND);
 
         Event::assertNotDispatched(PersonalDataHasBeenDownloaded::class);
-
     }
 
     protected function createPersonalDataDownload(User $user): string

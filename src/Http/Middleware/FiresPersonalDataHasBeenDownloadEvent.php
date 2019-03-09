@@ -4,8 +4,8 @@ namespace Spatie\PersonalDataDownload\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Spatie\PersonalDataDownload\Events\PersonalDataHasBeenDownloaded;
 use Symfony\Component\HttpFoundation\Response;
+use Spatie\PersonalDataDownload\Events\PersonalDataHasBeenDownloaded;
 
 class FiresPersonalDataHasBeenDownloadEvent
 {
