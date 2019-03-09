@@ -17,12 +17,12 @@ class PersonalDataDownloadServiceProvider extends ServiceProvider
                 __DIR__.'/../config/personal-data-download.php' => config_path('personal-data-download.php'),
             ], 'config');
 
-            $this->loadViewsFrom(__DIR__.'/../resources/views', 'personal-data-download');
-
             $this->publishes([
                 __DIR__.'/../resources/views' => base_path('resources/views/vendor/personal-data-download'),
             ], 'views');
         }
+
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'personal-data-download');
 
         Route::macro('personalDataDownloads', function (string $url) {
             Route::get("$url/{zipFilename}", PersonalDataDownloadController::class)
