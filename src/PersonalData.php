@@ -40,7 +40,7 @@ class PersonalData
      * @param string $nameInDownload
      * @param array|string $content
      */
-    public function addContent(string $nameInDownload, $content)
+    public function add(string $nameInDownload, $content)
     {
         if (! is_string($content)) {
             $content = json_encode($content);

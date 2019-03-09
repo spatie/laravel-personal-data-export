@@ -11,6 +11,6 @@ class User extends BaseUser
     {
         $personalData
             ->addFile(__DIR__.'/../stubs/avatar.png')
-            ->addContent('attributes.json', $this->attributesToArray());
+            ->add('attributes.json', $this->attributesToArray());
     }
 }
