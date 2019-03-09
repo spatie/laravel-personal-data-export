@@ -3,8 +3,10 @@
 namespace Spatie\PersonalDataDownload\Tests\Tests\Http\Controllers;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Spatie\PersonalDataDownload\Events\PersonalDataHasBeenDownloaded;
 use Symfony\Component\HttpFoundation\Response;
 use Spatie\PersonalDataDownload\Tests\TestCase;
 use Spatie\PersonalDataDownload\Tests\TestClasses\User;
@@ -31,15 +33,21 @@ class PersonalDataDownloadControllerTest extends TestCase
         $this->downloadUrl = route('personal-data-downloads', $zipFilename);
 
         Mail::fake();
+
+        Event::fake();
     }
 
     /** @test */
     public function it_can_download_the_personal_data_download()
     {
+        $this->withoutExceptionHandling();
+
         $this
             ->actingAs($this->user)
             ->get($this->downloadUrl)
             ->assertSuccessful();
+
+        Event::assertDispatched(PersonalDataHasBeenDownloaded::class);
     }
 
     /** @test */
@@ -51,6 +59,9 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->actingAs($anotherUser)
             ->get($this->downloadUrl)
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
+
+        Event::assertNotDispatched(PersonalDataHasBeenDownloaded::class);
+
     }
 
     /** @test */
@@ -59,6 +70,9 @@ class PersonalDataDownloadControllerTest extends TestCase
         $this
             ->get($this->downloadUrl)
             ->assertStatus(Response::HTTP_FORBIDDEN);
+
+        Event::assertNotDispatched(PersonalDataHasBeenDownloaded::class);
+
     }
 
     /** @test */
@@ -69,6 +83,9 @@ class PersonalDataDownloadControllerTest extends TestCase
         $this
             ->get($this->downloadUrl)
             ->assertSuccessful();
+
+        Event::assertDispatched(PersonalDataHasBeenDownloaded::class);
+
     }
 
     /** @test */
@@ -78,6 +95,9 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->actingAs($this->user)
             ->get($this->downloadUrl.'invalid')
             ->assertStatus(Response::HTTP_NOT_FOUND);
+
+        Event::assertNotDispatched(PersonalDataHasBeenDownloaded::class);
+
     }
 
     protected function createPersonalDataDownload(User $user): string

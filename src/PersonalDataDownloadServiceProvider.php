@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Spatie\PersonalDataDownload\Commands\CleanOldPersonalDataDownloadsCommand;
 use Spatie\PersonalDataDownload\Http\Controllers\PersonalDataDownloadController;
+use Spatie\PersonalDataDownload\Http\Middleware\FiresPersonalDataHasBeenDownloadEvent;
 
 class PersonalDataDownloadServiceProvider extends ServiceProvider
 {
@@ -24,7 +25,10 @@ class PersonalDataDownloadServiceProvider extends ServiceProvider
         }
 
         Route::macro('personalDataDownloads', function (string $url) {
-            Route::get("$url/{zipFilename}", PersonalDataDownloadController::class)->name('personal-data-downloads');
+            Route::get("$url/{zipFilename}", PersonalDataDownloadController::class)
+                ->name('personal-data-downloads')
+                ->middleware(FiresPersonalDataHasBeenDownloadEvent::class)
+            ;
         });
 
         $this->commands([
