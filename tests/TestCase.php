@@ -26,7 +26,7 @@ class TestCase extends Orchestra
 
         $this->withFactories(__DIR__.'/factories');
 
-        Route::PersonalDataExports('personal-data-exports');
+        Route::personalDataExports('personal-data-exports');
 
         Carbon::setTestNow(Carbon::createFromFormat('Y-m-d H:i:s', '2019-01-01 00:00:00'));
 
