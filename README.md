@@ -146,7 +146,7 @@ The `selectPersonalData` is used to determine the content of the personal downlo
 ```php
 // in your user model
 
-public function selectPersonalData(PersonalData $personalData) {
+public function selectPersonalData(PersonalData $personalData): void {
     $personalData
         ->add('user.json', ['name' => $this->name, 'email' => $this->email])
         ->addFile(storage_path("avatars/{$this->id}.jpg");
