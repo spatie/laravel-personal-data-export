@@ -40,7 +40,9 @@ class PersonalDataExportController
             abort(404);
         }
 
-        $downloadFilename = auth()->user()->personalDataExportName();
+        $downloadFilename = auth()->user()
+            ?  auth()->user()->personalDataExportName()
+            : $filename;
 
         $downloadHeaders = [
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
