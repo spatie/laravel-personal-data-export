@@ -41,7 +41,7 @@ class PersonalDataExportController
         }
 
         $downloadFilename = auth()->user()
-            ?  auth()->user()->personalDataExportName()
+            ? auth()->user()->personalDataExportName()
             : $filename;
 
         $downloadHeaders = [
