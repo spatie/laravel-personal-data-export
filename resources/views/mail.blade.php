@@ -1,14 +1,14 @@
 @component('mail::message')
-    # Personal data download
+# Personal data download
 
-    You can now download a zip file containing all data we got for your account!
+You can now download a zip file containing all data we got for your account!
 
-    @component('mail::button', ['url' => route('personal-data-exports', $zipFilename)])
-        Download zip file
-    @endcomponent
+@component('mail::button', ['url' => route('personal-data-exports', $zipFilename)])
+Download zip file
+@endcomponent
 
-    This file will be deleted at {{ $deletionDatetime->format('Y-m-d H:i:s') }}
+This file will be deleted at {{ $deletionDatetime->format('Y-m-d H:i:s') }}
 
-    Thanks,
-    {{ config('app.name') }}
+Thanks,
+{{ config('app.name') }}
 @endcomponent
