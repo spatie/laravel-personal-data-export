@@ -1,4 +1,4 @@
-# Export personal data in a Laravel app
+# Create zip files containing personal data
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-personal-data-export.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-personal-data-export)
 [![Build Status](https://img.shields.io/travis/spatie/laravel-personal-data-export/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-personal-data-export)
