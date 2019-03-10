@@ -3,9 +3,9 @@
 namespace Spatie\PersonalDataExport\Tests\Tests;
 
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataExport\PersonalDataSelection;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Spatie\PersonalDataExport\PersonalDataSelection;
 use Spatie\PersonalDataExport\Exceptions\CouldNotAddToPersonalDataSelection;
 
 class PersonalDataSelectionTest extends TestCase

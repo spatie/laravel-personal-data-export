@@ -3,7 +3,6 @@
 namespace Spatie\PersonalDataExport;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Spatie\PersonalDataExport\Exceptions\CouldNotAddToPersonalDataSelection;

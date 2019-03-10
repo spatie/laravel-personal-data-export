@@ -61,14 +61,13 @@ class PersonalDataExportController
         }, 200, $downloadHeaders);
     }
 
-
     protected function getDownloadFilename(string $filename): string
     {
-        if (!$user = auth()->user()) {
+        if (! $user = auth()->user()) {
             return $filename;
         }
 
-        if (!method_exists($user, 'getPersonalDataExportName')) {
+        if (! method_exists($user, 'getPersonalDataExportName')) {
             return $filename;
         }
 

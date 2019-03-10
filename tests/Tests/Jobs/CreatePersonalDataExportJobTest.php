@@ -5,17 +5,14 @@ namespace Spatie\PersonalDataExport\Tests\Tests\Jobs;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataExport\ExportsPersonalData;
-use Spatie\PersonalDataExport\PersonalDataSelection;
 use Spatie\PersonalDataExport\Tests\TestCase;
-use Spatie\PersonalDataExport\Exceptions\InvalidUser as InvalidUserException;
-use Spatie\PersonalDataExport\Tests\TestClasses\InvalidUser;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
 use Spatie\PersonalDataExport\Events\PersonalDataSelected;
+use Spatie\PersonalDataExport\Tests\TestClasses\InvalidUser;
 use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
 use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 use Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail;
-use Spatie\PersonalDataExport\Tests\TestClasses\InvalidUser as InvalidUserModel;
+use Spatie\PersonalDataExport\Exceptions\InvalidUser as InvalidUserException;
 
 class CreatePersonalDataExportJobTest extends TestCase
 {
