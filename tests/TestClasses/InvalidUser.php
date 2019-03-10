@@ -15,7 +15,7 @@ class InvalidUser implements ExportsPersonalData
     {
     }
 
-    public function getPersonalDataExportName(): string
+    public function personalDataExportName(): string
     {
     }
 

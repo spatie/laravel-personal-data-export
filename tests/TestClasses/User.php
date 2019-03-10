@@ -16,7 +16,7 @@ class User extends BaseUser implements ExportsPersonalData
             ->add('attributes.json', $this->attributesToArray());
     }
 
-    public function getPersonalDataExportName(): string
+    public function personalDataExportName(): string
     {
         $usernameSlug = Str::slug($this->name);
 
