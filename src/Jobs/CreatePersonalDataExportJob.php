@@ -2,15 +2,14 @@
 
 namespace Spatie\PersonalDataExport\Jobs;
 
-use Illuminate\Support\Facades\Mail;
-use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\Zip;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Spatie\PersonalDataExport\PersonalDataSelection;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Spatie\PersonalDataExport\ExportsPersonalData;
+use Spatie\PersonalDataExport\PersonalDataSelection;
 use Spatie\PersonalDataExport\Exceptions\InvalidUser;
 use Spatie\PersonalDataExport\Events\PersonalDataSelected;
 use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
