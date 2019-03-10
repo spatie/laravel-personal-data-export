@@ -27,8 +27,8 @@ You can configure which data will will be exported in the `selectPersonalData` m
 ```php
 // in your User model
 
-public function selectPersonalData(PersonalData $personalData) {
-    $personalData
+public function selectPersonalData(PersonalDataSelection $personalDataSelection) {
+    $personalDataSelection
         ->add('user.json', ['name' => $this->name, 'email' => $this->email])
         ->addFile(storage_path("avatars/{$this->id}.jpg");
         ->addFile('other-user-data.xml', 's3');
