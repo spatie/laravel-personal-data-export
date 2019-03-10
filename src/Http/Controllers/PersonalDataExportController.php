@@ -21,7 +21,7 @@ class PersonalDataExportController
             return;
         }
 
-        if (! auth()->check()) {
+        if (! auth()->user()) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
