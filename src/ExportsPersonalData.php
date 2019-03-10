@@ -5,7 +5,7 @@ namespace Spatie\PersonalDataExport;
 
 interface ExportsPersonalData
 {
-    public function exportsPersonalData(PersonalDataSelection $personalData): void;
+    public function selectPersonalData(PersonalDataSelection $personalData): void;
 
     public function getPersonalDataExportName(): string;
 

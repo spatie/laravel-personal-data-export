@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as BaseUser;
 
 class User extends BaseUser implements ExportsPersonalData
 {
-    public function exportsPersonalData(PersonalDataSelection $personalData): void
+    public function selectPersonalData(PersonalDataSelection $personalData): void
     {
         $personalData
             ->addFile(__DIR__.'/../stubs/avatar.png')

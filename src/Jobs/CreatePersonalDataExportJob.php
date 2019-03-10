@@ -33,7 +33,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
 
         $personalDataSelection = (new PersonalDataSelection($temporaryDirectory))->forUser($this->user);
 
-        $this->user->exportsPersonalData($personalDataSelection);
+        $this->user->selectPersonalData($personalDataSelection);
 
         event(new PersonalDataSelected($personalDataSelection, $this->user));
 
