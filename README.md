@@ -8,7 +8,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-personal-data-export.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-personal-data-export)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-personal-data-export.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-personal-data-export)
 
-This package makes it easy to let a user download all personal data. Such a download consists of a zip file containing all user properties and related info.
+This package makes it easy to let a user download an export containing all personal data. Such an export consists of a zip file containing all user properties and related info.
 
 You can create and mail such a zip by dispatching the `CreatePersonalDataExportJob` job:
 
@@ -24,7 +24,7 @@ dispatch(new CreatePersonalDataExportJob(auth()->user());
 
 The package will create a zip containing all personal data. When the zip has been created a link to it will be mailed to the user. By default, the zips are saved in a non-public location, and the user should be logged in to be able to download the zip.
 
-You can configure which data will be put in the download in the `selectPersonalData` method on the `user`.
+You can configure which data will will be exported in the `selectPersonalData` method on the `user`.
 
 ```php
 // in your User model
@@ -47,7 +47,7 @@ You can install the package via composer:
 composer require spatie/laravel-personal-data-export
 ```
 
-You need to use this macro in your routes file. It 'll register a route where users can download their personal data downloads.
+You need to use this macro in your routes file. It 'll register a route where users can download their personal data exports.
 
 ```php
 // in your routes file
@@ -72,7 +72,7 @@ You must add a disk named `personal-data-exports` to `config/filesystems` (the n
 // ...
 ```
 
-To automatically clean up older personal data downloads, you can schedule this command in your console kernel:
+To automatically clean up older personal data exports, you can schedule this command in your console kernel:
 
 ```php
 // app/Console/Kernel.php
@@ -94,27 +94,28 @@ This is the content of the config file, which will be published at `config/perso
 ```php
 return [
     /*
-     * The disk where the downloads will be stored by default.
+     * The disk where the exports will be stored by default.
      */
     'disk' => 'personal-data-exports',
 
     /*
-     * The amount of days the gdpr downloads will be available.
+     * The amount of days the exports will be available.
      */
     'delete_after_days' => 5,
 
     /*
      * Determines wheter the user should be logged in to be able
-     * to access the gdpr download.
+     * to access the export.
      */
     'authentication_required' => true,
 
     /*
-     * The mailable which will be sent to the user when the personal 
-     * data download has been created.
+     * The mailable which will be sent to the user when the export
+     * has been created.
      */
     'mailable' => \Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail::class,
 ];
+
 ```
 
 Optionally you can publish the view used by the mail with:
@@ -129,7 +130,20 @@ This will create a file under `views/vendor/laravel-personal-data-export/mail.bl
 
 ### Selecting personal data
 
-First, you'll have to prepare your user model. You should add a `selectPersonalData` function which accepts an instance of `Spatie\PersonalDataExport\PersonalData`.
+First, you'll have to prepare your user model. You should let your model implement the `Spatie\PersonalDataExport\ExportsPersonalData` interface. This is what that interface looks like:
+
+```php
+namespace Spatie\PersonalDataExport;
+
+interface ExportsPersonalData
+{
+    public function selectPersonalData(PersonalDataSelection $personalData): void;
+
+    public function personalDataExportName(): string;
+}
+```
+
+The `selectPersonalData` is used to determine the content of the personal download. Here's an example implmentation:
 
 ```php
 // in your user model
@@ -147,9 +161,21 @@ public function selectPersonalData(PersonalData $personalData) {
 - `add`: the first parameter is the name of the file in the inside the zip file. The second parameter is the content that should go in that file. If you pass an array here, we will encode it to JSON.
 - `addFile`: the first parameter is a path to a file which will be copied to the zip. You can also add a disk name as the second parameter.
 
-### Creating a download
+The name of the export itself can be set using the `personalDataExportName` on the user. This will only affect the name of the download that will be sent as a response to the user, not the name of the zip stored on disk.
 
-You can create a personal data download by executing this job somewhere in your application:
+```php
+// on your user
+
+public function personalDataExportName(string $realFilename): string {
+    $userName = Str::slug($this->name);
+
+    return "personal-data-{$userName}.zip";
+}
+```
+
+### Creating an export
+
+You can create a personal data export by executing this job somewhere in your application:
 
 ```php
 // somewhere in your app
@@ -163,27 +189,13 @@ dispatch(new CreatePersonalDataExportJob(auth()->user());
 
 By default, this job is queued. It will copy all files and content you selected in the `selectPersonalData` on your user to a temporary directory. Next, that temporary directory will be zipped and copied over to the `personal-data-exports` disk. A link to this zip will be mailed to the user. 
 
-### Securing the download
+### Securing the export
 
 We recommend that the `personal-data-exports` disk is not publicly accessible. If you're using the `local` driver for this disk, make sure you use a path that is not inside the public path of your app.
 
-When the user clicks the download link in the mail that gets sent after creating the personal download, a request will be sent to underlying `PersonalDataExportController`. This controller will check if there is a user logged in and if the request personal data zip belongs to the user. If this is the case, that controller will stream the zip to the user.
+When the user clicks the download link in the mail that gets sent after creating the export, a request will be sent to underlying `PersonalDataExportController`. This controller will check if there is a user logged in and if the request personal data zip belongs to the user. If this is the case, that controller will stream the zip to the user.
 
-If you don't want to enforce that a user should be logged in to able to download a personal data zip, you can set the `authentication_required` config value to `false`. Setting the value to `false` is less secure because anybody with a link to a zip file will be able to download it, but because the name of the zip file contains many random characters, it will be hard to guess it.
-
-### Customizing the name of the download
-
-You can customize the name of the zip that will be downloaded by adding a method called `getPersonalDataExportName` on the user. This will only affect the name of the download that will be sent as a response to the user, not the name of the zip stored on disk.
-
-```php
-// on your user
-
-public function getPersonalDataExportName(string $realFilename): string {
-    $userName = Str::slug($this->name);
-
-    return "personal-data-{$userName}.zip";
-}
-```
+If you don't want to enforce that a user should be logged in to able to download a personal data export, you can set the `authentication_required` config value to `false`. Setting the value to `false` is less secure because anybody with a link to a zip file will be able to download it, but because the name of the zip file contains many random characters, it will be hard to guess it.
 
 ### Customizing the mail
 
@@ -222,9 +234,9 @@ This event will be fired after the personal data zip has been created. It has tw
 - `$zipFilename`: the name of the zip filename.
 - `$user`: the user for which this zip has been created.
 
-### PersonalDataHasBeenDownloaded
+### PersonalDataExportDownloaded
 
-This event will be fired after the personal data zip has been download. It has two public properties:
+This event will be fired after the export has been download. It has two public properties:
 - `$zipFilename`: the name of the zip filename.
 - `$user`: the user for which this zip has been created.
 
