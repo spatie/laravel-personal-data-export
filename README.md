@@ -2,24 +2,24 @@
 
 # Create personal data downloads in a Laravel app
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/personal-data-download.svg?style=flat-square)](https://packagist.org/packages/spatie/personal-data-download)
-[![Build Status](https://img.shields.io/travis/spatie/personal-data-download/master.svg?style=flat-square)](https://travis-ci.org/spatie/personal-data-download)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-personal-data-export.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-personal-data-export)
+[![Build Status](https://img.shields.io/travis/spatie/laravel-personal-data-export/master.svg?style=flat-square)](https://travis-ci.org/spatie/laravel-personal-data-export)
 [![StyleCI](https://github.styleci.io/repos/174338628/shield?branch=master)](https://github.styleci.io/repos/174338628)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/personal-data-download.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/personal-data-download)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/personal-data-download.svg?style=flat-square)](https://packagist.org/packages/spatie/personal-data-download)
+[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-personal-data-export.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-personal-data-export)
+[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-personal-data-export.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-personal-data-export)
 
 This package makes it easy to let a user download all personal data. Such a download consists of a zip file containing all user properties and related info.
 
-You can create and mail such a zip by dispatching the `CreatePersonalDataDownloadJob` job:
+You can create and mail such a zip by dispatching the `CreatePersonalDataExportJob` job:
 
 ```php
 // somewhere in your app
 
-use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
+use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 
 // ...
 
-dispatch(new CreatePersonalDataDownloadJob(auth()->user());
+dispatch(new CreatePersonalDataExportJob(auth()->user());
 ```
 
 The package will create a zip containing all personal data. When the zip has been created a link to it will be mailed to the user. By default, the zips are saved in a non-public location, and the user should be logged in to be able to download the zip.
@@ -44,7 +44,7 @@ This package also offers an artisan command to remove old zip files.
 You can install the package via composer:
 
 ```bash
-composer require spatie/personal-data-download
+composer require spatie/laravel-personal-data-export
 ```
 
 You need to use this macro in your routes file. It 'll register a route where users can download their personal data downloads.
@@ -52,10 +52,10 @@ You need to use this macro in your routes file. It 'll register a route where us
 ```php
 // in your routes file
 
-Route::personalDataDownloads('personal-data-downloads');
+Route::PersonalDataExports('personal-data-exports');
 ```
 
-You must add a disk named `personal-data-downloads` to `config/filesystems` (the name of the disk can be configured in `config/personal-data-download`. You can use any driver that you want. We recommend that your disk is not publicly accessible. If you're using the `local` driver, make sure you use a path that is not inside the public path of your app.
+You must add a disk named `personal-data-exports` to `config/filesystems` (the name of the disk can be configured in `config/personal-data-export`. You can use any driver that you want. We recommend that your disk is not publicly accessible. If you're using the `local` driver, make sure you use a path that is not inside the public path of your app.
 
 ```php
 // in config/filesystems.php
@@ -64,9 +64,9 @@ You must add a disk named `personal-data-downloads` to `config/filesystems` (the
 
 'disks' => [
 
-    'personal-data-downloads' => [
+    'personal-data-exports' => [
         'driver' => 'local',
-        'root' => storage_path('app/personal-data-downloads'),
+        'root' => storage_path('app/personal-data-exports'),
     ],
 
 // ...
@@ -79,24 +79,24 @@ To automatically clean up older personal data downloads, you can schedule this c
 
 protected function schedule(Schedule $schedule)
 {
-   $schedule->command('personal-data-download:clean')->daily();
+   $schedule->command('personal-data-export:clean')->daily();
 }
 ```
 
 Optionally you can publish the config file with:
 
 ```php
-php artisan vendor:publish --provider="Spatie\PersonalDataDownload\PersonalDataDownloadServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="config"
 ```
 
-This is the content of the config file, which will be published at `config/personal-data-download.php`:
+This is the content of the config file, which will be published at `config/personal-data-export.php`:
 
 ```php
 return [
     /*
      * The disk where the downloads will be stored by default.
      */
-    'disk' => 'personal-data-downloads',
+    'disk' => 'personal-data-exports',
 
     /*
      * The amount of days the gdpr downloads will be available.
@@ -113,7 +113,7 @@ return [
      * The mailable which will be sent to the user when the personal 
      * data download has been created.
      */
-    'mailable' => \Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail::class,
+    'mailable' => \Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail::class,
 ];
 ```
 
@@ -123,13 +123,13 @@ Optionally you can publish the view used by the mail with:
 php artisan vendor:publish --provider="EventSauce\LaravelEventSauce\EventSauceServiceProvider" --tag="views"
 ```
 
-This will create a file under `views/vendor/laravel-personal-data-download/mail.blade.php` that you can customize.
+This will create a file under `views/vendor/laravel-personal-data-export/mail.blade.php` that you can customize.
 
 ## Usage
 
 ### Selecting personal data
 
-First, you'll have to prepare your user model. You should add a `selectPersonalData` function which accepts an instance of `Spatie\PersonalDataDownload\PersonalData`.
+First, you'll have to prepare your user model. You should add a `selectPersonalData` function which accepts an instance of `Spatie\PersonalDataExport\PersonalData`.
 
 ```php
 // in your user model
@@ -154,31 +154,31 @@ You can create a personal data download by executing this job somewhere in your 
 ```php
 // somewhere in your app
 
-use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
+use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 
 // ...
 
-dispatch(new CreatePersonalDataDownloadJob(auth()->user());
+dispatch(new CreatePersonalDataExportJob(auth()->user());
 ```
 
-By default, this job is queued. It will copy all files and content you selected in the `selectPersonalData` on your user to a temporary directory. Next, that temporary directory will be zipped and copied over to the `personal-data-downloads` disk. A link to this zip will be mailed to the user. 
+By default, this job is queued. It will copy all files and content you selected in the `selectPersonalData` on your user to a temporary directory. Next, that temporary directory will be zipped and copied over to the `personal-data-exports` disk. A link to this zip will be mailed to the user. 
 
 ### Securing the download
 
-We recommend that the `personal-data-downloads` disk is not publicly accessible. If you're using the `local` driver for this disk, make sure you use a path that is not inside the public path of your app.
+We recommend that the `personal-data-exports` disk is not publicly accessible. If you're using the `local` driver for this disk, make sure you use a path that is not inside the public path of your app.
 
-When the user clicks the download link in the mail that gets sent after creating the personal download, a request will be sent to underlying `PersonalDataDownloadController`. This controller will check if there is a user logged in and if the request personal data zip belongs to the user. If this is the case, that controller will stream the zip to the user.
+When the user clicks the download link in the mail that gets sent after creating the personal download, a request will be sent to underlying `PersonalDataExportController`. This controller will check if there is a user logged in and if the request personal data zip belongs to the user. If this is the case, that controller will stream the zip to the user.
 
 If you don't want to enforce that a user should be logged in to able to download a personal data zip, you can set the `authentication_required` config value to `false`. Setting the value to `false` is less secure because anybody with a link to a zip file will be able to download it, but because the name of the zip file contains many random characters, it will be hard to guess it.
 
 ### Customizing the name of the download
 
-You can customize the name of the zip that will be downloaded by adding a method called `getPersonalDataDownloadName` on the user. This will only affect the name of the download that will be sent as a response to the user, not the name of the zip stored on disk.
+You can customize the name of the zip that will be downloaded by adding a method called `getPersonalDataExportName` on the user. This will only affect the name of the download that will be sent as a response to the user, not the name of the zip stored on disk.
 
 ```php
 // on your user
 
-public function getPersonalDataDownloadName(string $realFilename): string {
+public function getPersonalDataExportName(string $realFilename): string {
     $userName = Str::slug($this->name);
 
     return "personal-data-{$userName}.zip";
@@ -187,18 +187,18 @@ public function getPersonalDataDownloadName(string $realFilename): string {
 
 ### Customizing the mail
 
-You can customize mail by [publishing the views](https://github.com/spatie/laravel-personal-data-download#installation) and editing `views/vendor/laravel-personal-data-download/mail.blade.php`
+You can customize mail by [publishing the views](https://github.com/spatie/laravel-personal-data-export#installation) and editing `views/vendor/laravel-personal-data-export/mail.blade.php`
 
-You can also customize the mailable itself by creating your own mailable that extends `\Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail` and register the class name of your mailable in the `mailable` config key of `config/personal-data-download.php`.
+You can also customize the mailable itself by creating your own mailable that extends `\Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail` and register the class name of your mailable in the `mailable` config key of `config/personal-data-export.php`.
 
 ### Customizing the queue
 
-You can customize the job that creates the zip file and mails it by extending the `Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob` and dispatching your own custom job class.
+You can customize the job that creates the zip file and mails it by extending the `Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob` and dispatching your own custom job class.
 
 ```php
-use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
+use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 
-class MyCustomJobClass extends CreatePersonalDataDownloadJob
+class MyCustomJobClass extends CreatePersonalDataExportJob
 {
     public $queue = 'my-custom-queue`
 }
@@ -216,7 +216,7 @@ This event will be fired after the personal data has been selected. It has two p
 - `$personalData`: an instance of `PersonalData`. In your listeners you can call the `add`, `addFile` methods on this object to add extra content to the zip.
 - `$user`: the user for which this personal data has been selected.
 
-#### PersonalDataDownloadCreated
+#### PersonalDataExportCreated
 
 This event will be fired after the personal data zip has been created. It has two public properties:
 - `$zipFilename`: the name of the zip filename.

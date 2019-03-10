@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Http\Controllers;
+namespace Spatie\PersonalDataExport\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class PersonalDataDownloadController
+class PersonalDataExportController
 {
     public function __invoke(string $zipFilename): StreamedResponse
     {
@@ -17,7 +17,7 @@ class PersonalDataDownloadController
 
     protected function ensureAuthorizedToDownload(string $zipFilename)
     {
-        if (! config('personal-data-download.authentication_required')) {
+        if (! config('personal-data-export.authentication_required')) {
             return;
         }
 
@@ -34,7 +34,7 @@ class PersonalDataDownloadController
 
     protected function responseStream(string $filename): StreamedResponse
     {
-        $disk = Storage::disk(config('personal-data-download.disk'));
+        $disk = Storage::disk(config('personal-data-export.disk'));
 
         if (! $disk->exists($filename)) {
             abort(404);
@@ -68,10 +68,10 @@ class PersonalDataDownloadController
             return $filename;
         }
 
-        if (!method_exists($user, 'getPersonalDataDownloadName')) {
+        if (!method_exists($user, 'getPersonalDataExportName')) {
             return $filename;
         }
 
-        return $user->getPersonalDataDownloadName($filename);
+        return $user->getPersonalDataExportName($filename);
     }
 }

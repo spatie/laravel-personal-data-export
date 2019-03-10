@@ -3,7 +3,7 @@
 
     You can now download a zip file containing all data we got for your account!
 
-    @component('mail::button', ['url' => route('personal-data-downloads', $zipFilename)])
+    @component('mail::button', ['url' => route('personal-data-exports', $zipFilename)])
         Download zip file
     @endcomponent
 

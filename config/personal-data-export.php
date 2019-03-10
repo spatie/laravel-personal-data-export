@@ -4,7 +4,7 @@ return [
     /*
      * The disk where the downloads will be stored by default.
      */
-    'disk' => 'personal-data-downloads',
+    'disk' => 'personal-data-exports',
 
     /*
      * The amount of days the gdpr downloads will be available.
@@ -21,5 +21,5 @@ return [
      * The mailable which will be sent to the user when the gdpr download
      * has been created.
      */
-    'mailable' => \Spatie\PersonalDataDownload\Mail\PersonalDataDownloadCreatedMail::class,
+    'mailable' => \Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail::class,
 ];

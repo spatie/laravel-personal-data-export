@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Tests;
+namespace Spatie\PersonalDataExport\Tests;
 
 use ZipArchive;
 use Carbon\Carbon;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
-use Spatie\PersonalDataDownload\PersonalDataDownloadServiceProvider;
+use Spatie\PersonalDataExport\PersonalDataExportServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -26,11 +26,11 @@ class TestCase extends Orchestra
 
         $this->withFactories(__DIR__.'/factories');
 
-        Route::personalDataDownloads('personal-data-downloads');
+        Route::PersonalDataExports('personal-data-exports');
 
         Carbon::setTestNow(Carbon::createFromFormat('Y-m-d H:i:s', '2019-01-01 00:00:00'));
 
-        $this->diskName = config('personal-data-download.disk');
+        $this->diskName = config('personal-data-export.disk');
     }
 
     protected function setUpDatabase(Application $app)
@@ -55,7 +55,7 @@ class TestCase extends Orchestra
 
     protected function getPackageProviders($app)
     {
-        return [PersonalDataDownloadServiceProvider::class];
+        return [PersonalDataExportServiceProvider::class];
     }
 
     public function assertZipContains($zipFile, $expectedFileName, $expectedContents = null)

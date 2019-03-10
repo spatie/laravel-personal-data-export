@@ -1,16 +1,25 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Tests\TestClasses;
+namespace Spatie\PersonalDataExport\Tests\TestClasses;
 
-use Spatie\PersonalDataDownload\PersonalData;
+use Illuminate\Support\Str;
+use Spatie\PersonalDataExport\ExportsPersonalData;
+use Spatie\PersonalDataExport\PersonalDataSelection;
 use Illuminate\Foundation\Auth\User as BaseUser;
 
-class User extends BaseUser
+class User extends BaseUser implements ExportsPersonalData
 {
-    public function selectPersonalData(PersonalData $personalData)
+    public function exportsPersonalData(PersonalDataSelection $personalData): void
     {
         $personalData
             ->addFile(__DIR__.'/../stubs/avatar.png')
             ->add('attributes.json', $this->attributesToArray());
+    }
+
+    public function getPersonalDataExportName(): string
+    {
+        $usernameSlug = Str::slug($this->name);
+
+        return "personal-data-{$usernameSlug}.zip";
     }
 }

@@ -1,19 +1,20 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Events;
+namespace Spatie\PersonalDataExport\Events;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\PersonalDataDownload\PersonalData;
+use Spatie\PersonalDataExport\ExportsPersonalData;
+use Spatie\PersonalDataExport\PersonalDataSelection;
 
 class PersonalDataSelected
 {
-    /** @var \Spatie\PersonalDataDownload\PersonalData */
+    /** @var \Spatie\PersonalDataExport\PersonalDataSelection */
     public $personalData;
 
-    /** @var \Illuminate\Database\Eloquent\Model */
+    /** @var \Spatie\PersonalDataExport\ExportsPersonalData */
     public $user;
 
-    public function __construct(PersonalData $personalData, Model $user)
+    public function __construct(PersonalDataSelection $personalData, ExportsPersonalData $user)
     {
         $this->personalData = $personalData;
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Exceptions;
+namespace Spatie\PersonalDataExport\Exceptions;
 
 use Exception;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\PersonalDataExport\ExportsPersonalData;
 
 class InvalidUser extends Exception
 {
-    public static function doesNotHaveSelectPersonalDataMethod(Model $user)
+    public static function doesNotHaveAnEmailProperty(ExportsPersonalData $user)
     {
         $class = get_class($user);
 
-        return new static("Could not create a personal data download for `$class` because it does not have a `selectsPersonalData` method on it");
+        return new static("Could not create a personal data download for `$class` because it does have an email property.");
     }
 }

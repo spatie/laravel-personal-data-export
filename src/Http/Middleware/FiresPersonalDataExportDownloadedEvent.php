@@ -1,13 +1,13 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Http\Middleware;
+namespace Spatie\PersonalDataExport\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Spatie\PersonalDataDownload\Events\PersonalDataHasBeenDownloaded;
+use Spatie\PersonalDataExport\Events\PersonalDataExportDownloaded;
 
-class FiresPersonalDataHasBeenDownloadEvent
+class FiresPersonalDataExportDownloadedEvent
 {
     public function handle(Request $request, Closure $next)
     {
@@ -16,7 +16,7 @@ class FiresPersonalDataHasBeenDownloadEvent
         if ($response->getStatusCode() === Response::HTTP_OK) {
             $zipFilename = $request->zipFilename;
 
-            event(new PersonalDataHasBeenDownloaded($zipFilename, auth()->user()));
+            event(new PersonalDataExportDownloaded($zipFilename, auth()->user()));
         }
 
         return $response;

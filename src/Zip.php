@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\PersonalDataDownload;
+namespace Spatie\PersonalDataExport;
 
 use ZipArchive;
 use Illuminate\Support\Str;
@@ -18,11 +18,11 @@ class Zip
     protected $pathToZip;
 
     public static function createForPersonalData(
-        PersonalData $personalData,
+        PersonalDataSelection $personalDataSelection,
         TemporaryDirectory $temporaryDirectory): self
     {
         $zipFilenameParts = [
-            $personalData->user->id,
+            $personalDataSelection->user->getKey(),
             now()->timestamp,
             Str::random(64),
         ];
@@ -32,7 +32,7 @@ class Zip
         $pathToZip = $temporaryDirectory->path($zipFilename);
 
         return (new static($pathToZip))
-            ->add($personalData->files(), $temporaryDirectory->path())
+            ->add($personalDataSelection->files(), $temporaryDirectory->path())
             ->close();
     }
 
@@ -70,7 +70,7 @@ class Zip
      * @param string|array $files
      * @param string $rootPath
      *
-     * @return \Spatie\PersonalDataDownload\Zip
+     * @return \Spatie\PersonalDataExport\Zip
      */
     public function add($files, $rootPath): self
     {

@@ -1,18 +1,18 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Tests\Tests\Http\Controllers;
+namespace Spatie\PersonalDataExport\Tests\Tests\Http\Controllers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
-use Spatie\PersonalDataDownload\Tests\TestCase;
-use Spatie\PersonalDataDownload\Tests\TestClasses\User;
-use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
-use Spatie\PersonalDataDownload\Events\PersonalDataHasBeenDownloaded;
+use Spatie\PersonalDataExport\Tests\TestCase;
+use Spatie\PersonalDataExport\Tests\TestClasses\User;
+use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
+use Spatie\PersonalDataExport\Events\PersonalDataExportDownloaded;
 
-class PersonalDataDownloadControllerTest extends TestCase
+class PersonalDataExportsControllerTest extends TestCase
 {
     /** @var \Illuminate\Foundation\Auth\User */
     protected $user;
@@ -28,9 +28,9 @@ class PersonalDataDownloadControllerTest extends TestCase
 
         $this->user = factory(User::class)->create();
 
-        $zipFilename = $this->createPersonalDataDownload($this->user);
+        $zipFilename = $this->createPersonalDataExport($this->user);
 
-        $this->downloadUrl = route('personal-data-downloads', $zipFilename);
+        $this->downloadUrl = route('personal-data-exports', $zipFilename);
 
         Mail::fake();
 
@@ -47,7 +47,7 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->get($this->downloadUrl)
             ->assertSuccessful();
 
-        Event::assertDispatched(PersonalDataHasBeenDownloaded::class);
+        Event::assertDispatched(PersonalDataExportDownloaded::class);
     }
 
     /** @test */
@@ -60,7 +60,7 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->get($this->downloadUrl)
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
 
-        Event::assertNotDispatched(PersonalDataHasBeenDownloaded::class);
+        Event::assertNotDispatched(PersonalDataExportDownloaded::class);
     }
 
     /** @test */
@@ -70,19 +70,19 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->get($this->downloadUrl)
             ->assertStatus(Response::HTTP_FORBIDDEN);
 
-        Event::assertNotDispatched(PersonalDataHasBeenDownloaded::class);
+        Event::assertNotDispatched(PersonalDataExportDownloaded::class);
     }
 
     /** @test */
     public function guests_can_download_personal_data_if_the_authentication_is_turned_off()
     {
-        config()->set('personal-data-download.authentication_required', false);
+        config()->set('personal-data-export.authentication_required', false);
 
         $this
             ->get($this->downloadUrl)
             ->assertSuccessful();
 
-        Event::assertDispatched(PersonalDataHasBeenDownloaded::class);
+        Event::assertDispatched(PersonalDataExportDownloaded::class);
     }
 
     /** @test */
@@ -93,12 +93,12 @@ class PersonalDataDownloadControllerTest extends TestCase
             ->get($this->downloadUrl.'invalid')
             ->assertStatus(Response::HTTP_NOT_FOUND);
 
-        Event::assertNotDispatched(PersonalDataHasBeenDownloaded::class);
+        Event::assertNotDispatched(PersonalDataExportDownloaded::class);
     }
 
-    protected function createPersonalDataDownload(User $user): string
+    protected function createPersonalDataExport(User $user): string
     {
-        dispatch(new CreatePersonalDataDownloadJob($user));
+        dispatch(new CreatePersonalDataExportJob($user));
 
         $allFiles = Storage::disk($this->diskName)->allFiles();
 

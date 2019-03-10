@@ -1,14 +1,14 @@
 {
-    "name": "spatie/laravel-personal-data-download",
+    "name": "spatie/laravel-personal-data-export",
     "description": "Create personal data downloads in a Laravel app",
     "keywords": [
         "spatie",
-        "personal-data-download",
+        "personal-data-export",
         "zip",
         "gdpr",
         "personal"
     ],
-    "homepage": "https://github.com/spatie/personal-data-download",
+    "homepage": "https://github.com/spatie/laravel-personal-data-export",
     "license": "MIT",
     "authors": [
         {
@@ -32,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\PersonalDataDownload\\": "src"
+            "Spatie\\PersonalDataExport\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\PersonalDataDownload\\Tests\\": "tests"
+            "Spatie\\PersonalDataExport\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -51,7 +51,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\PersonalDataDownload\\PersonalDataDownloadServiceProvider"
+                "Spatie\\PersonalDataExport\\PersonalDataExportServiceProvider"
             ]
         }
     }

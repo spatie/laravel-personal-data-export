@@ -1,15 +1,15 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Tests\Tests\Commands;
+namespace Spatie\PersonalDataExport\Tests\Tests\Commands;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataDownload\Tests\TestCase;
-use Spatie\PersonalDataDownload\Tests\TestClasses\User;
-use Spatie\PersonalDataDownload\Jobs\CreatePersonalDataDownloadJob;
+use Spatie\PersonalDataExport\Tests\TestCase;
+use Spatie\PersonalDataExport\Tests\TestClasses\User;
+use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 
-class DeleteOldPersonalDataDownloadsCommandTest extends TestCase
+class DeleteOldPersonalDataExportsCommandTest extends TestCase
 {
     /** @var \Illuminate\Contracts\Filesystem\Filesystem */
     protected $disk;
@@ -28,17 +28,17 @@ class DeleteOldPersonalDataDownloadsCommandTest extends TestCase
     /** @test */
     public function it_will_delete_zips_that_are_older_than_the_configured_amount_of_days()
     {
-        $zipFile = $this->createPersonalDataDownload();
+        $zipFile = $this->createPersonalDataExport();
 
-        $this->artisan('personal-data-download:clean')->assertExitCode(0);
+        $this->artisan('personal-data-export:clean')->assertExitCode(0);
         $this->assertTrue($this->disk->exists($zipFile));
 
-        $this->progressDays(config('personal-data-download.delete_after_days'));
-        $this->artisan('personal-data-download:clean')->assertExitCode(0);
+        $this->progressDays(config('personal-data-export.delete_after_days'));
+        $this->artisan('personal-data-export:clean')->assertExitCode(0);
         $this->assertTrue($this->disk->exists($zipFile));
 
         $this->progressDays(1);
-        $this->artisan('personal-data-download:clean')->assertExitCode(0);
+        $this->artisan('personal-data-export:clean')->assertExitCode(0);
         $this->assertFalse($this->disk->exists($zipFile));
     }
 
@@ -47,19 +47,19 @@ class DeleteOldPersonalDataDownloadsCommandTest extends TestCase
     {
         $this->disk->put('my-file', 'my contents');
 
-        $this->artisan('personal-data-download:clean')->assertExitCode(0);
+        $this->artisan('personal-data-export:clean')->assertExitCode(0);
         $this->assertTrue($this->disk->exists('my-file'));
 
         $this->progressDays(100);
-        $this->artisan('personal-data-download:clean')->assertExitCode(0);
+        $this->artisan('personal-data-export:clean')->assertExitCode(0);
         $this->assertTrue($this->disk->exists('my-file'));
     }
 
-    protected function createPersonalDataDownload(): string
+    protected function createPersonalDataExport(): string
     {
         $user = factory(User::class)->create();
 
-        dispatch(new CreatePersonalDataDownloadJob($user));
+        dispatch(new CreatePersonalDataExportJob($user));
 
         $allFiles = Storage::disk($this->diskName)->allFiles();
 

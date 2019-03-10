@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Commands;
+namespace Spatie\PersonalDataExport\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -8,9 +8,9 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
-class CleanOldPersonalDataDownloadsCommand extends Command
+class CleanOldPersonalDataExportsCommand extends Command
 {
-    protected $signature = 'personal-data-download:clean';
+    protected $signature = 'personal-data-export:clean';
 
     protected $description = 'Remove old personal downloads';
 
@@ -31,7 +31,7 @@ class CleanOldPersonalDataDownloadsCommand extends Command
 
                 $dateCreated = Carbon::createFromTimestamp($zipFilenameParts[1]);
 
-                $threshold = now()->subDays(config('personal-data-download.delete_after_days'));
+                $threshold = now()->subDays(config('personal-data-export.delete_after_days'));
 
                 return $dateCreated->isBefore($threshold);
             })
@@ -45,6 +45,6 @@ class CleanOldPersonalDataDownloadsCommand extends Command
 
     protected function getDisk(): Filesystem
     {
-        return Storage::disk(config('personal-data-download.disk'));
+        return Storage::disk(config('personal-data-export.disk'));
     }
 }

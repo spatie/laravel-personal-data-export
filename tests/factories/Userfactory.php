@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use Spatie\PersonalDataDownload\Tests\TestClasses\User;
+use Spatie\PersonalDataExport\Tests\TestClasses\User;
 
 $factory->define(User::class, function (Faker $faker) {
     return [

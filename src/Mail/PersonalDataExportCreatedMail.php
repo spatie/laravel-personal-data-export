@@ -1,10 +1,10 @@
 <?php
 
-namespace Spatie\PersonalDataDownload\Mail;
+namespace Spatie\PersonalDataExport\Mail;
 
 use Illuminate\Mail\Mailable;
 
-class PersonalDataDownloadCreatedMail extends Mailable
+class PersonalDataExportCreatedMail extends Mailable
 {
     /** @var string */
     public $zipFilename;
@@ -13,7 +13,7 @@ class PersonalDataDownloadCreatedMail extends Mailable
     public $deletionDatetime;
 
     /**
-     * PersonalDataDownloadCreatedMail constructor.
+     * PersonalDataExportCreatedMail constructor.
      *
      * @param string $zipFilename
      */
@@ -21,11 +21,11 @@ class PersonalDataDownloadCreatedMail extends Mailable
     {
         $this->zipFilename = $zipFilename;
 
-        $this->deletionDatetime = now()->addDays(config('personal-data-download.delete_after_days'));
+        $this->deletionDatetime = now()->addDays(config('personal-data-export.delete_after_days'));
     }
 
     public function build()
     {
-        return $this->markdown('personal-data-download::mail');
+        return $this->markdown('personal-data-export::mail');
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Spatie\PersonalDataDownload;
+namespace Spatie\PersonalDataExport;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
-use Spatie\PersonalDataDownload\Exceptions\CouldNotAddToPersonalData;
+use Spatie\PersonalDataExport\Exceptions\CouldNotAddToPersonalDataSelection;
 
-class PersonalData
+class PersonalDataSelection
 {
     /** @var \Spatie\TemporaryDirectory\TemporaryDirectory */
     protected $temporaryDirectory;
@@ -29,7 +29,7 @@ class PersonalData
         return $this->files;
     }
 
-    public function forUser(Model $user)
+    public function forUser(ExportsPersonalData $user)
     {
         $this->user = $user;
 
@@ -93,7 +93,7 @@ class PersonalData
     protected function ensureDoesNotOverwriteExistingFile(string $path)
     {
         if (file_exists($path)) {
-            throw CouldNotAddToPersonalData::fileAlreadyAddedToPersonalData($path);
+            throw CouldNotAddToPersonalDataSelection::fileAlreadyAddedToPersonalDataSelection($path);
         }
     }
 }
