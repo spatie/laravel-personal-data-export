@@ -2,7 +2,6 @@
 
 namespace Spatie\PersonalDataExport\Events;
 
-use Illuminate\Database\Eloquent\Model;
 use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\PersonalDataSelection;
 
