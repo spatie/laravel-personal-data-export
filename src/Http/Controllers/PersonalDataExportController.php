@@ -40,7 +40,7 @@ class PersonalDataExportController
             abort(404);
         }
 
-        $downloadFilename = $this->getDownloadFilename($filename);
+        $downloadFilename = auth()->user()->personalDataExportName();
 
         $downloadHeaders = [
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
@@ -59,18 +59,5 @@ class PersonalDataExportController
                 fclose($stream);
             }
         }, 200, $downloadHeaders);
-    }
-
-    protected function getDownloadFilename(string $filename): string
-    {
-        if (! $user = auth()->user()) {
-            return $filename;
-        }
-
-        if (! method_exists($user, 'getPersonalDataExportName')) {
-            return $filename;
-        }
-
-        return $user->getPersonalDataExportName($filename);
     }
 }
