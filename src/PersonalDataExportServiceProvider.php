@@ -24,7 +24,7 @@ class PersonalDataExportServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'personal-data-export');
 
-        Route::macro('PersonalDataExports', function (string $url) {
+        Route::macro('personalDataExports', function (string $url) {
             Route::get("$url/{zipFilename}", PersonalDataExportController::class)
                 ->name('personal-data-exports')
                 ->middleware(FiresPersonalDataExportDownloadedEvent::class);
