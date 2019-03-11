@@ -3,10 +3,10 @@
 namespace Spatie\PersonalDataExport\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Spatie\PersonalDataExport\Http\Responses\ZipDownloadResponse;
 use Spatie\PersonalDataExport\Http\Middleware\EnsureAuthorizedToDownload;
 use Spatie\PersonalDataExport\Http\Middleware\FiresPersonalDataExportDownloadedEvent;
-use Spatie\PersonalDataExport\Http\Responses\ZipDownloadResponse;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PersonalDataExportController extends Controller
 {

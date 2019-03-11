@@ -24,7 +24,7 @@ class ZipDownloadResponse extends StreamedResponse
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Content-Type' => 'application/zip',
             'Content-Length' => $disk->size($filename),
-            'Content-Disposition' => 'attachment; filename="' . $downloadFilename . '"',
+            'Content-Disposition' => 'attachment; filename="'.$downloadFilename.'"',
             'Pragma' => 'public',
         ];
 
