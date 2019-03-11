@@ -20,6 +20,7 @@
     ],
     "require": {
         "php": "^7.2",
+        "ext-zip" : "*",
         "illuminate/filesystem": "^5.8.3",
         "illuminate/queue": "^5.8.3",
         "illuminate/support": "^5.8.3",
