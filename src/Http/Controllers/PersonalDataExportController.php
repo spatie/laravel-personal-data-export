@@ -2,34 +2,23 @@
 
 namespace Spatie\PersonalDataExport\Http\Controllers;
 
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\Response;
+use Spatie\PersonalDataExport\Http\Middleware\EnsureAuthorizedToDownload;
+use Spatie\PersonalDataExport\Http\Middleware\FiresPersonalDataExportDownloadedEvent;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class PersonalDataExportController
+class PersonalDataExportController extends Controller
 {
-    public function __invoke(string $zipFilename): StreamedResponse
+    public function __construct()
     {
-        $this->ensureAuthorizedToDownload($zipFilename);
-
-        return $this->responseStream($zipFilename);
+        $this->middleware(EnsureAuthorizedToDownload::class);
+        $this->middleware(FiresPersonalDataExportDownloadedEvent::class);
     }
 
-    protected function ensureAuthorizedToDownload(string $zipFilename)
+    public function __invoke(string $zipFilename): StreamedResponse
     {
-        if (! config('personal-data-export.authentication_required')) {
-            return;
-        }
-
-        if (! auth()->user()) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
-
-        [$owningUserId] = explode('-', $zipFilename);
-
-        if ($owningUserId != auth()->user()->id) {
-            abort(Response::HTTP_UNAUTHORIZED);
-        }
+        return $this->responseStream($zipFilename);
     }
 
     protected function responseStream(string $filename): StreamedResponse
@@ -48,7 +37,7 @@ class PersonalDataExportController
             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
             'Content-Type' => 'application/zip',
             'Content-Length' => $disk->size($filename),
-            'Content-Disposition' => 'attachment; filename="'.$downloadFilename.'"',
+            'Content-Disposition' => 'attachment; filename="' . $downloadFilename . '"',
             'Pragma' => 'public',
         ];
 
