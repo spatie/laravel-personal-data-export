@@ -53,7 +53,7 @@ You need to use this macro in your routes file. It 'll register a route where us
 Route::PersonalDataExports('personal-data-exports');
 ```
 
-You must add a disk named `personal-data-exports` to `config/filesystems` (the name of the disk can be configured in `config/personal-data-export`. You can use any driver that you want. We recommend that your disk is not publicly accessible. If you're using the `local` driver, make sure you use a path that is not inside the public path of your app.
+You must add a disk named `personal-data-exports` to `config/filesystems` (the name of the disk can be configured in `config/personal-data-export`). You can use any driver that you want. We recommend that your disk is not publicly accessible. If you're using the `local` driver, make sure you use a path that is not inside the public path of your app.
 
 ```php
 // in config/filesystems.php
