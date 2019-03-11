@@ -232,7 +232,7 @@ This event will be fired after the personal data zip has been created. It has tw
 - `$zipFilename`: the name of the zip filename.
 - `$user`: the user for which this zip has been created.
 
-### PersonalDataExportDownloaded
+#### PersonalDataExportDownloaded
 
 This event will be fired after the export has been download. It has two public properties:
 - `$zipFilename`: the name of the zip filename.
