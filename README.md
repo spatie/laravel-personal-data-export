@@ -119,7 +119,7 @@ return [
 Optionally you can publish the view used by the mail with:
 
 ```php
-php artisan vendor:publish --provider="EventSauce\LaravelEventSauce\EventSauceServiceProvider" --tag="views"
+php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="views"
 ```
 
 This will create a file under `views/vendor/laravel-personal-data-export/mail.blade.php` that you can customize.
