@@ -240,7 +240,7 @@ This event will be fired after the export has been download. It has two public p
 
 You could use this event to immediately clean up the downloaded zip.
 
-### Testing
+## Testing
 
 You can run all tests by issuing this command:
 
@@ -248,7 +248,7 @@ You can run all tests by issuing this command:
 composer test
 ```
 
-### Changelog
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
@@ -256,7 +256,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-### Security
+## Security
 
 If you discover any security related issues, please email freek@spatie.be instead of using the issue tracker.
 
