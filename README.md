@@ -6,7 +6,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-personal-data-export.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-personal-data-export)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-personal-data-export.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-personal-data-export)
 
-This package makes it easy to let a user download an export containing all personal data. Such an export consists of a zip file containing all user properties and related info.
+This package makes it easy to let a user download an export containing all the personal data. Such an export consists of a zip file containing all the user properties and related info.
 
 You can create and mail such a zip by dispatching the `CreatePersonalDataExportJob` job:
 
@@ -20,7 +20,7 @@ use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 dispatch(new CreatePersonalDataExportJob(auth()->user());
 ```
 
-The package will create a zip containing all personal data. When the zip has been created a link to it will be mailed to the user. By default, the zips are saved in a non-public location, and the user should be logged in to be able to download the zip.
+The package will create a zip containing all the personal data. When the zip has been created, a link to it will be mailed to the user. By default, the zips are saved in a non-public location, and the user should be logged in to be able to download the zip.
 
 You can configure which data will will be exported in the `selectPersonalData` method on the `user`.
 
@@ -45,7 +45,7 @@ You can install the package via composer:
 composer require spatie/laravel-personal-data-export
 ```
 
-You need to use this macro in your routes file. It 'll register a route where users can download their personal data exports.
+You need to use this macro in your routes file. It'll register a route where users can download their personal data exports.
 
 ```php
 // in your routes file
@@ -81,7 +81,7 @@ protected function schedule(Schedule $schedule)
 }
 ```
 
-Optionally you can publish the config file with:
+Optionally, you can publish the config file with:
 
 ```php
 php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="config"
@@ -102,7 +102,7 @@ return [
     'delete_after_days' => 5,
 
     /*
-     * Determines wheter the user should be logged in to be able
+     * Determines whether the user should be logged in to be able
      * to access the export.
      */
     'authentication_required' => true,
@@ -116,7 +116,7 @@ return [
 
 ```
 
-Optionally you can publish the view used by the mail with:
+Optionally, you can publish the view used by the mail with:
 
 ```php
 php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="views"
@@ -141,7 +141,7 @@ interface ExportsPersonalData
 }
 ```
 
-The `selectPersonalData` is used to determine the content of the personal download. Here's an example implmentation:
+The `selectPersonalData` is used to determine the content of the personal download. Here's an example implementation:
 
 ```php
 // in your user model
