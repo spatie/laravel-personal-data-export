@@ -7,10 +7,10 @@ use Spatie\PersonalDataExport\ExportsPersonalData;
 class PersonalDataExportDownloaded
 {
     /** @var string */
-    protected $zipFilename;
+    public $zipFilename;
 
     /** @var \Spatie\PersonalDataExport\ExportsPersonalData|null */
-    protected $user;
+    public $user;
 
     public function __construct(string $zipFilename, ?ExportsPersonalData $user)
     {
