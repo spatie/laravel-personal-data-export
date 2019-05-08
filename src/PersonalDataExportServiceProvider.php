@@ -5,7 +5,6 @@ namespace Spatie\PersonalDataExport;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Spatie\PersonalDataExport\Commands\CleanOldPersonalDataExportsCommand;
-use Spatie\PersonalDataExport\Http\Controllers\PersonalDataExportController;
 
 class PersonalDataExportServiceProvider extends ServiceProvider
 {
