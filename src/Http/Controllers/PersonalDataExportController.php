@@ -16,7 +16,7 @@ class PersonalDataExportController extends Controller
         $this->middleware(FiresPersonalDataExportDownloadedEvent::class);
     }
 
-    public function __invoke(string $zipFilename): StreamedResponse
+    public function export(string $zipFilename): StreamedResponse
     {
         return new ZipDownloadResponse($zipFilename);
     }
