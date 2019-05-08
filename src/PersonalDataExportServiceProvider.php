@@ -23,7 +23,7 @@ class PersonalDataExportServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'personal-data-export');
 
         Route::macro('personalDataExports', function (string $url) {
-            Route::get("$url/{zipFilename}", 'Spatie\PersonalDataExport\Http\Controllers\PersonalDataExportController@export')
+            Route::get("$url/{zipFilename}", '\Spatie\PersonalDataExport\Http\Controllers\PersonalDataExportController@export')
                 ->name('personal-data-exports');
         });
 
