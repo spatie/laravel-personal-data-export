@@ -8,6 +8,7 @@ use PHPUnit\Framework\Assert;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
@@ -31,6 +32,9 @@ class TestCase extends Orchestra
         Carbon::setTestNow(Carbon::createFromFormat('Y-m-d H:i:s', '2019-01-01 00:00:00'));
 
         $this->diskName = config('personal-data-export.disk');
+
+        $userDisk = Storage::fake('user-disk');
+        $userDisk->put('thumbnail.png', 'my content');
     }
 
     protected function setUpDatabase(Application $app)

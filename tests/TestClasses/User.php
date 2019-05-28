@@ -13,6 +13,7 @@ class User extends BaseUser implements ExportsPersonalData
     {
         $personalData
             ->addFile(__DIR__.'/../stubs/avatar.png')
+            ->addFile('thumbnail.png', 'user-disk')
             ->add('attributes.json', $this->attributesToArray());
     }
 
