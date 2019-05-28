@@ -2,13 +2,13 @@
 
 namespace Spatie\PersonalDataExport\Tests;
 
-use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use Carbon\Carbon;
 use PHPUnit\Framework\Assert;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
