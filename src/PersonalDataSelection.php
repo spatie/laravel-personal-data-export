@@ -86,6 +86,8 @@ class PersonalDataSelection
 
         file_put_contents($pathInTemporaryDirectory, stream_get_contents($stream), FILE_APPEND);
 
+        $this->files[] = $pathInTemporaryDirectory;
+
         return $this;
     }
 

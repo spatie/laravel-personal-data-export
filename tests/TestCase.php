@@ -2,6 +2,7 @@
 
 namespace Spatie\PersonalDataExport\Tests;
 
+use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use Carbon\Carbon;
 use PHPUnit\Framework\Assert;
@@ -31,6 +32,9 @@ class TestCase extends Orchestra
         Carbon::setTestNow(Carbon::createFromFormat('Y-m-d H:i:s', '2019-01-01 00:00:00'));
 
         $this->diskName = config('personal-data-export.disk');
+
+        $userDisk = Storage::fake('user-disk');
+        $userDisk->put('thumbnail.png', 'my content');
     }
 
     protected function setUpDatabase(Application $app)
