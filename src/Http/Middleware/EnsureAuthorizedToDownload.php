@@ -20,7 +20,7 @@ class EnsureAuthorizedToDownload
 
         $zipFilename = $request->route('zipFilename');
 
-        [$owningUserId] = explode('-', $zipFilename);
+        [$owningUserId] = explode('_', $zipFilename);
 
         if ($owningUserId != auth()->user()->id) {
             abort(Response::HTTP_UNAUTHORIZED);
