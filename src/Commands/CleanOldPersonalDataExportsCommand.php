@@ -23,7 +23,7 @@ class CleanOldPersonalDataExportsCommand extends Command
                 return Str::endsWith($zipFilename, '.zip');
             })
             ->filter(function (string $zipFilename) {
-                $zipFilenameParts = explode('-', $zipFilename);
+                $zipFilenameParts = explode('_', $zipFilename);
 
                 if (! isset($zipFilenameParts[1])) {
                     return false;
