@@ -2,6 +2,10 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 1.0.4 - 2019-06-03
+
+- add uuid compatibility
+
 ## 1.0.3 - 2019-05-28
 
 - fix issue where using files using with disk parameter was not included in final zip
