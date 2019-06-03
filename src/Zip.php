@@ -27,7 +27,7 @@ class Zip
             Str::random(64),
         ];
 
-        $zipFilename = implode('-', $zipFilenameParts).'.zip';
+        $zipFilename = implode('_', $zipFilenameParts).'.zip';
 
         $pathToZip = $temporaryDirectory->path($zipFilename);
 
