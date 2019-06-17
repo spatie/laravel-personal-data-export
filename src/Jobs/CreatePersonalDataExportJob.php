@@ -30,9 +30,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
     {
         $temporaryDirectory = (new TemporaryDirectory())->create();
 
-        $personalDataSelection = (new PersonalDataSelection($temporaryDirectory))->forUser($this->user);
-
-        $this->user->selectPersonalData($personalDataSelection);
+        $personalDataSelection = $this->selectPersonalData($temporaryDirectory);
 
         event(new PersonalDataSelected($personalDataSelection, $this->user));
 
@@ -47,7 +45,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
 
     protected function selectPersonalData(TemporaryDirectory $temporaryDirectory): PersonalDataSelection
     {
-        $personalData = new PersonalDataSelection($temporaryDirectory);
+        $personalData = (new PersonalDataSelection($temporaryDirectory))->forUser($this->user);
 
         $this->user->selectPersonalData($personalData);
 
