@@ -44,7 +44,7 @@ class PersonalDataSelection
     public function add(string $nameInDownload, $content)
     {
         if (! is_string($content)) {
-            $content = json_encode($content);
+            $content = json_encode($content, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
 
         $path = $this->temporaryDirectory->path($nameInDownload);

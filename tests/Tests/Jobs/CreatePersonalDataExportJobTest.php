@@ -41,7 +41,7 @@ class CreatePersonalDataExportJobTest extends TestCase
         $this->assertCount(1, $allFiles);
 
         $zipPath = $this->getFullPath($this->diskName, $allFiles[0]);
-        $this->assertZipContains($zipPath, 'attributes.json', json_encode($user->attributesToArray()));
+        $this->assertZipContains($zipPath, 'attributes.json', json_encode($user->attributesToArray(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
         $this->assertZipContains($zipPath, 'avatar.png');
         $this->assertZipContains($zipPath, 'thumbnail.png');
 

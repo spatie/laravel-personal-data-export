@@ -38,7 +38,7 @@ class PersonalDataSelectionTest extends TestCase
     {
         $this->personalDataSelection->add('my-content.txt', ['key' => 'value']);
 
-        $this->assertFileContents($this->temporaryDirectory->path('my-content.txt'), json_encode(['key' => 'value']));
+        $this->assertFileContents($this->temporaryDirectory->path('my-content.txt'), json_encode(['key' => 'value'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
     }
 
     /** @test */
