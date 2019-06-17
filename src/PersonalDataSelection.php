@@ -38,6 +38,8 @@ class PersonalDataSelection
     /**
      * @param string $nameInDownload
      * @param array|string $content
+     *
+     * @return \Spatie\PersonalDataExport\PersonalDataSelection
      */
     public function add(string $nameInDownload, $content)
     {
@@ -52,6 +54,8 @@ class PersonalDataSelection
         $this->files[] = $path;
 
         file_put_contents($path, $content);
+
+        return $this;
     }
 
     public function addFile(string $pathToFile, string $diskName = null)
