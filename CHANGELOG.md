@@ -2,6 +2,11 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 1.1.0 - 2019-06-15
+
+- made API fluent
+- readme corrections
+
 ## 1.0.4 - 2019-06-03
 
 - add uuid compatibility
