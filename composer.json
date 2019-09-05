@@ -21,14 +21,14 @@
     "require": {
         "php": "^7.2",
         "ext-zip" : "*",
-        "illuminate/filesystem": "^5.8.3",
-        "illuminate/queue": "^5.8.3",
-        "illuminate/support": "^5.8.3",
+        "illuminate/filesystem": "^5.8.3|6.0",
+        "illuminate/queue": "^5.8.3|6.0",
+        "illuminate/support": "^5.8.3|6.0",
         "nesbot/carbon": "^2.14",
         "spatie/temporary-directory": "^1.1"
     },
     "require-dev": {
-        "orchestra/testbench": "^3.8",
+        "orchestra/testbench": "^4.0",
         "scrutinizer/ocular": "^1.5"
     },
     "autoload": {
