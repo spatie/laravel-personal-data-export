@@ -2,6 +2,10 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 1.2.0 - 2019-09-05
+
+- support Laravel 6
+
 ## 1.1.1 - 2019-07-01
 
 - format exported JSON
