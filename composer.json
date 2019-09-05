@@ -28,7 +28,7 @@
         "spatie/temporary-directory": "^1.1"
     },
     "require-dev": {
-        "orchestra/testbench": "^3.8",
+        "orchestra/testbench": "^4.0",
         "scrutinizer/ocular": "^1.5"
     },
     "autoload": {
