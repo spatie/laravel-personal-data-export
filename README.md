@@ -149,7 +149,7 @@ The `selectPersonalData` is used to determine the content of the personal downlo
 public function selectPersonalData(PersonalDataSelection $personalData): void {
     $personalData
         ->add('user.json', ['name' => $this->name, 'email' => $this->email])
-        ->addFile(storage_path("avatars/{$this->id}.jpg");
+        ->addFile(storage_path("avatars/{$this->id}.jpg"))
         ->addFile('other-user-data.xml', 's3');
 }
 ```
