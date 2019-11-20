@@ -164,7 +164,7 @@ The name of the export itself can be set using the `personalDataExportName` on t
 ```php
 // on your user
 
-public function personalDataExportName(string $realFilename): string {
+public function personalDataExportName(): string {
     $userName = Str::slug($this->name);
 
     return "personal-data-{$userName}.zip";
