@@ -2,8 +2,8 @@
 
 namespace Spatie\PersonalDataExport\Tests\TestClasses;
 
-use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as BaseUser;
+use Illuminate\Support\Str;
 use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\PersonalDataSelection;
 

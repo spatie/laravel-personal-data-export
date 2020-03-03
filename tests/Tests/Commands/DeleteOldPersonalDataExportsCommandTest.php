@@ -5,9 +5,9 @@ namespace Spatie\PersonalDataExport\Tests\Tests\Commands;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
-use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 
 class DeleteOldPersonalDataExportsCommandTest extends TestCase
 {

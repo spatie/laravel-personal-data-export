@@ -3,14 +3,14 @@
 namespace Spatie\PersonalDataExport\Tests\Tests\Http\Controllers;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Spatie\PersonalDataExport\Tests\TestCase;
-use Symfony\Component\HttpFoundation\Response;
-use Spatie\PersonalDataExport\Tests\TestClasses\User;
-use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 use Spatie\PersonalDataExport\Events\PersonalDataExportDownloaded;
+use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
+use Spatie\PersonalDataExport\Tests\TestCase;
+use Spatie\PersonalDataExport\Tests\TestClasses\User;
+use Symfony\Component\HttpFoundation\Response;
 
 class PersonalDataExportsControllerTest extends TestCase
 {
