@@ -19,7 +19,7 @@ class User extends BaseUser implements ExportsPersonalData
 
     public function personalDataExportName(): string
     {
-        $usernameSlug = Str::slug($this->name);
+        $usernameSlug = Str::slug($this->username);
 
         return "personal-data-{$usernameSlug}.zip";
     }
