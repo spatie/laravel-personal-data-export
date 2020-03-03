@@ -26,7 +26,6 @@
         "illuminate/filesystem": "^5.8.36|^6.0|^7.0",
         "illuminate/queue": "^5.8.36|^6.0|^7.0",
         "illuminate/support": "^5.8.36|^6.0|^7.0",
-        "egulias/email-validator": "^2.1.10",
         "nesbot/carbon": "^2.14",
         "spatie/temporary-directory": "^1.1"
     },
