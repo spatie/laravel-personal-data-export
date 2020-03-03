@@ -2,17 +2,17 @@
 
 namespace Spatie\PersonalDataExport\Tests;
 
-use ZipArchive;
 use Carbon\Carbon;
-use PHPUnit\Framework\Assert;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
+use PHPUnit\Framework\Assert;
 use Spatie\PersonalDataExport\PersonalDataExportServiceProvider;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
+use ZipArchive;
 
 class TestCase extends Orchestra
 {

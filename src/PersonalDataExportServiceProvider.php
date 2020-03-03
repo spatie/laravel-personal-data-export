@@ -28,7 +28,7 @@ class PersonalDataExportServiceProvider extends ServiceProvider
         });
 
         $this->commands([
-           CleanOldPersonalDataExportsCommand::class,
+            CleanOldPersonalDataExportsCommand::class,
         ]);
     }
 
