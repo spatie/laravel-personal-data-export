@@ -2,9 +2,9 @@
 
 namespace Spatie\PersonalDataExport;
 
-use ZipArchive;
 use Illuminate\Support\Str;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+use ZipArchive;
 
 class Zip
 {

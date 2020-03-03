@@ -2,17 +2,17 @@
 
 namespace Spatie\PersonalDataExport\Jobs;
 
-use Spatie\PersonalDataExport\Zip;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
+use Spatie\PersonalDataExport\Events\PersonalDataSelected;
+use Spatie\PersonalDataExport\Exceptions\InvalidUser;
 use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\PersonalDataSelection;
-use Spatie\PersonalDataExport\Exceptions\InvalidUser;
-use Spatie\PersonalDataExport\Events\PersonalDataSelected;
-use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
+use Spatie\PersonalDataExport\Zip;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class CreatePersonalDataExportJob implements ShouldQueue
 {

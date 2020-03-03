@@ -4,8 +4,8 @@ namespace Spatie\PersonalDataExport\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Spatie\PersonalDataExport\Events\PersonalDataExportDownloaded;
+use Symfony\Component\HttpFoundation\Response;
 
 class FiresPersonalDataExportDownloadedEvent
 {

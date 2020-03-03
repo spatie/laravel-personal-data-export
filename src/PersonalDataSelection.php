@@ -4,8 +4,8 @@ namespace Spatie\PersonalDataExport;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Spatie\PersonalDataExport\Exceptions\CouldNotAddToPersonalDataSelection;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class PersonalDataSelection
 {
