@@ -188,7 +188,7 @@ use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 
 // ...
 
-dispatch(new CreatePersonalDataExportJob(auth()->user());
+dispatch(new CreatePersonalDataExportJob(auth()->user()));
 ```
 
 By default, this job is queued. It will copy all files and content you selected in the `selectPersonalData` on your user to a temporary directory. Next, that temporary directory will be zipped and copied over to the `personal-data-exports` disk. A link to this zip will be mailed to the user. 
