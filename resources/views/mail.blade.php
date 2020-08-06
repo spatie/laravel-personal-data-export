@@ -3,7 +3,7 @@
 
 You can now download a zip file containing all data we got for your account!
 
-@component('mail::button', ['url' => route('personal-data-exports', $zipFilename)])
+@component('mail::button', ['url' => \Illuminate\Support\Facades\URL::temporarySignedRoute('personal-data-exports', $deletionDatetime, ['zipFilename' => $zipFilename])])
 Download zip file
 @endcomponent
 

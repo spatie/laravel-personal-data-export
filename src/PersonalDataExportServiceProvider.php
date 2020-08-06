@@ -5,6 +5,7 @@ namespace Spatie\PersonalDataExport;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Spatie\PersonalDataExport\Commands\CleanOldPersonalDataExportsCommand;
+use Spatie\PersonalDataExport\Http\Controllers\PersonalDataExportController;
 
 class PersonalDataExportServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,8 @@ class PersonalDataExportServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'personal-data-export');
 
         Route::macro('personalDataExports', function (string $url) {
-            Route::get("$url/{zipFilename}", '\Spatie\PersonalDataExport\Http\Controllers\PersonalDataExportController@export')
+            Route::get("$url/{zipFilename}", '\\'.PersonalDataExportController::class.'@export')
+                ->middleware('signed')
                 ->name('personal-data-exports');
         });
 
