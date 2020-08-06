@@ -22,4 +22,13 @@ return [
      * has been created.
      */
     'mailable' => \Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail::class,
+
+    /*
+     * Configure the queue and connection used by `CreatePersonalDataExportJob` 
+     * which will create the export.
+     */
+    'job' => [
+        'queue' => null,
+        'connection' => null,
+    ],
 ];

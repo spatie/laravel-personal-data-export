@@ -2,6 +2,10 @@
 
 namespace Spatie\PersonalDataExport\Jobs;
 
+use Illuminate\Bus\Queueable;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
@@ -16,6 +20,8 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class CreatePersonalDataExportJob implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /** @var \Spatie\PersonalDataExport\ExportsPersonalData */
     protected $user;
 
@@ -24,6 +30,10 @@ class CreatePersonalDataExportJob implements ShouldQueue
         $this->ensureValidUser($user);
 
         $this->user = $user;
+
+        $this->queue = config('personal-data-export.job.queue');
+        
+        $this->connection = config('personal-data-export.job.connection');
     }
 
     public function handle()
