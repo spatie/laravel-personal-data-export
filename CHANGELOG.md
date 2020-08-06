@@ -2,6 +2,10 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 1.3.1 - 2020-08-08
+
+- use default traits in job and allow to configure the job connection and queue (#42)
+
 ## 1.3.0 - 2020-03-03
 
 - support Laravel 7
