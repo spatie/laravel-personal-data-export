@@ -18,6 +18,13 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
 use Spatie\PersonalDataExport\Zip;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
+/**
+ * @method static \Illuminate\Foundation\Bus\PendingDispatch dispatch(\Spatie\PersonalDataExport\ExportsPersonalData $user)
+ * @method static \Illuminate\Foundation\Bus\PendingDispatch|\Illuminate\Support\Fluent dispatchIf(bool $condition, \Spatie\PersonalDataExport\ExportsPersonalData $user)
+ * @method static \Illuminate\Foundation\Bus\PendingDispatch|\Illuminate\Support\Fluent dispatchUnless(bool $condition, \Spatie\PersonalDataExport\ExportsPersonalData $user)
+ * @method static mixed dispatchNow(\Spatie\PersonalDataExport\ExportsPersonalData $user)
+ * @method static void dispatchAfterResponse(\Spatie\PersonalDataExport\ExportsPersonalData $user)
+ */
 class CreatePersonalDataExportJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
