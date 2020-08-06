@@ -32,6 +32,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
         $this->user = $user;
 
         $this->queue = config('personal-data-export.job.queue');
+        
         $this->connection = config('personal-data-export.job.connection');
     }
 
