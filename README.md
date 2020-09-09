@@ -2,8 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-personal-data-export.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-personal-data-export)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-personal-data-export/run-tests?label=tests)
-[![StyleCI](https://github.styleci.io/repos/174338628/shield?branch=master)](https://github.styleci.io/repos/174338628)
-[![Quality Score](https://img.shields.io/scrutinizer/g/spatie/laravel-personal-data-export.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/laravel-personal-data-export)
+![Check & fix styling](https://github.com/spatie/laravel-personal-data-export/workflows/Check%20&%20fix%20styling/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-personal-data-export.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-personal-data-export)
 
 This package makes it easy to let a user download an export containing all the personal data. Such an export consists of a zip file containing all the user properties and related info.
