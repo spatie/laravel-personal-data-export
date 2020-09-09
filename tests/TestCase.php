@@ -87,7 +87,7 @@ class TestCase extends Orchestra
 
         $actualContents = file_get_contents($expectedZipFilePath);
 
-        Assert::assertEquals($expectedContents, $actualContents);
+        Assert::assertEquals(json_decode($expectedContents, true), json_decode($actualContents, true));
     }
 
     protected function progressDays(int $amountOfDays)
