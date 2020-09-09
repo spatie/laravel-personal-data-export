@@ -19,7 +19,8 @@ class Zip
 
     public static function createForPersonalData(
         PersonalDataSelection $personalDataSelection,
-        TemporaryDirectory $temporaryDirectory): self
+        TemporaryDirectory $temporaryDirectory
+    ): self
     {
         $zipFilenameParts = [
             $personalDataSelection->user->getKey(),

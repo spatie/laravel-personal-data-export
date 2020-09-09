@@ -3,11 +3,11 @@
 namespace Spatie\PersonalDataExport\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
