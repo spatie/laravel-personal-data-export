@@ -20,8 +20,7 @@ class Zip
     public static function createForPersonalData(
         PersonalDataSelection $personalDataSelection,
         TemporaryDirectory $temporaryDirectory
-    ): self
-    {
+    ): self {
         $zipFilenameParts = [
             $personalDataSelection->user->getKey(),
             now()->timestamp,
