@@ -18,10 +18,10 @@ return [
     'authentication_required' => true,
 
     /*
-     * The mailable which will be sent to the user when the export
+     * The notification which will be sent to the user when the export
      * has been created.
      */
-    'mailable' => \Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail::class,
+    'notification' => \Spatie\PersonalDataExport\Notifications\PersonalDataExported::class,
 
     /*
      * Configure the queue and connection used by `CreatePersonalDataExportJob` 
