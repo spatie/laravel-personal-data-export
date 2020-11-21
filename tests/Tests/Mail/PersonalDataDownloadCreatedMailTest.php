@@ -23,7 +23,7 @@ class PersonalDataDownloadCreatedMailTest extends TestCase
 
         $zipFilename = 'personal-data.zip';
 
-        $renderedNotification = (new PersonalDataExported($zipFilename))->toMail($user)->render();
+        $renderedNotification = (new PersonalDataExported($zipFilename))->toMail($user)->render()->toHtml();
 
         $this->assertTrue(is_string($renderedNotification));
     }
