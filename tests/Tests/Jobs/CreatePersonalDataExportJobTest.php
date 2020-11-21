@@ -3,13 +3,13 @@
 namespace Spatie\PersonalDataExport\Tests\Tests\Jobs;
 
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
 use Spatie\PersonalDataExport\Events\PersonalDataSelected;
 use Spatie\PersonalDataExport\Exceptions\InvalidUser as InvalidUserException;
 use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
-use Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail;
+use Spatie\PersonalDataExport\Notifications\PersonalDataExported;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\InvalidUser;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
@@ -25,7 +25,7 @@ class CreatePersonalDataExportJobTest extends TestCase
 
         Storage::fake($this->diskName);
 
-        Mail::fake();
+        Notification::fake();
 
         Event::fake();
     }
@@ -45,12 +45,8 @@ class CreatePersonalDataExportJobTest extends TestCase
         $this->assertZipContains($zipPath, 'avatar.png');
         $this->assertZipContains($zipPath, 'thumbnail.png');
 
-        Mail::assertSent(PersonalDataExportCreatedMail::class, function (PersonalDataExportCreatedMail $mail) use ($allFiles, $user) {
-            if (! $mail->hasTo($user->email)) {
-                return false;
-            }
-
-            if ($mail->zipFilename !== $allFiles[0]) {
+        Notification::assertSentTo($user, PersonalDataExported::class, function (PersonalDataExported $notification) use ($allFiles, $user) {
+            if ($notification->zipFilename !== $allFiles[0]) {
                 return false;
             }
 
