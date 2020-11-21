@@ -2,6 +2,7 @@
 
 namespace Spatie\PersonalDataExport\Tests\Tests\Mail;
 
+use Illuminate\Support\Facades\Notification;
 use Spatie\PersonalDataExport\Notifications\PersonalDataExported;
 use Spatie\PersonalDataExport\Tests\TestCase;
 
