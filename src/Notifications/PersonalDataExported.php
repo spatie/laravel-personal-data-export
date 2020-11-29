@@ -15,22 +15,12 @@ class PersonalDataExported extends Notification
      */
     public static $toMailCallback;
 
-    /**
-     * @var string 
-     */
+    /** @var string */
     public $zipFilename;
 
-    /**
-     * @var \Illuminate\Support\Carbon 
-     */
+    /** @var \Illuminate\Support\Carbon */
     public $deletionDatetime;
 
-    /**
-     * Create a notification instance.
-     *
-     * @param  string $zipFilename
-     * @return void
-     */
     public function __construct(string $zipFilename)
     {
         $this->zipFilename = $zipFilename;
@@ -38,23 +28,11 @@ class PersonalDataExported extends Notification
         $this->deletionDatetime = now()->addDays(config('personal-data-export.delete_after_days'));
     }
 
-    /**
-     * Get the notification's channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array|string
-     */
     public function via($notifiable)
     {
         return ['mail'];
     }
 
-    /**
-     * Build the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
         $downloadUrl = route('personal-data-exports', $this->zipFilename);
@@ -70,12 +48,6 @@ class PersonalDataExported extends Notification
             ->line(Lang::get('This file will be deleted at ' . $this->deletionDatetime->format('Y-m-d H:i:s') . '.'));
     }
 
-    /**
-     * Set a callback that should be used when building the notification mail message.
-     *
-     * @param  \Closure  $callback
-     * @return void
-     */
     public static function toMailUsing($callback)
     {
         static::$toMailCallback = $callback;
