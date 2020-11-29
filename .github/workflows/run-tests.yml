@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
     test:
-        runs-on: ubuntu-latest
+        runs-on: {{ matrix.os }}
         strategy:
             fail-fast: false
             matrix:
@@ -19,6 +19,9 @@ jobs:
                         testbench: 5.*
                     -   laravel: 6.*
                         testbench: 4.*
+                exclude:
+                  - laravel: 7.*
+                    dependency-version: prefer-lowest
 
         name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
