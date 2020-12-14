@@ -4,3 +4,4 @@ docs
 vendor
 coverage
 php-cs-fixer.yml
+.php_cs.cache
