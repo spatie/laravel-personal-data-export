@@ -2,6 +2,12 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 2.0.0 - 2020-12-14
+
+- replace mailable with notification
+- drop support for PHP 7
+- drop support for anything below Laravel 8
+
 ## 1.3.2 - 2020-09-09
 
 - Add support for Laravel 8
