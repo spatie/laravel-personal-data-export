@@ -3,7 +3,7 @@
 namespace Spatie\PersonalDataExport\Tests\Tests\Mail;
 
 use Illuminate\Support\Facades\Notification;
-use Spatie\PersonalDataExport\Notifications\PersonalDataExported;
+use Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
 
@@ -23,7 +23,7 @@ class PersonalDataDownloadCreatedMailTest extends TestCase
 
         $zipFilename = 'personal-data.zip';
 
-        $renderedNotification = (new PersonalDataExported($zipFilename))->toMail($user)->render()->toHtml();
+        $renderedNotification = (new PersonalDataExportedNotification($zipFilename))->toMail($user)->render()->toHtml();
 
         $this->assertTrue(is_string($renderedNotification));
     }

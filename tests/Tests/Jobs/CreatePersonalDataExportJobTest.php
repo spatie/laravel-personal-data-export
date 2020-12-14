@@ -9,15 +9,14 @@ use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
 use Spatie\PersonalDataExport\Events\PersonalDataSelected;
 use Spatie\PersonalDataExport\Exceptions\InvalidUser as InvalidUserException;
 use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
-use Spatie\PersonalDataExport\Notifications\PersonalDataExported;
+use Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\InvalidUser;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
 
 class CreatePersonalDataExportJobTest extends TestCase
 {
-    /** @var string */
-    protected $diskName;
+    protected string $diskName;
 
     public function setUp(): void
     {
@@ -45,7 +44,7 @@ class CreatePersonalDataExportJobTest extends TestCase
         $this->assertZipContains($zipPath, 'avatar.png');
         $this->assertZipContains($zipPath, 'thumbnail.png');
 
-        Notification::assertSentTo($user, PersonalDataExported::class, function (PersonalDataExported $notification) use ($allFiles, $user) {
+        Notification::assertSentTo($user, PersonalDataExportedNotification::class, function (PersonalDataExportedNotification $notification) use ($allFiles, $user) {
             if ($notification->zipFilename !== $allFiles[0]) {
                 return false;
             }

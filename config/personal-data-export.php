@@ -12,7 +12,7 @@ return [
     'delete_after_days' => 5,
 
     /*
-     * Determines wheter the user should be logged in to be able
+     * Determines whether the user should be logged in to be able
      * to access the export.
      */
     'authentication_required' => true,
@@ -21,10 +21,10 @@ return [
      * The notification which will be sent to the user when the export
      * has been created.
      */
-    'notification' => \Spatie\PersonalDataExport\Notifications\PersonalDataExported::class,
+    'notification' => \Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification::class,
 
     /*
-     * Configure the queue and connection used by `CreatePersonalDataExportJob` 
+     * Configure the queue and connection used by `CreatePersonalDataExportJob`
      * which will create the export.
      */
     'job' => [

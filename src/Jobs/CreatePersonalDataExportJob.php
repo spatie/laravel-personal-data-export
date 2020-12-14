@@ -5,6 +5,7 @@ namespace Spatie\PersonalDataExport\Jobs;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -22,8 +23,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /** @var \Spatie\PersonalDataExport\ExportsPersonalData */
-    protected $user;
+    protected ExportsPersonalData|Model $user;
 
     public function __construct(ExportsPersonalData $user)
     {
@@ -32,7 +32,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
         $this->user = $user;
 
         $this->queue = config('personal-data-export.job.queue');
-        
+
         $this->connection = config('personal-data-export.job.connection');
     }
 

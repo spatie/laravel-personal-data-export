@@ -6,7 +6,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 
-class PersonalDataExported extends Notification
+class PersonalDataExportedNotification extends Notification
 {
     /**
      * The callback that should be used to build the mail message.

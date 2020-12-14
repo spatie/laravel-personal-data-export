@@ -2,6 +2,7 @@
 
 namespace Spatie\PersonalDataExport;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use Spatie\PersonalDataExport\Exceptions\CouldNotAddToPersonalDataSelection;
@@ -9,19 +10,14 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class PersonalDataSelection
 {
-    /** @var \Spatie\TemporaryDirectory\TemporaryDirectory */
-    protected $temporaryDirectory;
 
-    /** @var array */
-    protected $files = [];
+    protected array $files = [];
 
-    /** @var \Illuminate\Database\Eloquent\Model */
-    public $user;
+    public ExportsPersonalData|Model $user;
 
-    public function __construct(TemporaryDirectory $temporaryDirectory)
-    {
-        $this->temporaryDirectory = $temporaryDirectory;
-    }
+    public function __construct(
+        protected TemporaryDirectory $temporaryDirectory
+    ) {}
 
     public function files(): array
     {
@@ -35,13 +31,7 @@ class PersonalDataSelection
         return $this;
     }
 
-    /**
-     * @param string $nameInDownload
-     * @param array|string $content
-     *
-     * @return \Spatie\PersonalDataExport\PersonalDataSelection
-     */
-    public function add(string $nameInDownload, $content)
+    public function add(string $nameInDownload, array|string $content): PersonalDataSelection
     {
         if (! is_string($content)) {
             $content = json_encode($content, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);

@@ -10,11 +10,9 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class PersonalDataSelectionTest extends TestCase
 {
-    /** @var \Spatie\TemporaryDirectory\TemporaryDirectory */
-    protected $temporaryDirectory;
+    protected TemporaryDirectory $temporaryDirectory;
 
-    /** @var \Spatie\PersonalDataExport\PersonalDataSelection */
-    protected $personalDataSelection;
+    protected PersonalDataSelection $personalDataSelection;
 
     public function setUp(): void
     {
