@@ -50,7 +50,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
 
         event(new PersonalDataExportCreated($zipFilename, $this->user));
 
-        $this->mailZip($zipFilename);
+        $this->notifyZip($zipFilename);
     }
 
     protected function selectPersonalData(TemporaryDirectory $temporaryDirectory): PersonalDataSelection
@@ -81,11 +81,11 @@ class CreatePersonalDataExportJob implements ShouldQueue
         return Storage::disk(config('personal-data-export.disk'));
     }
 
-    protected function mailZip(string $zipFilename)
+    protected function notifyZip(string $zipFilename)
     {
-        $mailableClass = config('personal-data-export.mailable');
+        $notificationClass = config('personal-data-export.notification');
 
-        Mail::to($this->user)->send(new $mailableClass($zipFilename));
+        $this->user->notify(new $notificationClass($zipFilename));
     }
 
     protected function ensureValidUser(ExportsPersonalData $user)
