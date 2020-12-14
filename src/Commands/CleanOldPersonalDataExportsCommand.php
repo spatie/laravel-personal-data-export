@@ -19,7 +19,7 @@ class CleanOldPersonalDataExportsCommand extends Command
         $this->comment('Start deleting old personal downloads...');
 
         $oldZipFiles = collect($this->getDisk()->allFiles())
-            ->filter(fn(string $zipFilename) => Str::endsWith($zipFilename, '.zip'))
+            ->filter(fn (string $zipFilename) => Str::endsWith($zipFilename, '.zip'))
             ->filter(function (string $zipFilename) {
                 $zipFilenameParts = explode('_', $zipFilename);
 

@@ -9,5 +9,6 @@ class PersonalDataExportDownloaded
     public function __construct(
         string $zipFilename,
         ?ExportsPersonalData $user
-    ) {}
+    ) {
+    }
 }

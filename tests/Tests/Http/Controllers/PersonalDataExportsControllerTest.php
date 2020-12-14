@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PersonalDataExportsControllerTest extends TestCase
 {
-    protected  User $user;
+    protected User $user;
 
     protected string $downloadUrl;
 
