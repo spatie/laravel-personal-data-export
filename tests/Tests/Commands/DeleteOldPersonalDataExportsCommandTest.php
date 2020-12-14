@@ -2,6 +2,7 @@
 
 namespace Spatie\PersonalDataExport\Tests\Tests\Commands;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -11,8 +12,7 @@ use Spatie\PersonalDataExport\Tests\TestClasses\User;
 
 class DeleteOldPersonalDataExportsCommandTest extends TestCase
 {
-    /** @var \Illuminate\Contracts\Filesystem\Filesystem */
-    protected $disk;
+    protected Filesystem $disk;
 
     public function setUp(): void
     {

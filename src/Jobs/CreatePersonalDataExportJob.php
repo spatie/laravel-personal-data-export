@@ -5,10 +5,10 @@ namespace Spatie\PersonalDataExport\Jobs;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
 use Spatie\PersonalDataExport\Events\PersonalDataSelected;
@@ -22,8 +22,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /** @var \Spatie\PersonalDataExport\ExportsPersonalData */
-    protected $user;
+    protected ExportsPersonalData|Model $user;
 
     public function __construct(ExportsPersonalData $user)
     {
@@ -32,7 +31,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
         $this->user = $user;
 
         $this->queue = config('personal-data-export.job.queue');
-        
+
         $this->connection = config('personal-data-export.job.connection');
     }
 
@@ -50,7 +49,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
 
         event(new PersonalDataExportCreated($zipFilename, $this->user));
 
-        $this->mailZip($zipFilename);
+        $this->notifyZip($zipFilename);
     }
 
     protected function selectPersonalData(TemporaryDirectory $temporaryDirectory): PersonalDataSelection
@@ -81,11 +80,11 @@ class CreatePersonalDataExportJob implements ShouldQueue
         return Storage::disk(config('personal-data-export.disk'));
     }
 
-    protected function mailZip(string $zipFilename)
+    protected function notifyZip(string $zipFilename)
     {
-        $mailableClass = config('personal-data-export.mailable');
+        $notificationClass = config('personal-data-export.notification');
 
-        Mail::to($this->user)->send(new $mailableClass($zipFilename));
+        $this->user->notify(new $notificationClass($zipFilename));
     }
 
     protected function ensureValidUser(ExportsPersonalData $user)

@@ -7,16 +7,8 @@ use Spatie\PersonalDataExport\PersonalDataSelection;
 
 class PersonalDataSelected
 {
-    /** @var \Spatie\PersonalDataExport\PersonalDataSelection */
-    public $personalData;
-
-    /** @var \Spatie\PersonalDataExport\ExportsPersonalData */
-    public $user;
-
-    public function __construct(PersonalDataSelection $personalData, ExportsPersonalData $user)
-    {
-        $this->personalData = $personalData;
-
-        $this->user = $user;
-    }
+    public function __construct(
+        public PersonalDataSelection $personalData,
+        public ExportsPersonalData $user
+    ) {}
 }

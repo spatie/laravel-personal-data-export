@@ -3,12 +3,15 @@
 namespace Spatie\PersonalDataExport\Tests\TestClasses;
 
 use Illuminate\Foundation\Auth\User as BaseUser;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Spatie\PersonalDataExport\ExportsPersonalData;
 use Spatie\PersonalDataExport\PersonalDataSelection;
 
 class User extends BaseUser implements ExportsPersonalData
 {
+    use Notifiable;
+
     public function selectPersonalData(PersonalDataSelection $personalData): void
     {
         $personalData

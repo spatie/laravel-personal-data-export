@@ -8,14 +8,11 @@ use ZipArchive;
 
 class Zip
 {
-    /** @var \ZipArchive */
-    protected $zipFile;
+    protected ZipArchive $zipFile;
 
-    /** @var int */
-    protected $fileCount = 0;
+    protected int $fileCount = 0;
 
-    /** @var string */
-    protected $pathToZip;
+    protected string $pathToZip;
 
     public static function createForPersonalData(
         PersonalDataSelection $personalDataSelection,
@@ -66,13 +63,7 @@ class Zip
         return $this;
     }
 
-    /**
-     * @param string|array $files
-     * @param string $rootPath
-     *
-     * @return \Spatie\PersonalDataExport\Zip
-     */
-    public function add($files, $rootPath): self
+    public function add(string|array $files, string $rootPath): self
     {
         foreach ($files as $file) {
             if (file_exists($file)) {

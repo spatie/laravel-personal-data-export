@@ -16,8 +16,7 @@ use ZipArchive;
 
 class TestCase extends Orchestra
 {
-    /** @var string */
-    protected $diskName;
+    protected string $diskName;
 
     protected function setUp(): void
     {

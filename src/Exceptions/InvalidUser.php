@@ -7,7 +7,7 @@ use Spatie\PersonalDataExport\ExportsPersonalData;
 
 class InvalidUser extends Exception
 {
-    public static function doesNotHaveAnEmailProperty(ExportsPersonalData $user)
+    public static function doesNotHaveAnEmailProperty(ExportsPersonalData $user): self
     {
         $class = get_class($user);
 
