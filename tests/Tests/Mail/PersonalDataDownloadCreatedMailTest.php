@@ -19,7 +19,7 @@ class PersonalDataDownloadCreatedMailTest extends TestCase
     /** @test */
     public function the_personal_data_download_created_mail_can_be_rendered_to_a_string()
     {
-    	$user = factory(User::class)->create();
+        $user = factory(User::class)->create();
 
         $zipFilename = 'personal-data.zip';
 
