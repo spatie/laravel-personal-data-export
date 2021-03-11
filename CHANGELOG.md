@@ -2,6 +2,10 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 2.0.1 - 2021-03-11
+
+- remove the deleted views from the service provider (#56)
+
 ## 2.0.0 - 2020-12-14
 
 - replace mailable with notification
