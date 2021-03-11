@@ -10,14 +10,14 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class PersonalDataSelection
 {
-
     protected array $files = [];
 
-    public ExportsPersonalData|Model $user;
+    public ExportsPersonalData | Model $user;
 
     public function __construct(
         protected TemporaryDirectory $temporaryDirectory
-    ) {}
+    ) {
+    }
 
     public function files(): array
     {
@@ -31,7 +31,7 @@ class PersonalDataSelection
         return $this;
     }
 
-    public function add(string $nameInDownload, array|string $content): PersonalDataSelection
+    public function add(string $nameInDownload, array | string $content): PersonalDataSelection
     {
         if (! is_string($content)) {
             $content = json_encode($content, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);

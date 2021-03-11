@@ -63,7 +63,7 @@ class Zip
         return $this;
     }
 
-    public function add(string|array $files, string $rootPath): self
+    public function add(string | array $files, string $rootPath): self
     {
         foreach ($files as $file) {
             if (file_exists($file)) {

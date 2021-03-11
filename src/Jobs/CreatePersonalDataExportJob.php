@@ -22,7 +22,7 @@ class CreatePersonalDataExportJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected ExportsPersonalData|Model $user;
+    protected ExportsPersonalData | Model $user;
 
     public function __construct(ExportsPersonalData $user)
     {

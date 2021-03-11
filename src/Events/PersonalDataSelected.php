@@ -10,5 +10,6 @@ class PersonalDataSelected
     public function __construct(
         public PersonalDataSelection $personalData,
         public ExportsPersonalData $user
-    ) {}
+    ) {
+    }
 }
