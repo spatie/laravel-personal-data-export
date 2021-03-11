@@ -132,14 +132,6 @@ return [
 
 ```
 
-Optionally, you can publish the view used by the mail with:
-
-```php
-php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="views"
-```
-
-This will create a file under `views/vendor/laravel-personal-data-export/mail.blade.php` that you can customize.
-
 ## Usage
 
 ### Selecting personal data
@@ -213,9 +205,7 @@ If you don't want to enforce that a user should be logged in to able to download
 
 ### Customizing the mail
 
-You can customize mail by [publishing the views](https://github.com/spatie/laravel-personal-data-export#installation) and editing `views/vendor/laravel-personal-data-export/mail.blade.php`
-
-You can also customize the mailable itself by creating your own mailable that extends `\Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail` and register the class name of your mailable in the `mailable` config key of `config/personal-data-export.php`.
+You can customize the mailable itself by creating your own mailable that extends `\Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail` and register the class name of your mailable in the `mailable` config key of `config/personal-data-export.php`.
 
 ### Customizing the queue
 
