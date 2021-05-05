@@ -2,6 +2,10 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 2.0.2 - 2021-05-05
+
+- deps: update spatie/temporary-directory (#57)
+
 ## 2.0.1 - 2021-03-11
 
 - remove the deleted views from the service provider (#56)
