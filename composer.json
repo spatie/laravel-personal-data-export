@@ -28,7 +28,7 @@
         "illuminate/queue": "^8.0",
         "illuminate/support": "^8.0",
         "nesbot/carbon": "^2.14",
-        "spatie/temporary-directory": "^1.1"
+        "spatie/temporary-directory": "^2.0"
     },
     "require-dev": {
         "laravel/legacy-factories": "^1.0.4",
