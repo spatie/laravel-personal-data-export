@@ -29,8 +29,8 @@ You can configure which data will will be exported in the `selectPersonalData` m
 public function selectPersonalData(PersonalDataSelection $personalDataSelection) {
     $personalDataSelection
         ->add('user.json', ['name' => $this->name, 'email' => $this->email])
-        ->addFile(storage_path("avatars/{$this->id}.jpg"))
-        ->addFile('other-user-data.xml', 's3');
+        ->addFile(storage_path("avatars/{$this->id}.jpg")
+        ->addFile('other-user-data.xml', 's3'));
 }
 ```
 
@@ -216,12 +216,12 @@ use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 
 class MyCustomJobClass extends CreatePersonalDataExportJob
 {
-    public $queue = 'my-custom-queue`
+    public $queue = 'my-custom-queue';
 }
 ```
 
 ```php
-dispatch(new MyCustomJobClass(auth()->user());
+dispatch(new MyCustomJobClass(auth()->user()));
 ```
 
 ### Events
