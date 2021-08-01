@@ -12,7 +12,7 @@ class PersonalDataExportServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/personal-data-export.php' => config_path('personal-data-export.php'),
+                __DIR__ . '/../config/personal-data-export.php' => config_path('personal-data-export.php'),
             ], 'config');
         }
 
@@ -21,6 +21,15 @@ class PersonalDataExportServiceProvider extends ServiceProvider
                 ->name('personal-data-exports');
         });
 
+        $this->loadTranslationsFrom(
+            __DIR__ . '/../resources/lang/',
+            "personal-data-export"
+        );
+
+        $this->publishes([
+            __DIR__ . '/../resources/lang' => resource_path("lang/vendor/personal-data-export"),
+        ], "translations");
+
         $this->commands([
             CleanOldPersonalDataExportsCommand::class,
         ]);
@@ -28,6 +37,6 @@ class PersonalDataExportServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/personal-data-export.php', 'personal-data-export');
+        $this->mergeConfigFrom(__DIR__ . '/../config/personal-data-export.php', 'personal-data-export');
     }
 }

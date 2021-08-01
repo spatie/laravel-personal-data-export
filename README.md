@@ -203,9 +203,51 @@ When the user clicks the download link in the mail that gets sent after creating
 
 If you don't want to enforce that a user should be logged in to able to download a personal data export, you can set the `authentication_required` config value to `false`. Setting the value to `false` is less secure because anybody with a link to a zip file will be able to download it, but because the name of the zip file contains many random characters, it will be hard to guess it.
 
+### Translate the mail
+
+You need to publish the translations:
+
+```bash
+php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="translations"
+```
+
 ### Customizing the mail
 
-You can customize the mailable itself by creating your own mailable that extends `\Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail` and register the class name of your mailable in the `mailable` config key of `config/personal-data-export.php`.
+You can customize the mailable itself by creating your own mailable that extends `Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification` and register the class name of your mailable in the `mailable` config key of `config/personal-data-export.php`.
+
+Here is an example:
+
+```php
+use Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification as SpatiePersonalDataExportedNotification;
+class PersonalDataExportedNotification extends SpatiePersonalDataExportedNotification
+{
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
+    public function toMail($notifiable)
+    {
+        $downloadUrl = route('personal-data-exports', $this->zipFilename);
+        if (static::$toMailCallback) {
+            return call_user_func(static::$toMailCallback, $notifiable, $downloadUrl);
+        }
+        return (new MailMessage)
+            ->subject(trans('personal-data-exports.notifications.subject'))
+            ->line(trans('personal-data-exports.notifications.instructions'))
+            ->action(trans('personal-data-exports.notifications.action'), $downloadUrl)
+            ->line(trans('personal-data-exports.notifications.deletion_message', ['date' => $this->deletionDatetime->format('Y-m-d H:i:s')]));
+    }
+}
+```
+
+Then register the class name of your mailable in the `mailable` config key of `config/personal-data-export.php`
+
+```php
+    /*
+     * Something like that
+     */
+    'notification' => \App\Notifications\PersonalDataExportedNotification::class,
+```
 
 ### Customizing the queue
 

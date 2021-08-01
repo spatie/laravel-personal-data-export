@@ -42,10 +42,13 @@ class PersonalDataExportedNotification extends Notification
         }
 
         return (new MailMessage)
-            ->subject(Lang::get('Personal Data Download'))
-            ->line(Lang::get('Please click the button below to download a zip file containg all data we got for your account.'))
-            ->action(Lang::get('Download Zip File'), $downloadUrl)
-            ->line(Lang::get('This file will be deleted at ' . $this->deletionDatetime->format('Y-m-d H:i:s') . '.'));
+            ->subject(trans('personal-data-export::notifications.subject'))
+            ->line(trans('personal-data-export::notifications.instructions'))
+            ->action(trans('personal-data-export::notifications.action'), $downloadUrl)
+            ->line(trans(
+                'personal-data-export::notifications.deletion_message',
+                ['date' => $this->deletionDatetime->format('Y-m-d H:i:s')]
+            ));
     }
 
     public static function toMailUsing($callback)
