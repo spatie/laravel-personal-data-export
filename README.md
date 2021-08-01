@@ -164,8 +164,8 @@ public function selectPersonalData(PersonalDataSelection $personalData): void {
 
 `$personalData` is used to determine the content of the zip file that the user will be able to download. You can call these methods on it:
 
-- `add`: the first parameter is the name of the file in the inside the zip file. The second parameter is the content that should go in that file. If you pass an array here, we will encode it to JSON.
-- `addFile`: the first parameter is a path to a file which will be copied to the zip. You can also add a disk name as the second parameter.
+-   `add`: the first parameter is the name of the file in the inside the zip file. The second parameter is the content that should go in that file. If you pass an array here, we will encode it to JSON.
+-   `addFile`: the first parameter is a path to a file which will be copied to the zip. You can also add a disk name as the second parameter.
 
 The name of the export itself can be set using the `personalDataExportName` on the user. This will only affect the name of the download that will be sent as a response to the user, not the name of the zip stored on disk.
 
@@ -193,7 +193,7 @@ use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 dispatch(new CreatePersonalDataExportJob(auth()->user()));
 ```
 
-By default, this job is queued. It will copy all files and content you selected in the `selectPersonalData` on your user to a temporary directory. Next, that temporary directory will be zipped and copied over to the `personal-data-exports` disk. A link to this zip will be mailed to the user. 
+By default, this job is queued. It will copy all files and content you selected in the `selectPersonalData` on your user to a temporary directory. Next, that temporary directory will be zipped and copied over to the `personal-data-exports` disk. A link to this zip will be mailed to the user.
 
 ### Securing the export
 
@@ -203,9 +203,56 @@ When the user clicks the download link in the mail that gets sent after creating
 
 If you don't want to enforce that a user should be logged in to able to download a personal data export, you can set the `authentication_required` config value to `false`. Setting the value to `false` is less secure because anybody with a link to a zip file will be able to download it, but because the name of the zip file contains many random characters, it will be hard to guess it.
 
+### Translate the mail
+
+You need to publish the translations:
+
+```bash
+php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="translations"
+```
+
 ### Customizing the mail
 
-You can customize the mailable itself by creating your own mailable that extends `\Spatie\PersonalDataExport\Mail\PersonalDataExportCreatedMail` and register the class name of your mailable in the `mailable` config key of `config/personal-data-export.php`.
+You can customize the mailable itself by creating your own mailable that extends `Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification` and register the class name of your mailable in the `mailable` config key of `config/personal-data-export.php`.
+
+Here is an example:
+
+```php
+use Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification as SpatiePersonalDataExportedNotification;
+
+class PersonalDataExportedNotification extends SpatiePersonalDataExportedNotification
+{
+
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
+
+    public function toMail($notifiable)
+    {
+        $downloadUrl = route('personal-data-exports', $this->zipFilename);
+
+        if (static::$toMailCallback) {
+            return call_user_func(static::$toMailCallback, $notifiable, $downloadUrl);
+        }
+
+        return (new MailMessage)
+            ->subject(trans('personal-data-exports.notifications.subject'))
+            ->line(trans('personal-data-exports.notifications.instructions'))
+            ->action(trans('personal-data-exports.notifications.action'), $downloadUrl)
+            ->line(trans('personal-data-exports.notifications.deletion_message', ['date' => $this->deletionDatetime->format('Y-m-d H:i:s')]));
+    }
+}
+```
+
+Then register the class name of your mailable in the `mailable` config key of `config/personal-data-export.php`
+
+```php
+    /*
+     * Something like that
+     */
+    'notification' => \App\Notifications\PersonalDataExportedNotification::class,
+```
 
 ### Customizing the queue
 
@@ -229,20 +276,23 @@ dispatch(new MyCustomJobClass(auth()->user()));
 #### PersonalDataSelected
 
 This event will be fired after the personal data has been selected. It has two public properties:
-- `$personalData`: an instance of `PersonalData`. In your listeners you can call the `add`, `addFile` methods on this object to add extra content to the zip.
-- `$user`: the user for which this personal data has been selected.
+
+-   `$personalData`: an instance of `PersonalData`. In your listeners you can call the `add`, `addFile` methods on this object to add extra content to the zip.
+-   `$user`: the user for which this personal data has been selected.
 
 #### PersonalDataExportCreated
 
 This event will be fired after the personal data zip has been created. It has two public properties:
-- `$zipFilename`: the name of the zip filename.
-- `$user`: the user for which this zip has been created.
+
+-   `$zipFilename`: the name of the zip filename.
+-   `$user`: the user for which this zip has been created.
 
 #### PersonalDataExportDownloaded
 
 This event will be fired after the export has been download. It has two public properties:
-- `$zipFilename`: the name of the zip filename.
-- `$user`: the user for which this zip has been created.
+
+-   `$zipFilename`: the name of the zip filename.
+-   `$user`: the user for which this zip has been created.
 
 You could use this event to immediately clean up the downloaded zip.
 
@@ -250,7 +300,7 @@ You could use this event to immediately clean up the downloaded zip.
 
 You can run all tests by issuing this command:
 
-``` bash
+```bash
 composer test
 ```
 
@@ -268,8 +318,8 @@ If you discover any security related issues, please email freek@spatie.be instea
 
 ## Credits
 
-- [Freek Van der Herten](https://github.com/freekmurze)
-- [All Contributors](../../contributors)
+-   [Freek Van der Herten](https://github.com/freekmurze)
+-   [All Contributors](../../contributors)
 
 ## License
 
