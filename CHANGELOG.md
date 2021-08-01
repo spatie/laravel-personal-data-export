@@ -2,6 +2,11 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 3.0.0 - 2021-08-01
+
+- improve translations
+- refactor internals
+
 ## 2.0.2 - 2021-05-05
 
 - deps: update spatie/temporary-directory (#57)

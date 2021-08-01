@@ -4,39 +4,26 @@ namespace Spatie\PersonalDataExport;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\PersonalDataExport\Commands\CleanOldPersonalDataExportsCommand;
+use Spatie\PersonalDataExport\Http\Controllers\PersonalDataExportController;
 
-class PersonalDataExportServiceProvider extends ServiceProvider
+class PersonalDataExportServiceProvider extends PackageServiceProvider
 {
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/personal-data-export.php' => config_path('personal-data-export.php'),
-            ], 'config');
-        }
-
-        Route::macro('personalDataExports', function (string $url) {
-            Route::get("$url/{zipFilename}", '\Spatie\PersonalDataExport\Http\Controllers\PersonalDataExportController@export')
-                ->name('personal-data-exports');
-        });
-
-        $this->loadTranslationsFrom(
-            __DIR__ . '/../resources/lang/',
-            "personal-data-export"
-        );
-
-        $this->publishes([
-            __DIR__ . '/../resources/lang' => resource_path("lang/vendor/personal-data-export"),
-        ], "translations");
-
-        $this->commands([
-            CleanOldPersonalDataExportsCommand::class,
-        ]);
+        $package
+            ->name('laravel-personal-data-export')
+            ->hasConfigFile()
+            ->hasCommand(CleanOldPersonalDataExportsCommand::class)
+            ->hasTranslations();
     }
 
-    public function register()
+    public function packageBooted()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/personal-data-export.php', 'personal-data-export');
+        Route::macro('personalDataExports', function (string $url) {
+            Route::get("$url/{zipFilename}", [PersonalDataExportController::class, 'export'])->name('personal-data-exports');
+        });
     }
 }

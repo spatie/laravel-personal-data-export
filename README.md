@@ -91,7 +91,7 @@ protected function schedule(Schedule $schedule)
 Optionally, you can publish the config file with:
 
 ```php
-php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="personal-data-export-config"
 ```
 
 This is the content of the config file, which will be published at `config/personal-data-export.php`:
@@ -203,12 +203,12 @@ When the user clicks the download link in the mail that gets sent after creating
 
 If you don't want to enforce that a user should be logged in to able to download a personal data export, you can set the `authentication_required` config value to `false`. Setting the value to `false` is less secure because anybody with a link to a zip file will be able to download it, but because the name of the zip file contains many random characters, it will be hard to guess it.
 
-### Translate the mail
+### Translating the notification
 
 You need to publish the translations:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="translations"
+php artisan vendor:publish --provider="Spatie\PersonalDataExport\PersonalDataExportServiceProvider" --tag="personal-data-export-translations"
 ```
 
 ### Customizing the mail
