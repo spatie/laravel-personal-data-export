@@ -3,7 +3,6 @@
 namespace Spatie\PersonalDataExport;
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\PersonalDataExport\Commands\CleanOldPersonalDataExportsCommand;
