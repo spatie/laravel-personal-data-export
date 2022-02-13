@@ -2,6 +2,13 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 4.0.0 - 2022-02-13
+
+- support Laravel 9
+- drop support for older Laravel versions.
+
+**Full Changelog**: https://github.com/spatie/laravel-personal-data-export/compare/3.0.0...4.0.0
+
 ## 3.0.0 - 2021-08-01
 
 - improve translations
