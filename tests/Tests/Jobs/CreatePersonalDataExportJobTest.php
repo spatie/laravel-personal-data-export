@@ -68,6 +68,12 @@ class CreatePersonalDataExportJobTest extends TestCase
 
     public function getFullPath(string $diskName, string $filename): string
     {
-        return Storage::disk($diskName)->getDriver()->getAdapter()->getPathPrefix().'/'.$filename;
+        $adapter = Storage::disk($diskName)->getAdapter();
+
+        $prefixer = invade($adapter)->prefixer;
+
+        $root = invade($prefixer)->prefix;
+
+        return $root.'/'.$filename;
     }
 }

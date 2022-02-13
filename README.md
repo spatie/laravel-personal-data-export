@@ -21,7 +21,7 @@ dispatch(new CreatePersonalDataExportJob(auth()->user()));
 
 The package will create a zip containing all the personal data. When the zip has been created, a link to it will be mailed to the user. By default, the zips are saved in a non-public location, and the user should be logged in to be able to download the zip.
 
-You can configure which data will will be exported in the `selectPersonalData` method on the `user`.
+You can configure which data will be exported in the `selectPersonalData` method on the `user`.
 
 ```php
 // in your User model
