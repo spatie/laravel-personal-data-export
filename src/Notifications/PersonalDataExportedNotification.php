@@ -4,7 +4,6 @@ namespace Spatie\PersonalDataExport\Notifications;
 
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Lang;
 
 class PersonalDataExportedNotification extends Notification
 {
@@ -41,7 +40,7 @@ class PersonalDataExportedNotification extends Notification
             return call_user_func(static::$toMailCallback, $notifiable, $downloadUrl);
         }
 
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject(trans('personal-data-export::notifications.subject'))
             ->line(trans('personal-data-export::notifications.instructions'))
             ->action(trans('personal-data-export::notifications.action'), $downloadUrl)

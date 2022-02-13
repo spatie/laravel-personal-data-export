@@ -20,7 +20,10 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class CreatePersonalDataExportJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected ExportsPersonalData | Model $user;
 
