@@ -66,7 +66,7 @@ class CreatePersonalDataExportJobTest extends TestCase
         dispatch(new CreatePersonalDataExportJob($invalidUser));
     }
 
-    public function getFullPath(string $diskName, string $filename): string
+    protected function getFullPath(string $diskName, string $filename): string
     {
         $adapter = Storage::disk($diskName)->getAdapter();
 
