@@ -67,9 +67,8 @@ class Zip
     {
         foreach ($files as $file) {
             if (file_exists($file)) {
-                $nameInZip = Str::after($file, $rootPath.'/');
-
-                $this->zipFile->addFile($file, ltrim($nameInZip, DIRECTORY_SEPARATOR));
+                // $nameInZip = Str::after($file, $rootPath.'/');
+                $this->zipFile->addFile($file, basename($file));
             }
             $this->fileCount++;
         }
