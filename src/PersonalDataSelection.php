@@ -33,7 +33,7 @@ class PersonalDataSelection
 
     public function add(string $nameInDownload, array | string $content): PersonalDataSelection
     {
-        if (! is_string($content)) {
+        if (!is_string($content)) {
             $content = json_encode($content, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
 
@@ -48,15 +48,21 @@ class PersonalDataSelection
         return $this;
     }
 
-    public function addFile(string $pathToFile, string $diskName = null)
+    public function addFile(string $pathToFile, string $diskName = null, string $folder = null)
     {
         return is_null($diskName)
-            ? $this->copyLocalFile($pathToFile)
-            : $this->copyFileFromDisk($pathToFile, $diskName);
+            ? $this->copyLocalFile($pathToFile, $folder)
+            : $this->copyFileFromDisk($pathToFile, $diskName, $folder);
     }
 
-    protected function copyLocalFile(string $pathToFile)
+    protected function copyLocalFile(string $pathToFile, string $folder = null)
     {
+        if (is_string($folder) && !empty($folder)) {
+            $fileName = $folder . '/' . pathinfo($pathToFile, PATHINFO_BASENAME);
+        } else {
+            $fileName = pathinfo($pathToFile, PATHINFO_BASENAME);
+        }
+
         $fileName = pathinfo($pathToFile, PATHINFO_BASENAME);
 
         $destination = $this->temporaryDirectory->path($fileName);
@@ -70,11 +76,17 @@ class PersonalDataSelection
         return $this;
     }
 
-    protected function copyFileFromDisk(string $pathOnDisk, string $diskName)
+    protected function copyFileFromDisk(string $pathOnDisk, string $diskName, string $folder = null)
     {
         $stream = Storage::disk($diskName)->readStream($pathOnDisk);
 
-        $pathInTemporaryDirectory = $this->temporaryDirectory->path($pathOnDisk);
+        if (is_string($folder) && !empty($folder)) {
+            $pathOnDirectory = $folder . '/' . $pathOnDisk;
+        } else {
+            $pathOnDirectory = $pathOnDisk;
+        }
+
+        $pathInTemporaryDirectory = $this->temporaryDirectory->path($pathOnDirectory);
 
         $this->ensureDoesNotOverwriteExistingFile($pathInTemporaryDirectory);
 
