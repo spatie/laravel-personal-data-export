@@ -48,17 +48,17 @@ class PersonalDataSelection
         return $this;
     }
 
-    public function addFile(string $pathToFile, string $diskName = null, string $folder = null)
+    public function addFile(string $pathToFile, string $diskName = null, string $directory = null)
     {
         return is_null($diskName)
-            ? $this->copyLocalFile($pathToFile, $folder)
-            : $this->copyFileFromDisk($pathToFile, $diskName, $folder);
+            ? $this->copyLocalFile($pathToFile, $directory)
+            : $this->copyFileFromDisk($pathToFile, $diskName, $directory);
     }
 
-    protected function copyLocalFile(string $pathToFile, string $folder = null)
+    protected function copyLocalFile(string $pathToFile, string $directory = null)
     {
-        if (is_string($folder) && !empty($folder)) {
-            $fileName = $folder . '/' . pathinfo($pathToFile, PATHINFO_BASENAME);
+        if (is_string($directory) && !empty($directory)) {
+            $fileName = $directory . '/' . pathinfo($pathToFile, PATHINFO_BASENAME);
         } else {
             $fileName = pathinfo($pathToFile, PATHINFO_BASENAME);
         }
@@ -76,12 +76,12 @@ class PersonalDataSelection
         return $this;
     }
 
-    protected function copyFileFromDisk(string $pathOnDisk, string $diskName, string $folder = null)
+    protected function copyFileFromDisk(string $pathOnDisk, string $diskName, string $directory = null)
     {
         $stream = Storage::disk($diskName)->readStream($pathOnDisk);
 
-        if (is_string($folder) && !empty($folder)) {
-            $pathOnDirectory = $folder . '/' . $pathOnDisk;
+        if (is_string($directory) && !empty($directory)) {
+            $pathOnDirectory = $directory . '/' . $pathOnDisk;
         } else {
             $pathOnDirectory = $pathOnDisk;
         }
