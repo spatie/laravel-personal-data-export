@@ -51,6 +51,17 @@ class PersonalDataSelectionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_copy_a_local_file_in_a_directory_of_the_personal_data()
+    {
+        $directory = 'test-directory/';
+        $avatarPath = $this->getStubPath('avatar.png');
+
+        $this->personalDataSelection->addFile($avatarPath, null, $directory);
+
+        $this->assertFileExists($this->temporaryDirectory->path($directory . 'avatar.png'));
+    }
+
+    /** @test */
     public function it_can_copy_a_file_from_a_disk_to_the_personal_data_temporary_directory()
     {
         $disk = Storage::fake('test-disk');
@@ -60,6 +71,20 @@ class PersonalDataSelectionTest extends TestCase
         $this->personalDataSelection->addFile('my-file.txt', 'test-disk');
 
         $this->assertFileContents($this->temporaryDirectory->path('my-file.txt'), 'my content');
+    }
+
+    /** @test */
+    public function it_can_copy_a_file_from_a_disk_in_a_directory_of_the_personal_data_temporary_directory()
+    {
+        $directory = 'test-directory/';
+
+        $disk = Storage::fake('test-disk');
+
+        $disk->put('my-file.txt', 'my content');
+
+        $this->personalDataSelection->addFile('my-file.txt', 'test-disk', $directory);
+
+        $this->assertFileContents($this->temporaryDirectory->path($directory . 'my-file.txt'), 'my content');
     }
 
     /** @test */
