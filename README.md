@@ -42,7 +42,7 @@ You can store files in a directory of the archive. For this, add the directory p
 ```php
 public function selectPersonalData(PersonalDataSelection $personalDataSelection) {
     $personalDataSelection
-        ->addFile(storage_path("avatars/{$this->id}.jpg"), null, 'avatars');
+        ->addFile(storage_path("avatars/{$this->id}.jpg"), directory: 'avatars');
 }
 ```
 
