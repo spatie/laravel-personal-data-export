@@ -57,13 +57,9 @@ class PersonalDataSelection
 
     protected function copyLocalFile(string $pathToFile, string $directory = null)
     {
-        if (is_string($directory) && !empty($directory)) {
-            $fileName = $directory . '/' . pathinfo($pathToFile, PATHINFO_BASENAME);
-        } else {
-            $fileName = pathinfo($pathToFile, PATHINFO_BASENAME);
-        }
+        $directory = trim($directory, '/');
 
-        $fileName = pathinfo($pathToFile, PATHINFO_BASENAME);
+        $fileName = (is_null($directory) ? '' : $directory . '/') . pathinfo($pathToFile, PATHINFO_BASENAME);
 
         $destination = $this->temporaryDirectory->path($fileName);
 
@@ -78,13 +74,11 @@ class PersonalDataSelection
 
     protected function copyFileFromDisk(string $pathOnDisk, string $diskName, string $directory = null)
     {
+        $directory = trim($directory, '/');
+
         $stream = Storage::disk($diskName)->readStream($pathOnDisk);
 
-        if (is_string($directory) && !empty($directory)) {
-            $pathOnDirectory = $directory . '/' . $pathOnDisk;
-        } else {
-            $pathOnDirectory = $pathOnDisk;
-        }
+        $pathOnDirectory = (is_null($directory) ? '' : $directory . '/') . $pathOnDisk;
 
         $pathInTemporaryDirectory = $this->temporaryDirectory->path($pathOnDirectory);
 
