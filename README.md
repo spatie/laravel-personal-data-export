@@ -37,6 +37,15 @@ public function selectPersonalData(PersonalDataSelection $personalDataSelection)
 }
 ```
 
+You can store files in a directory of the archive. For this, add the directory path as the third parameter.
+
+```php
+public function selectPersonalData(PersonalDataSelection $personalDataSelection) {
+    $personalDataSelection
+        ->addFile(storage_path("avatars/{$this->id}.jpg"), null, 'avatars');
+}
+```
+
 This package also offers an artisan command to remove old zip files.
 
 ## Support us
