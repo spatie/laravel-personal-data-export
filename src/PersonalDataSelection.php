@@ -33,7 +33,7 @@ class PersonalDataSelection
 
     public function add(string $nameInDownload, array | string $content): PersonalDataSelection
     {
-        if (! is_string($content)) {
+        if (!is_string($content)) {
             $content = json_encode($content, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
 
@@ -48,16 +48,18 @@ class PersonalDataSelection
         return $this;
     }
 
-    public function addFile(string $pathToFile, string $diskName = null)
+    public function addFile(string $pathToFile, string $diskName = null, string $directory = null)
     {
         return is_null($diskName)
-            ? $this->copyLocalFile($pathToFile)
-            : $this->copyFileFromDisk($pathToFile, $diskName);
+            ? $this->copyLocalFile($pathToFile, $directory)
+            : $this->copyFileFromDisk($pathToFile, $diskName, $directory);
     }
 
-    protected function copyLocalFile(string $pathToFile)
+    protected function copyLocalFile(string $pathToFile, string $directory = null)
     {
-        $fileName = pathinfo($pathToFile, PATHINFO_BASENAME);
+        $directory = trim($directory, '/');
+
+        $fileName = (is_null($directory) ? '' : $directory . '/') . pathinfo($pathToFile, PATHINFO_BASENAME);
 
         $destination = $this->temporaryDirectory->path($fileName);
 
@@ -70,11 +72,15 @@ class PersonalDataSelection
         return $this;
     }
 
-    protected function copyFileFromDisk(string $pathOnDisk, string $diskName)
+    protected function copyFileFromDisk(string $pathOnDisk, string $diskName, string $directory = null)
     {
+        $directory = trim($directory, '/');
+
         $stream = Storage::disk($diskName)->readStream($pathOnDisk);
 
-        $pathInTemporaryDirectory = $this->temporaryDirectory->path($pathOnDisk);
+        $pathOnDirectory = (is_null($directory) ? '' : $directory . '/') . $pathOnDisk;
+
+        $pathInTemporaryDirectory = $this->temporaryDirectory->path($pathOnDirectory);
 
         $this->ensureDoesNotOverwriteExistingFile($pathInTemporaryDirectory);
 
