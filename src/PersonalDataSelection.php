@@ -33,7 +33,7 @@ class PersonalDataSelection
 
     public function add(string $nameInDownload, array | string $content): PersonalDataSelection
     {
-        if (!is_string($content)) {
+        if (! is_string($content)) {
             $content = json_encode($content, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         }
 
