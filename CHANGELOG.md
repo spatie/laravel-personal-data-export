@@ -2,6 +2,18 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 4.1.0 - 2022-06-04
+
+### What's Changed
+
+- Allow to store files in sub-folder by @jeremyallebe in https://github.com/spatie/laravel-personal-data-export/pull/72
+
+### New Contributors
+
+- @jeremyallebe made their first contribution in https://github.com/spatie/laravel-personal-data-export/pull/72
+
+**Full Changelog**: https://github.com/spatie/laravel-personal-data-export/compare/4.0.0...4.1.0
+
 ## 4.0.0 - 2022-02-13
 
 - support Laravel 9
