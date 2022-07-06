@@ -97,7 +97,6 @@ class PersonalDataSelectionTest extends TestCase
         $this->personalDataSelection->add('test.txt', 'test content');
     }
 
-
     /** @test */
     public function it_will_keep_directory_structure()
     {
@@ -113,7 +112,6 @@ class PersonalDataSelectionTest extends TestCase
         $this->assertFileContents($this->temporaryDirectory->path($directory . $filePath), 'my content');
     }
 
-
     /** @test */
     public function it_will_not_keep_directory_structure()
     {
@@ -128,6 +126,4 @@ class PersonalDataSelectionTest extends TestCase
         $this->personalDataSelection->addFile($filePath, 'test-disk', $directory);
         $this->assertFileContents($this->temporaryDirectory->path($directory . 'my-file.txt'), 'my content3');
     }
-
-
 }
