@@ -59,9 +59,7 @@ class PersonalDataSelection
     {
         $directory = trim($directory, '/');
 
-        $fileName = (is_null($directory) ? '' : $directory . '/') . pathinfo($pathToFile, PATHINFO_BASENAME);
-
-        $destination = $this->temporaryDirectory->path($fileName);
+        $destination = $this->getDestinationFilePath(pathinfo($pathToFile, PATHINFO_BASENAME), $directory);
 
         $this->ensureDoesNotOverwriteExistingFile($destination);
 
@@ -80,7 +78,7 @@ class PersonalDataSelection
 
         $pathOnDirectory = (is_null($directory) ? '' : $directory . '/') . $pathOnDisk;
 
-        $pathInTemporaryDirectory = $this->temporaryDirectory->path($pathOnDirectory);
+        $pathInTemporaryDirectory = $this->getDestinationFilePath($pathOnDisk, $directory);
 
         $this->ensureDoesNotOverwriteExistingFile($pathInTemporaryDirectory);
 
@@ -89,6 +87,17 @@ class PersonalDataSelection
         $this->files[] = $pathInTemporaryDirectory;
 
         return $this;
+    }
+
+    protected function getDestinationFilePath($pathOnDisk, $directory)
+    {
+        $directory = (is_null($directory) ? '' : $directory . '/');
+
+        return config('personal-data-export.keep_directory_structure')
+            ? $this->temporaryDirectory->path($directory . $pathOnDisk)
+            : $this->temporaryDirectory->path(
+                $directory.array_slice(explode('/', $pathOnDisk), -1)[0]
+            );
     }
 
     protected function ensureDoesNotOverwriteExistingFile(string $path)

@@ -7,6 +7,11 @@ return [
     'disk' => 'personal-data-exports',
 
     /*
+     * If you want to keep the original directory structure for added files,
+     */
+    'keep_directory_structure' => true,
+
+    /*
      * The amount of days the exports will be available.
      */
     'delete_after_days' => 5,
