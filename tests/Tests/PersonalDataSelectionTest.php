@@ -101,9 +101,7 @@ class PersonalDataSelectionTest extends TestCase
     /** @test */
     public function it_will_keep_directory_structure()
     {
-
         config(['personal-data-export.keep_directory_structure' => true]);
-
 
         $directory = 'test-directory/';
         $filePath = 'subdir/my-file.txt';
