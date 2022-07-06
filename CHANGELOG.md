@@ -2,6 +2,18 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 4.2.0 - 2022-07-06
+
+### What's Changed
+
+- Add option to ignore storage folder structrue in added files by @pelmered in https://github.com/spatie/laravel-personal-data-export/pull/73
+
+### New Contributors
+
+- @pelmered made their first contribution in https://github.com/spatie/laravel-personal-data-export/pull/73
+
+**Full Changelog**: https://github.com/spatie/laravel-personal-data-export/compare/4.1.0...4.2.0
+
 ## 4.1.0 - 2022-06-04
 
 ### What's Changed
