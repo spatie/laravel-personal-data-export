@@ -27,7 +27,7 @@
         "illuminate/filesystem": "^9.0",
         "illuminate/queue": "^9.0",
         "illuminate/support": "^9.0",
-        "nesbot/carbon": "^2.14",
+        "nesbot/carbon": "^2.63",
         "spatie/laravel-package-tools": "^1.9",
         "spatie/temporary-directory": "^2.0"
     },
