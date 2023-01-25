@@ -2,6 +2,19 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 4.2.1 - 2023-01-25
+
+### What's Changed
+
+- Add PHP 8.2 Support by @patinthehat in https://github.com/spatie/laravel-personal-data-export/pull/74
+- Laravel 10.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-personal-data-export/pull/75
+
+### New Contributors
+
+- @patinthehat made their first contribution in https://github.com/spatie/laravel-personal-data-export/pull/74
+
+**Full Changelog**: https://github.com/spatie/laravel-personal-data-export/compare/4.2.0...4.2.1
+
 ## 4.2.0 - 2022-07-06
 
 ### What's Changed
