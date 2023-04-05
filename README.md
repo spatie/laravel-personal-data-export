@@ -29,7 +29,7 @@ You can configure which data will be exported in the `selectPersonalData` method
 ```php
 // in your User model
 
-public function selectPersonalData(PersonalDataSelection $personalDataSelection) {
+public function selectPersonalData(PersonalDataSelection $personalDataSelection): void {
     $personalDataSelection
         ->add('user.json', ['name' => $this->name, 'email' => $this->email])
         ->addFile(storage_path("avatars/{$this->id}.jpg"))
@@ -40,7 +40,7 @@ public function selectPersonalData(PersonalDataSelection $personalDataSelection)
 You can store files in a directory of the archive. For this, add the directory path as the third parameter.
 
 ```php
-public function selectPersonalData(PersonalDataSelection $personalDataSelection) {
+public function selectPersonalData(PersonalDataSelection $personalDataSelection): void {
     $personalDataSelection
         ->addFile(storage_path("avatars/{$this->id}.jpg"), directory: 'avatars');
 }
@@ -155,7 +155,7 @@ namespace Spatie\PersonalDataExport;
 
 interface ExportsPersonalData
 {
-    public function selectPersonalData(PersonalDataSelection $personalData): void;
+    public function selectPersonalData(PersonalDataSelection $personalDataSelection): void;
 
     public function personalDataExportName(): string;
 }
@@ -166,7 +166,7 @@ The `selectPersonalData` is used to determine the content of the personal downlo
 ```php
 // in your user model
 
-public function selectPersonalData(PersonalDataSelection $personalData): void {
+public function selectPersonalData(PersonalDataSelection $personalDataSelection): void {
     $personalData
         ->add('user.json', ['name' => $this->name, 'email' => $this->email])
         ->addFile(storage_path("avatars/{$this->id}.jpg"))

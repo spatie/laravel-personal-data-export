@@ -12,9 +12,9 @@ class User extends BaseUser implements ExportsPersonalData
 {
     use Notifiable;
 
-    public function selectPersonalData(PersonalDataSelection $personalData): void
+    public function selectPersonalData(PersonalDataSelection $personalDataSelection): void
     {
-        $personalData
+        $personalDataSelection
             ->addFile(__DIR__.'/../stubs/avatar.png')
             ->addFile('thumbnail.png', 'user-disk')
             ->add('attributes.json', $this->attributesToArray());

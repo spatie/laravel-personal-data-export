@@ -14,7 +14,7 @@ class InvalidUser implements ExportsPersonalData
 
     protected $table = 'users';
 
-    public function selectPersonalData(PersonalDataSelection $personalData): void
+    public function selectPersonalData(PersonalDataSelection $personalDataSelection): void
     {
     }
 
