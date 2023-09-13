@@ -2,6 +2,22 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 4.2.2 - 2023-09-13
+
+### What's Changed
+
+- Make method arguments consistent with interface by @BostjanOb in https://github.com/spatie/laravel-personal-data-export/pull/76
+- fix invalid variable name in README.md by @MrKrisKrisu in https://github.com/spatie/laravel-personal-data-export/pull/79
+- Make zipFilename and user properties public by @ericlun21 in https://github.com/spatie/laravel-personal-data-export/pull/80
+
+### New Contributors
+
+- @BostjanOb made their first contribution in https://github.com/spatie/laravel-personal-data-export/pull/76
+- @MrKrisKrisu made their first contribution in https://github.com/spatie/laravel-personal-data-export/pull/79
+- @ericlun21 made their first contribution in https://github.com/spatie/laravel-personal-data-export/pull/80
+
+**Full Changelog**: https://github.com/spatie/laravel-personal-data-export/compare/4.2.1...4.2.2
+
 ## 4.2.1 - 2023-01-25
 
 ### What's Changed
