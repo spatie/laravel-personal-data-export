@@ -1,7 +1,7 @@
 # Create zip files containing personal data
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-personal-data-export.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-personal-data-export)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-personal-data-export/run-tests?label=tests)
+[![run-tests](https://github.com/spatie/laravel-personal-data-export/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/laravel-personal-data-export/actions/workflows/run-tests.yml)
 ![Check & fix styling](https://github.com/spatie/laravel-personal-data-export/workflows/Check%20&%20fix%20styling/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-personal-data-export.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-personal-data-export)
 
