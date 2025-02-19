@@ -2,6 +2,14 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 4.3.1 - 2025-02-19
+
+### What's Changed
+
+* Laravel 12.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-personal-data-export/pull/82
+
+**Full Changelog**: https://github.com/spatie/laravel-personal-data-export/compare/4.3.0...4.3.1
+
 ## 4.3.0 - 2024-02-28
 
 ### What's Changed
