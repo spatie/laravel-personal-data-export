@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Notification;
 use Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
+use PHPUnit\Framework\Attributes\Test;
 
 class PersonalDataDownloadCreatedMailTest extends TestCase
 {
@@ -16,7 +17,7 @@ class PersonalDataDownloadCreatedMailTest extends TestCase
         Notification::fake();
     }
 
-    /** @test */
+    #[Test]
     public function the_personal_data_download_created_mail_can_be_rendered_to_a_string()
     {
         $user = factory(User::class)->create();
