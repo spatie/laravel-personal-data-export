@@ -6,10 +6,10 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
-use PHPUnit\Framework\Attributes\Test;
 
 class DeleteOldPersonalDataExportsCommandTest extends TestCase
 {

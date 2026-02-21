@@ -3,11 +3,11 @@
 namespace Spatie\PersonalDataExport\Tests\Tests;
 
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\PersonalDataExport\Exceptions\CouldNotAddToPersonalDataSelection;
 use Spatie\PersonalDataExport\PersonalDataSelection;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
-use PHPUnit\Framework\Attributes\Test;
 
 class PersonalDataSelectionTest extends TestCase
 {

@@ -3,10 +3,10 @@
 namespace Spatie\PersonalDataExport\Tests\Tests\Mail;
 
 use Illuminate\Support\Facades\Notification;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
-use PHPUnit\Framework\Attributes\Test;
 
 class PersonalDataDownloadCreatedMailTest extends TestCase
 {

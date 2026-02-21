@@ -5,6 +5,7 @@ namespace Spatie\PersonalDataExport\Tests\Tests\Jobs;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
 use Spatie\PersonalDataExport\Events\PersonalDataSelected;
 use Spatie\PersonalDataExport\Exceptions\InvalidUser as InvalidUserException;
@@ -13,7 +14,6 @@ use Spatie\PersonalDataExport\Notifications\PersonalDataExportedNotification;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\InvalidUser;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
-use PHPUnit\Framework\Attributes\Test;
 
 class CreatePersonalDataExportJobTest extends TestCase
 {

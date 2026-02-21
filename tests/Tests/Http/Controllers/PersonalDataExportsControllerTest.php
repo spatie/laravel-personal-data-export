@@ -6,12 +6,12 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\PersonalDataExport\Events\PersonalDataExportDownloaded;
 use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
 use Symfony\Component\HttpFoundation\Response;
-use PHPUnit\Framework\Attributes\Test;
 
 class PersonalDataExportsControllerTest extends TestCase
 {
