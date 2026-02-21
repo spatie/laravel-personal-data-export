@@ -6,6 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\PersonalDataExport\Events\PersonalDataExportDownloaded;
 use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 use Spatie\PersonalDataExport\Tests\TestCase;
@@ -35,7 +36,7 @@ class PersonalDataExportsControllerTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_download_the_personal_data_download()
     {
         $this->withoutExceptionHandling();
@@ -48,7 +49,7 @@ class PersonalDataExportsControllerTest extends TestCase
         Event::assertDispatched(PersonalDataExportDownloaded::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_cannot_download_personal_data_from_other_users()
     {
         $anotherUser = factory(User::class)->create();
@@ -61,7 +62,7 @@ class PersonalDataExportsControllerTest extends TestCase
         Event::assertNotDispatched(PersonalDataExportDownloaded::class);
     }
 
-    /** @test */
+    #[Test]
     public function guests_cannot_download_personal_data_by_default()
     {
         $this
@@ -71,7 +72,7 @@ class PersonalDataExportsControllerTest extends TestCase
         Event::assertNotDispatched(PersonalDataExportDownloaded::class);
     }
 
-    /** @test */
+    #[Test]
     public function guests_can_download_personal_data_if_the_authentication_is_turned_off()
     {
         config()->set('personal-data-export.authentication_required', false);
@@ -83,7 +84,7 @@ class PersonalDataExportsControllerTest extends TestCase
         Event::assertDispatched(PersonalDataExportDownloaded::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_a_404_for_zipfiles_that_dont_exists()
     {
         $this

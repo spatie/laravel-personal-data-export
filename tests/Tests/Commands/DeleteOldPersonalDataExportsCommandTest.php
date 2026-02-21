@@ -6,6 +6,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\PersonalDataExport\Jobs\CreatePersonalDataExportJob;
 use Spatie\PersonalDataExport\Tests\TestCase;
 use Spatie\PersonalDataExport\Tests\TestClasses\User;
@@ -25,7 +26,7 @@ class DeleteOldPersonalDataExportsCommandTest extends TestCase
         Mail::fake();
     }
 
-    /** @test */
+    #[Test]
     public function it_will_delete_zips_that_are_older_than_the_configured_amount_of_days()
     {
         $zipFile = $this->createPersonalDataExport();
@@ -42,7 +43,7 @@ class DeleteOldPersonalDataExportsCommandTest extends TestCase
         $this->assertFalse($this->disk->exists($zipFile));
     }
 
-    /** @test */
+    #[Test]
     public function it_will_not_delete_any_other_files()
     {
         $this->disk->put('my-file', 'my contents');

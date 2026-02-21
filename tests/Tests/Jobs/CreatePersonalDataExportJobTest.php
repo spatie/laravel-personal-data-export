@@ -5,6 +5,7 @@ namespace Spatie\PersonalDataExport\Tests\Tests\Jobs;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\Test;
 use Spatie\PersonalDataExport\Events\PersonalDataExportCreated;
 use Spatie\PersonalDataExport\Events\PersonalDataSelected;
 use Spatie\PersonalDataExport\Exceptions\InvalidUser as InvalidUserException;
@@ -29,7 +30,7 @@ class CreatePersonalDataExportJobTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_zip_file_with_all_personal_data_and_mail_a_link_to_it()
     {
         $user = factory(User::class)->create();
@@ -56,7 +57,7 @@ class CreatePersonalDataExportJobTest extends TestCase
         Event::assertDispatched(PersonalDataExportCreated::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_will_fail_if_the_model_does_not_have_an_email()
     {
         $invalidUser = new InvalidUser();
