@@ -2,6 +2,10 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 4.3.2 - 2026-02-21
+
+Support Laravel 13
+
 ## 4.3.1 - 2025-02-19
 
 ### What's Changed
