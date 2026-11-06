@@ -57,7 +57,7 @@ class PersonalDataSelection
 
     protected function copyLocalFile(string $pathToFile, ?string $directory = null)
     {
-        $directory = trim($directory, '/');
+        $directory = trim($directory ?? '', '/');
 
         $destination = $this->getDestinationFilePath(pathinfo($pathToFile, PATHINFO_BASENAME), $directory);
 
@@ -72,7 +72,7 @@ class PersonalDataSelection
 
     protected function copyFileFromDisk(string $pathOnDisk, string $diskName, ?string $directory = null)
     {
-        $directory = trim($directory, '/');
+        $directory = trim($directory ?? '', '/');
 
         $stream = Storage::disk($diskName)->readStream($pathOnDisk);
 
