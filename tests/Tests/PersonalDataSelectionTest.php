@@ -2,7 +2,9 @@
 
 namespace Spatie\PersonalDataExport\Tests\Tests;
 
+use ErrorException;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Spatie\PersonalDataExport\Exceptions\CouldNotAddToPersonalDataSelection;
 use Spatie\PersonalDataExport\PersonalDataSelection;
@@ -86,6 +88,53 @@ class PersonalDataSelectionTest extends TestCase
         $this->personalDataSelection->addFile('my-file.txt', 'test-disk', $directory);
 
         $this->assertFileContents($this->temporaryDirectory->path($directory . 'my-file.txt'), 'my content');
+    }
+
+    #[Test]
+    #[DataProvider('fileCopyArguments')]
+    public function it_copies_files_without_deprecations(bool $fromDisk, array $optionalArguments, string $expectedDirectory)
+    {
+        $source = $this->getStubPath('avatar.png');
+
+        if ($fromDisk) {
+            Storage::fake('test-disk')->put('avatar.png', file_get_contents($source));
+        }
+
+        $arguments = ['pathToFile' => $fromDisk ? 'avatar.png' : $source];
+
+        if ($fromDisk) {
+            $arguments['diskName'] = 'test-disk';
+        }
+
+        set_error_handler(function (int $severity, string $message, string $file, int $line) {
+            throw new ErrorException($message, 0, $severity, $file, $line);
+        }, E_DEPRECATED);
+
+        try {
+            $result = $this->personalDataSelection->addFile(...array_merge($arguments, $optionalArguments));
+        } finally {
+            restore_error_handler();
+        }
+
+        $destination = $this->temporaryDirectory->path($expectedDirectory . 'avatar.png');
+
+        $this->assertSame($this->personalDataSelection, $result);
+        $this->assertSame([$destination], $result->files());
+        $this->assertFileContents($destination, file_get_contents($source));
+    }
+
+    public static function fileCopyArguments(): array
+    {
+        return [
+            'local defaults' => [false, [], ''],
+            'local explicit nulls' => [false, ['diskName' => null, 'directory' => null], ''],
+            'local empty directory' => [false, ['directory' => ''], ''],
+            'local named directory without disk' => [false, ['directory' => '/exports/'], 'exports/'],
+            'disk default directory' => [true, [], ''],
+            'disk null directory' => [true, ['directory' => null], ''],
+            'disk empty directory' => [true, ['directory' => ''], ''],
+            'disk named directory' => [true, ['directory' => '/exports/'], 'exports/'],
+        ];
     }
 
     #[Test]

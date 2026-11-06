@@ -48,16 +48,16 @@ class PersonalDataSelection
         return $this;
     }
 
-    public function addFile(string $pathToFile, string $diskName = null, string $directory = null)
+    public function addFile(string $pathToFile, ?string $diskName = null, ?string $directory = null)
     {
         return is_null($diskName)
             ? $this->copyLocalFile($pathToFile, $directory)
             : $this->copyFileFromDisk($pathToFile, $diskName, $directory);
     }
 
-    protected function copyLocalFile(string $pathToFile, string $directory = null)
+    protected function copyLocalFile(string $pathToFile, ?string $directory = null)
     {
-        $directory = trim($directory, '/');
+        $directory = trim($directory ?? '', '/');
 
         $destination = $this->getDestinationFilePath(pathinfo($pathToFile, PATHINFO_BASENAME), $directory);
 
@@ -70,9 +70,9 @@ class PersonalDataSelection
         return $this;
     }
 
-    protected function copyFileFromDisk(string $pathOnDisk, string $diskName, string $directory = null)
+    protected function copyFileFromDisk(string $pathOnDisk, string $diskName, ?string $directory = null)
     {
-        $directory = trim($directory, '/');
+        $directory = trim($directory ?? '', '/');
 
         $stream = Storage::disk($diskName)->readStream($pathOnDisk);
 
