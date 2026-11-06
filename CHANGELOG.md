@@ -2,6 +2,23 @@
 
 All notable changes to `personal-data-export` will be documented in this file
 
+## 4.3.3 - 2026-11-06
+
+### Fixed
+
+- Use explicit nullable parameter types in personal data file selection to avoid PHP 8.4+ declaration deprecations.
+- Avoid null-to-string deprecations when copying local or storage-disk files without a directory. Defaults, explicit nulls, named arguments and fluent behavior remain unchanged.
+- Add regression coverage for omitted, null, empty and custom directories on both copy paths.
+
+### Maintenance
+
+- Update the CI matrix for current Laravel versions and PHP 8.6 development builds (#87), without changing production dependency constraints.
+- Update the README sponsor image URL.
+
+Thanks to @jbraud for the nullable type fix in #86.
+
+**Full Changelog**: https://github.com/spatie/laravel-personal-data-export/compare/4.3.2...4.3.3
+
 ## 4.3.2 - 2026-02-21
 
 Support Laravel 13
